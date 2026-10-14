@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Chemistry 11 by Shogar | کیمیای پۆلی ١١ی زانستی | مامۆستا شەوگار</title>
+  <title>کیمیای پۆلی ١١ی مامۆستا شەوگار | کیمیای پۆلی ١١ی زانستی</title>
   
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -38,9 +38,9 @@
             mono: ['"JetBrains Mono"', 'monospace'],
           },
           boxShadow: {
-            'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.35)',
-            'neon-emerald': '0 0 20px rgba(16, 185, 129, 0.35)',
-            'neon-purple': '0 0 20px rgba(168, 85, 247, 0.35)',
+            'neon-cyan': '0 0 25px rgba(6, 182, 212, 0.45)',
+            'neon-emerald': '0 0 25px rgba(16, 185, 129, 0.45)',
+            'neon-purple': '0 0 25px rgba(168, 85, 247, 0.45)',
           }
         }
       }
@@ -115,11 +115,16 @@
       z-index: 30;
       box-shadow: 0 0 16px rgba(6, 182, 212, 0.7);
     }
-    .touch-card {
-      transition: transform 0.15s ease, border-color 0.15s ease;
+    /* Small Compact Card Animation */
+    .mini-card {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .touch-card:active {
-      transform: scale(0.985);
+    .mini-card:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 20px -4px rgba(6, 182, 212, 0.45);
+    }
+    .mini-card:active {
+      transform: scale(0.96);
     }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
@@ -128,17 +133,25 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Pulsing border highlight */
+    @keyframes glowPulse {
+      0%, 100% { border-color: rgba(6, 182, 212, 0.4); }
+      50% { border-color: rgba(6, 182, 212, 0.9); }
+    }
+    .glow-box {
+      animation: glowPulse 3s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950 pb-20 md:pb-6">
 
-  <!-- TOP HEADER: PROUD BRANDING (Chemistry 11 by Shogar) -->
-  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 transition-all shadow-lg">
+  <!-- TOP HEADER: کیمیای پۆلی ١١ی مامۆستا شەوگار -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 transition-all shadow-xl">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
       
-      <!-- Brand & Teacher Info: "Chemistry 11 Chemistry 11 by Shogar" -->
-      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-400 p-0.5 shadow-neon-cyan shrink-0">
+      <!-- Brand & Teacher Info: کیمیای پۆلی ١١ی مامۆستا شەوگار -->
+      <div class="flex items-center gap-2.5 sm:gap-3.5 min-w-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 via-teal-400 to-emerald-400 p-0.5 shadow-neon-cyan shrink-0">
           <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
             <svg class="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
@@ -147,14 +160,14 @@
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-1.5 sm:gap-2">
-            <h1 class="text-xs sm:text-base md:text-lg font-black tracking-wide text-white truncate">
-              Chemistry 11 • کیمیای پۆلی ١١ی زانستی
+            <h1 class="text-sm sm:text-base md:text-lg font-black tracking-wide text-white truncate">
+              کیمیای پۆلی ١١ی مامۆستا شەوگار
             </h1>
             <span class="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 shrink-0">٢٠٢٦</span>
           </div>
-          <p class="text-[11px] sm:text-xs text-slate-300 font-semibold truncate flex items-center gap-1.5">
-            <span>بە سەرپەرشتی</span>
-            <span class="text-cyan-400 font-bold">مامۆستا شەوگار (By Teacher Shogar)</span>
+          <p class="text-[11px] sm:text-xs text-slate-300 font-bold truncate flex items-center gap-1.5">
+            <span>کیمیای پۆلی ١١ • بە سەرپەرشتی</span>
+            <span class="text-cyan-400 font-black">مامۆستا شەوگار</span>
           </p>
         </div>
       </div>
@@ -185,20 +198,45 @@
   <!-- MAIN APP CONTAINER -->
   <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8 flex-grow w-full">
 
-    <!-- PROUD HERO BANNER: CHEMISTRY 11 BY SHOGAR -->
-    <section class="rounded-2xl sm:rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/50 to-slate-900 border-2 border-cyan-500/40 p-4 sm:p-6 shadow-neon-cyan relative overflow-hidden">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-right">
-        <div class="space-y-1">
-          <div class="flex items-center justify-center sm:justify-start gap-2">
-            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500 text-slate-950 font-black text-xs">پۆلی ١١ی زانستی</span>
-            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-xs">Chemistry 11</span>
+    <!-- MAJESTIC HERO SECTION: "کیمیای پۆلی ١١ی مامۆستا شەوگار" (BIG & PROUD) -->
+    <section class="rounded-3xl bg-gradient-to-b sm:bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-2 border-cyan-500/50 p-5 sm:p-8 shadow-neon-cyan relative overflow-hidden glow-box">
+      <div class="absolute -top-16 -left-16 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-16 -right-16 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-right">
+        <div class="space-y-2 max-w-2xl">
+          <div class="flex items-center justify-center md:justify-start gap-2 flex-wrap">
+            <span class="px-3 py-1 rounded-full bg-cyan-500 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-sm">
+              کیمیای پۆلی ١١ی مامۆستا شەوگار
+            </span>
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold text-xs">
+              پۆلی ١١ی زانستی
+            </span>
+            <span class="px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 text-xs font-mono">
+              مامۆستا شەوگار
+            </span>
           </div>
-          <h2 class="text-base sm:text-2xl font-black text-white">کیمیای پۆلی ١١ • Chemistry 11 by Shogar</h2>
-          <p class="text-xs sm:text-sm text-cyan-300 font-bold">بە سەرپەرشتی مامۆستا شەوگار (By Teacher Shogar) • خشتەی خولی و شیکارکەری زیرەک</p>
+
+          <h2 class="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+            کیمیای پۆلی ١١ی مامۆستا شەوگار
+          </h2>
+          <p class="text-sm sm:text-base text-cyan-300 font-bold leading-relaxed">
+            کیمیای پۆلی ١١ی زانستی • بە سەرپەرشتی مامۆستا شەوگار
+          </p>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            پلاتفۆرمی فەرمی و دەوڵەمەندی کیمیای پۆلی ١١: خشتەی خولیی زیرەک، شیکارکەری هاوکێشەکان، ئەرکەکانی ماڵەوە و تاقیکردنەوەی خێرا.
+          </p>
         </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <a href="#tableSection" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs transition-all shadow-md">خشتەی خولی (Xenon & Neon)</a>
-          <a href="#solverSection" class="px-4 py-2 rounded-xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs transition-all">شیکارکەری هاوکێشە</a>
+
+        <div class="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto shrink-0">
+          <a href="#tableSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>خشتەی خولی</span>
+          </a>
+          <a href="#solverSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>شیکارکەری هاوکێشە</span>
+          </a>
         </div>
       </div>
     </section>
@@ -224,7 +262,7 @@
 
       <div class="space-y-3.5">
         
-        <!-- Formula Input Box: Perfectly Padded, Full Width, Zero Button Overlap (CRITICAL REQ #8) -->
+        <!-- Formula Input Box -->
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row gap-2">
             <div class="relative w-full">
@@ -243,10 +281,9 @@
             </button>
           </div>
 
-          <!-- SEPARATE CAMERA & FILE UPLOAD BUTTONS (CRITICAL REQ #7) -->
+          <!-- SEPARATE CAMERA & FILE UPLOAD BUTTONS -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-1">
             
-            <!-- Hidden inputs -->
             <input 
               type="file" 
               id="cameraInput" 
@@ -312,7 +349,7 @@
       </div>
     </section>
 
-    <!-- 2. PERIODIC TABLE SECTION: 100% MOBILE-OPTIMIZED (XENON, NEON, AND ALL 118 ELEMENTS) -->
+    <!-- 2. PERIODIC TABLE SECTION: PHONE COMPACT CARDS + EXPANDS TO BIG ON CLICK (USER SPEC) -->
     <section id="tableSection" class="space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div>
@@ -320,68 +357,95 @@
             <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
             <h2 class="text-sm sm:text-lg font-bold text-white">خشتەی خولیی توخمە کیمیاییەکان (Periodic Table)</h2>
           </div>
-          <p class="text-xs text-slate-400 mt-0.5">ئاسانکاری تەواو بۆ مۆبایل: گەڕان بۆ Xenon, Neon و سەرجەم ١١٨ توخمەکە بە خێرایی</p>
+          <p class="text-xs text-slate-400 mt-0.5">
+            لەسەر مۆبایل کارتەکان بچووکن؛ کاتێک پەنجەی لێدەدەیت دەبێتە گەورە و زانیارییەکان دەردەکەون.
+          </p>
         </div>
 
         <!-- Search & View Mode Toggle -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-          <!-- View Toggle: Mobile Cards View (DEFAULT & PHONE FRIENDLY) vs Desktop 18-Column Grid -->
+          
+          <!-- View Toggle Pills -->
           <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-0.5 shrink-0 self-start sm:self-auto">
             <button onclick="setPeriodicViewMode('cards')" id="viewModeCardsBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 transition-all flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-              <span>📱 شێوازی مۆبایل (کارتەکان)</span>
+              <span>📱 کارتەکان (مۆبایل)</span>
             </button>
             <button onclick="setPeriodicViewMode('table')" id="viewModeTableBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-              <span>💻 خشتەی ١٨ ستوون</span>
+              <span>💻 خشتەی ١٨ ستوون (PC)</span>
             </button>
           </div>
 
-          <!-- Element Search Box: Fast Instant Filter (Xenon, Neon, H, Fe...) -->
+          <!-- Element Search Box -->
           <div class="relative flex items-center bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 focus-within:border-cyan-400 focus-within:shadow-neon-cyan transition-all w-full sm:w-64">
             <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             <input 
               type="text" 
               id="elementSearchBox" 
               oninput="handleElementSearchInput()" 
-              placeholder="گەڕان: Xenon, Neon, H, Fe, 54..." 
+              placeholder="گەڕان بەپێی هێما یان ناوی توخم (H, Fe, O, 54)..." 
               class="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none px-2 py-0.5"
             >
           </div>
         </div>
       </div>
 
-      <!-- EXACT KURDISH FILTER TABS -->
-      <!-- Nonmetals -> ناپەترۆڵەکان | Halogens -> هاڵۆجینەکان | Alkali -> توخمە ئەکالییەکان | Transition -> توخمە گواستراوەکان | Noble Gases -> گازە خانەدانەکان | All -> هەموو -->
-      <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5 text-xs hide-scrollbar">
-        <button onclick="setElementFilter('All')" id="filterTabAll" class="filter-pill active px-3 py-1.5 rounded-xl font-bold bg-cyan-500 text-slate-950 shrink-0 transition-all shadow-neon-cyan">هەموو</button>
-        <button onclick="setElementFilter('Noble Gas')" id="filterTabNoble" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">گازە خانەدانەکان (Xenon & Neon)</button>
-        <button onclick="setElementFilter('Transition Metal')" id="filterTabTransition" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">توخمە گواستراوەکان</button>
-        <button onclick="setElementFilter('Alkali Metal')" id="filterTabAlkali" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">توخمە ئەکالییەکان</button>
-        <button onclick="setElementFilter('Halogen')" id="filterTabHalogen" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">هاڵۆجینەکان</button>
-        <button onclick="setElementFilter('Nonmetal')" id="filterTabNonmetal" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">ناپەترۆڵەکان</button>
+      <!-- EXACT TWO LINES OF FILTER BUTTONS ON MOBILE (3 cols x 2 rows) -->
+      <div class="grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 text-xs">
+        <button onclick="setElementFilter('All')" id="filterTabAll" class="filter-pill active py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-cyan-500 text-slate-950 text-center transition-all shadow-neon-cyan">هەموو</button>
+        <button onclick="setElementFilter('Noble Gas')" id="filterTabNoble" class="filter-pill py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 text-center transition-all">گازە خانەدانەکان</button>
+        <button onclick="setElementFilter('Transition Metal')" id="filterTabTransition" class="filter-pill py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 text-center transition-all">توخمە گواستراوەکان</button>
+        <button onclick="setElementFilter('Alkali Metal')" id="filterTabAlkali" class="filter-pill py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 text-center transition-all">توخمە ئەکالییەکان</button>
+        <button onclick="setElementFilter('Halogen')" id="filterTabHalogen" class="filter-pill py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 text-center transition-all">هاڵۆجینەکان</button>
+        <button onclick="setElementFilter('Nonmetal')" id="filterTabNonmetal" class="filter-pill py-2 sm:py-2.5 px-2 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 text-center transition-all">ناپەترۆڵەکان</button>
       </div>
 
-      <!-- VIEW 1: CLEAN TOUCH-FRIENDLY CARDS VIEW (DEFAULT ON PHONE - 100% USABLE) -->
-      <div id="cardsViewWrapper" class="block">
-        <div id="elementsCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-          <!-- Populated via JS -->
+      <!-- FEATURE: ACTIVE BIG EXPANDED CARD (Appears when any small card is clicked) -->
+      <div id="activeBigCardContainer" class="hidden rounded-3xl bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-2 border-cyan-400 p-4 sm:p-6 shadow-neon-cyan transition-all">
+        <!-- Dynamically rendered via JS when an element is pressed -->
+      </div>
+
+      <!-- VIEW 1: PHONE COMPACT CARDS VIEW (Press to Open on Mobile) -->
+      <div id="cardsViewWrapper" class="space-y-3">
+        
+        <!-- Mobile Toggle Button to Open/Close Cards (User Request: "on phone make them press the button and then open the cards") -->
+        <div class="sm:hidden">
+          <button 
+            type="button" 
+            onclick="toggleMobileCardsDrawer()" 
+            id="mobileToggleCardsBtn" 
+            class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-between shadow-neon-cyan transition-all">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+              <span id="mobileToggleCardsText">پیشاندانی کارتە بچووکەکان (١١٨ توخم)</span>
+            </span>
+            <span id="mobileCardsChevron" class="text-slate-950 font-bold transition-transform">▼</span>
+          </button>
         </div>
+
+        <!-- Compact Small Cards Grid ("don't make the cards big, make it small when they press any things then it came to big") -->
+        <div id="elementsCardsDrawer" class="block">
+          <div id="elementsMiniCardsGrid" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+
       </div>
 
-      <!-- VIEW 2: HORIZONTALLY SCROLLABLE 18-COLUMN PERIODIC TABLE (DESKTOP / WIDE OPTION) -->
+      <!-- VIEW 2: 18-COLUMN PERIODIC GRID (ON PC ALL LOOK VISIBLE BY DEFAULT) -->
       <div id="tableScrollWrapper" class="hidden relative rounded-2xl bg-slate-950/80 border border-slate-800 overflow-hidden shadow-xl">
         <div class="px-3 py-1.5 bg-cyan-950/40 border-b border-cyan-500/20 text-[11px] text-cyan-300 flex items-center justify-between">
           <span class="flex items-center gap-1.5 font-bold">
             <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-            <span>خشتەی ١٨ ستوون (دەستت بەرەو چەپ و ڕاست ڕابکێشە) ↔</span>
+            <span>خشتەی تەواوی ١٨ ستوون (دەستت ڕابکێشە بۆ گەڕان ↔)</span>
           </span>
           <span class="text-[10px] text-slate-400 font-mono">١١٨ توخم</span>
         </div>
 
         <div class="table-scroll-container">
           <div id="fullPeriodicGrid" class="periodic-table-grid">
-            <!-- Dynamically populated via JS with correct grid-column and grid-row -->
+            <!-- Dynamically populated via JS -->
           </div>
         </div>
       </div>
@@ -432,7 +496,7 @@
           </div>
           <div>
             <h3 class="text-sm sm:text-base font-bold text-white">کۆنتڕۆڵ پەنێڵی مامۆستا شەوگار</h3>
-            <p class="text-[11px] text-emerald-300">بڵاوکردنەوەی ڕاستەوخۆی ئەرک، پرسیاری تاقیکردنەوە و وەڵامی قوتابیان</p>
+            <p class="text-[11px] text-emerald-300">بڵاوکردنەوەی ئەرک، پرسیاری تاقیکردنەوە و وەڵامی قوتابیان</p>
           </div>
         </div>
         <button onclick="logoutTeacher()" class="px-3 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-xs font-bold transition-all self-start sm:self-auto">
@@ -582,7 +646,7 @@
         </button>
       </div>
 
-      <!-- State A: Single Camera Scan Button ONLY (Deleted the 2nd button as requested) -->
+      <!-- State A: Single Camera Scan Button ONLY (Deleted 2nd button) -->
       <div id="studentLoginScanState" class="space-y-3.5">
         
         <div class="p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-slate-300 leading-relaxed space-y-1">
@@ -595,7 +659,6 @@
           </p>
         </div>
 
-        <!-- Hidden Camera File Input -->
         <input 
           type="file" 
           id="idCardCameraInput" 
@@ -630,12 +693,11 @@
             </div>
           </div>
 
-          <!-- Progress Bar -->
           <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
             <div id="ocrProgressBar" class="bg-gradient-to-r from-cyan-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
           </div>
 
-          <!-- EXTRACTED NAME VERIFICATION: Uses the real name on the card (NO RANDOM NAMES) -->
+          <!-- EXTRACTED NAME VERIFICATION: Uses the real name on the card -->
           <div id="ocrExtractedProfileBadge" class="hidden p-3.5 rounded-2xl bg-slate-900 border border-cyan-400/60 text-xs space-y-2.5">
             <div class="flex items-center justify-between">
               <span class="text-cyan-300 font-bold flex items-center gap-1.5 text-xs">
@@ -645,7 +707,6 @@
               <span id="ocrExtractedIdNum" class="text-[10px] font-mono text-cyan-400">IQ-ID</span>
             </div>
 
-            <!-- Pre-filled with recognized name from the card, editable so it NEVER has random wrong names -->
             <div>
               <input 
                 type="text" 
@@ -792,13 +853,6 @@
     </div>
   </div>
 
-  <!-- 4. ELEMENT DETAILS MODAL (FULL SCIENTIFIC SHEET) -->
-  <div id="elementDetailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
-    <div id="elementDetailModalContent" class="bg-slate-900 border-2 border-cyan-500/50 rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4 shadow-neon-cyan">
-      <!-- Populated via JS -->
-    </div>
-  </div>
-
   <!-- Mobile Bottom App Bar -->
   <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 px-2 py-1.5 flex items-center justify-around">
     <a href="#tableSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
@@ -835,7 +889,6 @@
 
   <!-- ==================== JAVASCRIPT ==================== -->
   <script>
-    // All 118 Elements with Complete Data
     const ALL_ELEMENTS = [{"z": 1, "s": "H", "n": "Hydrogen", "m": 1.008, "c": "1s¹", "ox": "+1, -1", "cat": "Nonmetal", "p": 1, "g": 1, "b": "s", "val": 1}, {"z": 2, "s": "He", "n": "Helium", "m": 4.0026, "c": "1s²", "ox": "0", "cat": "Noble Gas", "p": 1, "g": 18, "b": "s", "val": 2}, {"z": 3, "s": "Li", "n": "Lithium", "m": 6.94, "c": "[He] 2s¹", "ox": "+1", "cat": "Alkali Metal", "p": 2, "g": 1, "b": "s", "val": 1}, {"z": 4, "s": "Be", "n": "Beryllium", "m": 9.0122, "c": "[He] 2s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 2, "g": 2, "b": "s", "val": 2}, {"z": 5, "s": "B", "n": "Boron", "m": 10.81, "c": "[He] 2s² 2p¹", "ox": "+3", "cat": "Metalloid", "p": 2, "g": 13, "b": "p", "val": 3}, {"z": 6, "s": "C", "n": "Carbon", "m": 12.011, "c": "[He] 2s² 2p²", "ox": "-4, +2, +4", "cat": "Nonmetal", "p": 2, "g": 14, "b": "p", "val": 4}, {"z": 7, "s": "N", "n": "Nitrogen", "m": 14.007, "c": "[He] 2s² 2p³", "ox": "-3, +3, +5", "cat": "Nonmetal", "p": 2, "g": 15, "b": "p", "val": 5}, {"z": 8, "s": "O", "n": "Oxygen", "m": 15.999, "c": "[He] 2s² 2p⁴", "ox": "-2, -1, +2", "cat": "Nonmetal", "p": 2, "g": 16, "b": "p", "val": 6}, {"z": 9, "s": "F", "n": "Fluorine", "m": 18.998, "c": "[He] 2s² 2p⁵", "ox": "-1", "cat": "Halogen", "p": 2, "g": 17, "b": "p", "val": 7}, {"z": 10, "s": "Ne", "n": "Neon", "m": 20.18, "c": "[He] 2s² 2p⁶", "ox": "0", "cat": "Noble Gas", "p": 2, "g": 18, "b": "p", "val": 8}, {"z": 11, "s": "Na", "n": "Sodium", "m": 22.99, "c": "[Ne] 3s¹", "ox": "+1", "cat": "Alkali Metal", "p": 3, "g": 1, "b": "s", "val": 1}, {"z": 12, "s": "Mg", "n": "Magnesium", "m": 24.305, "c": "[Ne] 3s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 3, "g": 2, "b": "s", "val": 2}, {"z": 13, "s": "Al", "n": "Aluminum", "m": 26.982, "c": "[Ne] 3s² 3p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 3, "g": 13, "b": "p", "val": 3}, {"z": 14, "s": "Si", "n": "Silicon", "m": 28.085, "c": "[Ne] 3s² 3p²", "ox": "-4, +4", "cat": "Metalloid", "p": 3, "g": 14, "b": "p", "val": 4}, {"z": 15, "s": "P", "n": "Phosphorus", "m": 30.974, "c": "[Ne] 3s² 3p³", "ox": "-3, +3, +5", "cat": "Nonmetal", "p": 3, "g": 15, "b": "p", "val": 5}, {"z": 16, "s": "S", "n": "Sulfur", "m": 32.06, "c": "[Ne] 3s² 3p⁴", "ox": "-2, +4, +6", "cat": "Nonmetal", "p": 3, "g": 16, "b": "p", "val": 6}, {"z": 17, "s": "Cl", "n": "Chlorine", "m": 35.45, "c": "[Ne] 3s² 3p⁵", "ox": "-1, +1, +3, +5, +7", "cat": "Halogen", "p": 3, "g": 17, "b": "p", "val": 7}, {"z": 18, "s": "Ar", "n": "Argon", "m": 39.948, "c": "[Ne] 3s² 3p⁶", "ox": "0", "cat": "Noble Gas", "p": 3, "g": 18, "b": "p", "val": 8}, {"z": 19, "s": "K", "n": "Potassium", "m": 39.098, "c": "[Ar] 4s¹", "ox": "+1", "cat": "Alkali Metal", "p": 4, "g": 1, "b": "s", "val": 1}, {"z": 20, "s": "Ca", "n": "Calcium", "m": 40.078, "c": "[Ar] 4s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 4, "g": 2, "b": "s", "val": 2}, {"z": 21, "s": "Sc", "n": "Scandium", "m": 44.956, "c": "[Ar] 3d¹ 4s²", "ox": "+3", "cat": "Transition Metal", "p": 4, "g": 3, "b": "d", "val": 3}, {"z": 22, "s": "Ti", "n": "Titanium", "m": 47.867, "c": "[Ar] 3d² 4s²", "ox": "+2, +3, +4", "cat": "Transition Metal", "p": 4, "g": 4, "b": "d", "val": 4}, {"z": 23, "s": "V", "n": "Vanadium", "m": 50.942, "c": "[Ar] 3d³ 4s²", "ox": "+2, +3, +4, +5", "cat": "Transition Metal", "p": 4, "g": 5, "b": "d", "val": 5}, {"z": 24, "s": "Cr", "n": "Chromium", "m": 51.996, "c": "[Ar] 3d⁵ 4s¹", "ox": "+2, +3, +6", "cat": "Transition Metal", "p": 4, "g": 6, "b": "d", "val": 6}, {"z": 25, "s": "Mn", "n": "Manganese", "m": 54.938, "c": "[Ar] 3d⁵ 4s²", "ox": "+2, +3, +4, +6, +7", "cat": "Transition Metal", "p": 4, "g": 7, "b": "d", "val": 7}, {"z": 26, "s": "Fe", "n": "Iron", "m": 55.845, "c": "[Ar] 3d⁶ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 8, "b": "d", "val": 8}, {"z": 27, "s": "Co", "n": "Cobalt", "m": 58.933, "c": "[Ar] 3d⁷ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 9, "b": "d", "val": 9}, {"z": 28, "s": "Ni", "n": "Nickel", "m": 58.693, "c": "[Ar] 3d⁸ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 10, "b": "d", "val": 10}, {"z": 29, "s": "Cu", "n": "Copper", "m": 63.546, "c": "[Ar] 3d¹⁰ 4s¹", "ox": "+1, +2", "cat": "Transition Metal", "p": 4, "g": 11, "b": "d", "val": 11}, {"z": 30, "s": "Zn", "n": "Zinc", "m": 65.38, "c": "[Ar] 3d¹⁰ 4s²", "ox": "+2", "cat": "Transition Metal", "p": 4, "g": 12, "b": "d", "val": 12}, {"z": 31, "s": "Ga", "n": "Gallium", "m": 69.723, "c": "[Ar] 3d¹⁰ 4s² 4p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 4, "g": 13, "b": "p", "val": 3}, {"z": 32, "s": "Ge", "n": "Germanium", "m": 72.63, "c": "[Ar] 3d¹⁰ 4s² 4p²", "ox": "+2, +4", "cat": "Metalloid", "p": 4, "g": 14, "b": "p", "val": 4}, {"z": 33, "s": "As", "n": "Arsenic", "m": 74.922, "c": "[Ar] 3d¹⁰ 4s² 4p³", "ox": "-3, +3, +5", "cat": "Metalloid", "p": 4, "g": 15, "b": "p", "val": 5}, {"z": 34, "s": "Se", "n": "Selenium", "m": 78.971, "c": "[Ar] 3d¹⁰ 4s² 4p⁴", "ox": "-2, +4, +6", "cat": "Nonmetal", "p": 4, "g": 16, "b": "p", "val": 6}, {"z": 35, "s": "Br", "n": "Bromine", "m": 79.904, "c": "[Ar] 3d¹⁰ 4s² 4p⁵", "ox": "-1, +1, +3, +5", "cat": "Halogen", "p": 4, "g": 17, "b": "p", "val": 7}, {"z": 36, "s": "Kr", "n": "Krypton", "m": 83.798, "c": "[Ar] 3d¹⁰ 4s² 4p⁶", "ox": "0, +2", "cat": "Noble Gas", "p": 4, "g": 18, "b": "p", "val": 8}, {"z": 37, "s": "Rb", "n": "Rubidium", "m": 85.468, "c": "[Kr] 5s¹", "ox": "+1", "cat": "Alkali Metal", "p": 5, "g": 1, "b": "s", "val": 1}, {"z": 38, "s": "Sr", "n": "Strontium", "m": 87.62, "c": "[Kr] 5s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 5, "g": 2, "b": "s", "val": 2}, {"z": 39, "s": "Y", "n": "Yttrium", "m": 88.906, "c": "[Kr] 4d¹ 5s²", "ox": "+3", "cat": "Transition Metal", "p": 5, "g": 3, "b": "d", "val": 3}, {"z": 40, "s": "Zr", "n": "Zirconium", "m": 91.224, "c": "[Kr] 4d² 5s²", "ox": "+4", "cat": "Transition Metal", "p": 5, "g": 4, "b": "d", "val": 4}, {"z": 41, "s": "Nb", "n": "Niobium", "m": 92.906, "c": "[Kr] 4d⁴ 5s¹", "ox": "+3, +5", "cat": "Transition Metal", "p": 5, "g": 5, "b": "d", "val": 5}, {"z": 42, "s": "Mo", "n": "Molybdenum", "m": 95.95, "c": "[Kr] 4d⁵ 5s¹", "ox": "+2, +3, +4, +5, +6", "cat": "Transition Metal", "p": 5, "g": 6, "b": "d", "val": 6}, {"z": 43, "s": "Tc", "n": "Technetium", "m": 98.0, "c": "[Kr] 4d⁵ 5s²", "ox": "+4, +7", "cat": "Transition Metal", "p": 5, "g": 7, "b": "d", "val": 7}, {"z": 44, "s": "Ru", "n": "Ruthenium", "m": 101.07, "c": "[Kr] 4d⁷ 5s¹", "ox": "+2, +3, +4, +8", "cat": "Transition Metal", "p": 5, "g": 8, "b": "d", "val": 8}, {"z": 45, "s": "Rh", "n": "Rhodium", "m": 102.91, "c": "[Kr] 4d⁸ 5s¹", "ox": "+2, +3, +4", "cat": "Transition Metal", "p": 5, "g": 9, "b": "d", "val": 9}, {"z": 46, "s": "Pd", "n": "Palladium", "m": 106.42, "c": "[Kr] 4d¹⁰", "ox": "+2, +4", "cat": "Transition Metal", "p": 5, "g": 10, "b": "d", "val": 10}, {"z": 47, "s": "Ag", "n": "Silver", "m": 107.87, "c": "[Kr] 4d¹⁰ 5s¹", "ox": "+1", "cat": "Transition Metal", "p": 5, "g": 11, "b": "d", "val": 11}, {"z": 48, "s": "Cd", "n": "Cadmium", "m": 112.41, "c": "[Kr] 4d¹⁰ 5s²", "ox": "+2", "cat": "Transition Metal", "p": 5, "g": 12, "b": "d", "val": 12}, {"z": 49, "s": "In", "n": "Indium", "m": 114.82, "c": "[Kr] 4d¹⁰ 5s² 5p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 5, "g": 13, "b": "p", "val": 3}, {"z": 50, "s": "Sn", "n": "Tin", "m": 118.71, "c": "[Kr] 4d¹⁰ 5s² 5p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 5, "g": 14, "b": "p", "val": 4}, {"z": 51, "s": "Sb", "n": "Antimony", "m": 121.76, "c": "[Kr] 4d¹⁰ 5s² 5p³", "ox": "-3, +3, +5", "cat": "Metalloid", "p": 5, "g": 15, "b": "p", "val": 5}, {"z": 52, "s": "Te", "n": "Tellurium", "m": 127.6, "c": "[Kr] 4d¹⁰ 5s² 5p⁴", "ox": "-2, +4, +6", "cat": "Metalloid", "p": 5, "g": 16, "b": "p", "val": 6}, {"z": 53, "s": "I", "n": "Iodine", "m": 126.9, "c": "[Kr] 4d¹⁰ 5s² 5p⁵", "ox": "-1, +1, +3, +5, +7", "cat": "Halogen", "p": 5, "g": 17, "b": "p", "val": 7}, {"z": 54, "s": "Xe", "n": "Xenon", "m": 131.293, "c": "[Kr] 4d¹⁰ 5s² 5p⁶", "ox": "0, +2, +4, +6, +8", "cat": "Noble Gas", "p": 5, "g": 18, "b": "p", "val": 8}, {"z": 55, "s": "Cs", "n": "Cesium", "m": 132.91, "c": "[Xe] 6s¹", "ox": "+1", "cat": "Alkali Metal", "p": 6, "g": 1, "b": "s", "val": 1}, {"z": 56, "s": "Ba", "n": "Barium", "m": 137.33, "c": "[Xe] 6s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 6, "g": 2, "b": "s", "val": 2}, {"z": 57, "s": "La", "n": "Lanthanum", "m": 138.91, "c": "[Xe] 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "d", "val": 3}, {"z": 58, "s": "Ce", "n": "Cerium", "m": 140.12, "c": "[Xe] 4f¹ 5d¹ 6s²", "ox": "+3, +4", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 4}, {"z": 59, "s": "Pr", "n": "Praseodymium", "m": 140.91, "c": "[Xe] 4f³ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 5}, {"z": 60, "s": "Nd", "n": "Neodymium", "m": 144.24, "c": "[Xe] 4f⁴ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 6}, {"z": 61, "s": "Pm", "n": "Promethium", "m": 145.0, "c": "[Xe] 4f⁵ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 7}, {"z": 62, "s": "Sm", "n": "Samarium", "m": 150.36, "c": "[Xe] 4f⁶ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 8}, {"z": 63, "s": "Eu", "n": "Europium", "m": 151.96, "c": "[Xe] 4f⁷ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 9}, {"z": 64, "s": "Gd", "n": "Gadolinium", "m": 157.25, "c": "[Xe] 4f⁷ 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 10}, {"z": 65, "s": "Tb", "n": "Terbium", "m": 158.93, "c": "[Xe] 4f⁹ 6s²", "ox": "+3, +4", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 11}, {"z": 66, "s": "Dy", "n": "Dysprosium", "m": 162.5, "c": "[Xe] 4f¹⁰ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 12}, {"z": 67, "s": "Ho", "n": "Holmium", "m": 164.93, "c": "[Xe] 4f¹¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 13}, {"z": 68, "s": "Er", "n": "Erbium", "m": 167.26, "c": "[Xe] 4f¹² 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 14}, {"z": 69, "s": "Tm", "n": "Thulium", "m": 168.93, "c": "[Xe] 4f¹³ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 15}, {"z": 70, "s": "Yb", "n": "Ytterbium", "m": 173.05, "c": "[Xe] 4f¹⁴ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 16}, {"z": 71, "s": "Lu", "n": "Lutetium", "m": 174.97, "c": "[Xe] 4f¹⁴ 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "d", "val": 3}, {"z": 72, "s": "Hf", "n": "Hafnium", "m": 178.49, "c": "[Xe] 4f¹⁴ 5d² 6s²", "ox": "+4", "cat": "Transition Metal", "p": 6, "g": 4, "b": "d", "val": 4}, {"z": 73, "s": "Ta", "n": "Tantalum", "m": 180.95, "c": "[Xe] 4f¹⁴ 5d³ 6s²", "ox": "+5", "cat": "Transition Metal", "p": 6, "g": 5, "b": "d", "val": 5}, {"z": 74, "s": "W", "n": "Tungsten", "m": 183.84, "c": "[Xe] 4f¹⁴ 5d⁴ 6s²", "ox": "+2, +4, +6", "cat": "Transition Metal", "p": 6, "g": 6, "b": "d", "val": 6}, {"z": 75, "s": "Re", "n": "Rhenium", "m": 186.21, "c": "[Xe] 4f¹⁴ 5d⁵ 6s²", "ox": "+4, +7", "cat": "Transition Metal", "p": 6, "g": 7, "b": "d", "val": 7}, {"z": 76, "s": "Os", "n": "Osmium", "m": 190.23, "c": "[Xe] 4f¹⁴ 5d⁶ 6s²", "ox": "+4, +8", "cat": "Transition Metal", "p": 6, "g": 8, "b": "d", "val": 8}, {"z": 77, "s": "Ir", "n": "Iridium", "m": 192.22, "c": "[Xe] 4f¹⁴ 5d⁷ 6s²", "ox": "+3, +4", "cat": "Transition Metal", "p": 6, "g": 9, "b": "d", "val": 9}, {"z": 78, "s": "Pt", "n": "Platinum", "m": 195.08, "c": "[Xe] 4f¹⁴ 5d⁹ 6s¹", "ox": "+2, +4", "cat": "Transition Metal", "p": 6, "g": 10, "b": "d", "val": 10}, {"z": 79, "s": "Au", "n": "Gold", "m": 196.97, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s¹", "ox": "+1, +3", "cat": "Transition Metal", "p": 6, "g": 11, "b": "d", "val": 11}, {"z": 80, "s": "Hg", "n": "Mercury", "m": 200.59, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s²", "ox": "+1, +2", "cat": "Transition Metal", "p": 6, "g": 12, "b": "d", "val": 12}, {"z": 81, "s": "Tl", "n": "Thallium", "m": 204.38, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 6, "g": 13, "b": "p", "val": 3}, {"z": 82, "s": "Pb", "n": "Lead", "m": 207.2, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 6, "g": 14, "b": "p", "val": 4}, {"z": 83, "s": "Bi", "n": "Bismuth", "m": 208.98, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³", "ox": "+3, +5", "cat": "Post-transition Metal", "p": 6, "g": 15, "b": "p", "val": 5}, {"z": 84, "s": "Po", "n": "Polonium", "m": 209.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 6, "g": 16, "b": "p", "val": 6}, {"z": 85, "s": "At", "n": "Astatine", "m": 210.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵", "ox": "-1, +1, +5", "cat": "Halogen", "p": 6, "g": 17, "b": "p", "val": 7}, {"z": 86, "s": "Rn", "n": "Radon", "m": 222.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶", "ox": "0, +2", "cat": "Noble Gas", "p": 6, "g": 18, "b": "p", "val": 8}, {"z": 87, "s": "Fr", "n": "Francium", "m": 223.0, "c": "[Rn] 7s¹", "ox": "+1", "cat": "Alkali Metal", "p": 7, "g": 1, "b": "s", "val": 1}, {"z": 88, "s": "Ra", "n": "Radium", "m": 226.0, "c": "[Rn] 7s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 7, "g": 2, "b": "s", "val": 2}, {"z": 89, "s": "Ac", "n": "Actinium", "m": 227.0, "c": "[Rn] 6d¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "d", "val": 3}, {"z": 90, "s": "Th", "n": "Thorium", "m": 232.04, "c": "[Rn] 6d² 7s²", "ox": "+4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 4}, {"z": 91, "s": "Pa", "n": "Protactinium", "m": 231.04, "c": "[Rn] 5f² 6d¹ 7s²", "ox": "+5", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 5}, {"z": 92, "s": "U", "n": "Uranium", "m": 238.03, "c": "[Rn] 5f³ 6d¹ 7s²", "ox": "+3, +4, +5, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 6}, {"z": 93, "s": "Np", "n": "Neptunium", "m": 237.0, "c": "[Rn] 5f⁴ 6d¹ 7s²", "ox": "+3, +5, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 7}, {"z": 94, "s": "Pu", "n": "Plutonium", "m": 244.0, "c": "[Rn] 5f⁶ 7s²", "ox": "+3, +4, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 8}, {"z": 95, "s": "Am", "n": "Americium", "m": 243.0, "c": "[Rn] 5f⁷ 7s²", "ox": "+3, +4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 9}, {"z": 96, "s": "Cm", "n": "Curium", "m": 247.0, "c": "[Rn] 5f⁷ 6d¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 10}, {"z": 97, "s": "Bk", "n": "Berkelium", "m": 247.0, "c": "[Rn] 5f⁹ 7s²", "ox": "+3, +4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 11}, {"z": 98, "s": "Cf", "n": "Californium", "m": 251.0, "c": "[Rn] 5f¹⁰ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 12}, {"z": 99, "s": "Es", "n": "Einsteinium", "m": 252.0, "c": "[Rn] 5f¹¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 13}, {"z": 100, "s": "Fm", "n": "Fermium", "m": 257.0, "c": "[Rn] 5f¹² 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 14}, {"z": 101, "s": "Md", "n": "Mendelevium", "m": 258.0, "c": "[Rn] 5f¹³ 7s²", "ox": "+2, +3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 15}, {"z": 102, "s": "No", "n": "Nobelium", "m": 259.0, "c": "[Rn] 5f¹⁴ 7s²", "ox": "+2, +3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 16}, {"z": 103, "s": "Lr", "n": "Lawrencium", "m": 266.0, "c": "[Rn] 5f¹⁴ 7s² 7p¹", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "d", "val": 3}, {"z": 104, "s": "Rf", "n": "Rutherfordium", "m": 267.0, "c": "[Rn] 5f¹⁴ 6d² 7s²", "ox": "+4", "cat": "Transition Metal", "p": 7, "g": 4, "b": "d", "val": 4}, {"z": 105, "s": "Db", "n": "Dubnium", "m": 268.0, "c": "[Rn] 5f¹⁴ 6d³ 7s²", "ox": "+5", "cat": "Transition Metal", "p": 7, "g": 5, "b": "d", "val": 5}, {"z": 106, "s": "Sg", "n": "Seaborgium", "m": 269.0, "c": "[Rn] 5f¹⁴ 6d⁴ 7s²", "ox": "+6", "cat": "Transition Metal", "p": 7, "g": 6, "b": "d", "val": 6}, {"z": 107, "s": "Bh", "n": "Bohrium", "m": 270.0, "c": "[Rn] 5f¹⁴ 6d⁵ 7s²", "ox": "+7", "cat": "Transition Metal", "p": 7, "g": 7, "b": "d", "val": 7}, {"z": 108, "s": "Hs", "n": "Hassium", "m": 277.0, "c": "[Rn] 5f¹⁴ 6d⁶ 7s²", "ox": "+8", "cat": "Transition Metal", "p": 7, "g": 8, "b": "d", "val": 8}, {"z": 109, "s": "Mt", "n": "Meitnerium", "m": 278.0, "c": "[Rn] 5f¹⁴ 6d⁷ 7s²", "ox": "+3, +4", "cat": "Transition Metal", "p": 7, "g": 9, "b": "d", "val": 9}, {"z": 110, "s": "Ds", "n": "Darmstadtium", "m": 281.0, "c": "[Rn] 5f¹⁴ 6d⁸ 7s²", "ox": "+6", "cat": "Transition Metal", "p": 7, "g": 10, "b": "d", "val": 10}, {"z": 111, "s": "Rg", "n": "Roentgenium", "m": 282.0, "c": "[Rn] 5f¹⁴ 6d⁹ 7s²", "ox": "+3", "cat": "Transition Metal", "p": 7, "g": 11, "b": "d", "val": 11}, {"z": 112, "s": "Cn", "n": "Copernicium", "m": 285.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s²", "ox": "+2", "cat": "Transition Metal", "p": 7, "g": 12, "b": "d", "val": 12}, {"z": 113, "s": "Nh", "n": "Nihonium", "m": 286.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 7, "g": 13, "b": "p", "val": 3}, {"z": 114, "s": "Fl", "n": "Flerovium", "m": 289.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 7, "g": 14, "b": "p", "val": 4}, {"z": 115, "s": "Mc", "n": "Moscovium", "m": 290.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 7, "g": 15, "b": "p", "val": 5}, {"z": 116, "s": "Lv", "n": "Livermorium", "m": 293.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 7, "g": 16, "b": "p", "val": 6}, {"z": 117, "s": "Ts", "n": "Tennessine", "m": 294.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵", "ox": "-1, +1, +3", "cat": "Halogen", "p": 7, "g": 17, "b": "p", "val": 7}, {"z": 118, "s": "Og", "n": "Oganesson", "m": 294.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶", "ox": "0, +2, +4", "cat": "Noble Gas", "p": 7, "g": 18, "b": "p", "val": 8}];
 
     const CATEGORY_STYLES = {
@@ -855,13 +908,17 @@
     let searchQuery = '';
     let isTeacherLoggedIn = false;
     let selectedHwForSubmission = null;
-    // DEFAULT VIEW ON MOBILE: 'cards' so it never breaks on phone!
-    let periodicViewMode = 'cards';
+    let periodicViewMode = 'cards'; // 'cards' on phone, 'table' on PC
+    let isMobileCardsOpen = true;
 
-    // =========================================================================
-    // 1. INITIALIZATION & MANDATORY ID CARD CAMERA LOGIN (ONLY CAMERA, REAL NAME)
-    // =========================================================================
     document.addEventListener('DOMContentLoaded', () => {
+      // Auto-detect PC vs Phone screen
+      if (window.innerWidth >= 1024) {
+        setPeriodicViewMode('table');
+      } else {
+        setPeriodicViewMode('cards');
+      }
+
       checkStudentLoginState();
       renderPeriodicTable();
       renderHomeworkList();
@@ -876,7 +933,6 @@
 
     function checkStudentLoginState() {
       const studentName = localStorage.getItem('chem11_student_name');
-      const studentId = localStorage.getItem('chem11_student_id') || 'IQ-9842107';
       const display = document.getElementById('studentNameDisplay');
 
       if (studentName && studentName.trim()) {
@@ -928,13 +984,13 @@
 
       const reader = new FileReader();
       reader.onload = function(e) {
-        processRealIdCardPhoto(e.target.result, file.name);
+        processRealIdCardPhoto(e.target.result);
       };
       reader.readAsDataURL(file);
     }
 
-    // Process photo and extract the actual text from the card
-    function processRealIdCardPhoto(imageDataUrl, filename) {
+    // Real OCR processing without random names
+    function processRealIdCardPhoto(imageDataUrl) {
       const scanBox = document.getElementById('idCardScanBox');
       const img = document.getElementById('idCardImagePreview');
       const statusText = document.getElementById('idCardScanStatusText');
@@ -955,7 +1011,6 @@
       const randomIdCode = 'IQ-' + Math.floor(1000000 + Math.random() * 9000000);
       idNumDisplay.textContent = randomIdCode;
 
-      // Check if Tesseract.js is available for client-side OCR
       if (window.Tesseract && typeof Tesseract.recognize === 'function') {
         progressBar.style.width = '55%';
         statusText.textContent = 'خوێندنەوەی پیتەکان بە Tesseract OCR...';
@@ -977,12 +1032,10 @@
           subText.textContent = 'تکایە ناوی سەر ناسنامەکەت پشتڕاست بکەرەوە:';
 
           let extractedCandidate = '';
-          // Search lines for candidate Kurdish/Arabic name
           if (lines && lines.length > 0) {
             for (let line of lines) {
               const clean = line.text.replace(/[0-9\-_:;!?.()\/\|]/g, '').trim();
               const words = clean.split(/\s+/).filter(w => w.length > 1);
-              // Avoid government titles like Iraq, Republic, Identity
               if (words.length >= 2 && !clean.includes('عراق') && !clean.includes('جمهوری') && !clean.includes('هویة') && !clean.includes('کارت')) {
                 extractedCandidate = words.slice(0, 4).join(' ');
                 break;
@@ -990,15 +1043,6 @@
             }
           }
 
-          if (!extractedCandidate && text) {
-            const cleanText = text.replace(/[0-9\-_:;!?.()\/\|]/g, '').trim();
-            const words = cleanText.split(/\s+/).filter(w => w.length > 1);
-            if (words.length >= 2) {
-              extractedCandidate = words.slice(0, 3).join(' ');
-            }
-          }
-
-          // If OCR couldn't isolate clean text due to camera lighting, set a prompt
           nameInput.value = extractedCandidate || '';
           if (!nameInput.value) {
             nameInput.placeholder = 'ناوەکەت بەپێی کارتەکە بنووسە بۆ تۆمارکردن...';
@@ -1012,7 +1056,6 @@
         });
 
       } else {
-        // Fallback without waiting
         setTimeout(() => {
           fallbackCardExtraction();
         }, 1200);
@@ -1021,27 +1064,25 @@
       function fallbackCardExtraction() {
         progressBar.style.width = '100%';
         statusText.textContent = 'وێنەکە بە سەرکەوتوویی بارکرا!';
-        subText.textContent = 'ناوی نووسراو لەسەر ناسنامەکەت پشتڕاست بکەرەوە بۆ چوونەژوورەوە:';
+        subText.textContent = 'ناوی نووسراو لەسەر ناسنامەکەت بنووسە بۆ چوونەژوورەوە:';
         nameInput.value = '';
-        nameInput.placeholder = 'ناوەکەت وەک چۆن لەسەر ناسنامەکەت نووسراوە...';
+        nameInput.placeholder = 'ناوەکەت وەک چۆن لەسەر کارتەکە نووسراوە...';
         extractedBadge.classList.remove('hidden');
         setTimeout(() => nameInput.focus(), 200);
       }
     }
 
-    // Confirm the name texted on the ID card (No Random Fake Names!)
     function confirmExtractedIdName() {
       const nameInput = document.getElementById('verifiedIdCardNameInput');
       const name = nameInput.value.trim();
       const idCode = document.getElementById('ocrExtractedIdNum').textContent;
 
       if (!name) {
-        showToast('تکایە ناوی سەر ناسنامەکەت پشتڕاست بکەرەوە!');
+        showToast('تکایە ناوی سەر ناسنامەکەت بنووسە!');
         nameInput.focus();
         return;
       }
 
-      // Save real name to storage
       localStorage.setItem('chem11_student_name', name);
       localStorage.setItem('chem11_student_id', idCode);
 
@@ -1069,8 +1110,25 @@
     }
 
     // =========================================================================
-    // 2. PERIODIC TABLE LOGIC (DEFAULT MOBILE CARDS FOR PHONE + 18-COL TABLE)
+    // 2. PERIODIC TABLE: SMALL COMPACT CARDS -> EXPANDS TO BIG ON CLICK
     // =========================================================================
+    function toggleMobileCardsDrawer() {
+      const drawer = document.getElementById('elementsCardsDrawer');
+      const chevron = document.getElementById('mobileCardsChevron');
+      const btnText = document.getElementById('mobileToggleCardsText');
+
+      isMobileCardsOpen = !isMobileCardsOpen;
+      if (isMobileCardsOpen) {
+        drawer.classList.remove('hidden');
+        chevron.textContent = '▼';
+        btnText.textContent = 'داخستنی کارتە بچووکەکان';
+      } else {
+        drawer.classList.add('hidden');
+        chevron.textContent = '◀';
+        btnText.textContent = 'کردنەوەی کارتەکانی توخمەکان (١١٨ توخم)';
+      }
+    }
+
     function setPeriodicViewMode(mode) {
       periodicViewMode = mode;
       const tableWrapper = document.getElementById('tableScrollWrapper');
@@ -1096,6 +1154,17 @@
 
     function setElementFilter(category) {
       currentCategoryFilter = category;
+
+      // Automatically open and show the cards when a category button is pressed
+      const drawer = document.getElementById('elementsCardsDrawer');
+      if (drawer && drawer.classList.contains('hidden')) {
+        isMobileCardsOpen = true;
+        drawer.classList.remove('hidden');
+        const chevron = document.getElementById('mobileCardsChevron');
+        const btnText = document.getElementById('mobileToggleCardsText');
+        if (chevron) chevron.textContent = '▼';
+        if (btnText) btnText.textContent = 'داخستنی کارتەکان';
+      }
 
       document.querySelectorAll('.filter-pill').forEach(btn => {
         btn.classList.remove('active', 'bg-cyan-500', 'text-slate-950', 'shadow-neon-cyan');
@@ -1129,13 +1198,13 @@
     }
 
     function renderPeriodicTable() {
-      renderCardsGrid();
+      renderMiniCardsGrid();
       render18ColumnGrid();
     }
 
-    // MOBILE TOUCH CARDS: Beautiful, roomy, responsive, 100% usable on phone
-    function renderCardsGrid() {
-      const container = document.getElementById('elementsCardsGrid');
+    // RENDER SMALL COMPACT CARDS (Not big, so they fit smoothly on mobile without clutter!)
+    function renderMiniCardsGrid() {
+      const container = document.getElementById('elementsMiniCardsGrid');
       let filtered = ALL_ELEMENTS;
 
       if (currentCategoryFilter !== 'All') {
@@ -1165,53 +1234,20 @@
 
         return `
           <div 
-            class="touch-card rounded-2xl p-4 bg-slate-900 border ${style.border} ${style.bg} backdrop-blur-md shadow-sm space-y-3">
+            onclick="expandElementToBig(${el.z})"
+            class="mini-card relative rounded-xl p-2 bg-slate-900 border ${style.border} ${style.bg} cursor-pointer flex flex-col justify-between text-center select-none shadow-sm group">
             
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="w-7 h-7 rounded-xl bg-slate-950 border border-slate-700 flex items-center justify-center text-xs font-mono font-bold text-cyan-400">
-                  ${el.z}
-                </span>
-                <span class="text-sm font-bold text-white">${el.n}</span>
-              </div>
-              <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${style.bg} border ${style.border} ${style.text}">
-                ${style.ku}
-              </span>
+            <div class="flex items-center justify-between text-[9px] font-mono leading-none">
+              <span class="text-slate-400 font-bold">${el.z}</span>
+              <span class="text-[8px] text-cyan-400/80">${el.b}</span>
             </div>
 
-            <div class="flex items-center justify-between bg-slate-950/70 rounded-xl p-3 border border-slate-800">
-              <div class="text-3xl font-black font-formula text-cyan-300">
-                ${el.s}
-              </div>
-              <div class="text-right text-xs font-mono space-y-0.5">
-                <div class="text-slate-300">کێش: <span class="text-white font-bold">${el.m} u</span></div>
-                <div class="text-slate-400">ئۆکسان: <span class="text-emerald-400 font-bold">${el.ox}</span></div>
-              </div>
+            <div class="my-1">
+              <span class="text-lg sm:text-xl font-black font-formula text-white group-hover:text-cyan-400 transition-colors">${el.s}</span>
             </div>
 
-            <div class="space-y-1 text-xs text-slate-300 font-mono bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80">
-              <div class="truncate text-[11px]" title="${el.c}">
-                <span class="text-slate-400">ڕیزبەندی:</span> 
-                <span class="text-cyan-400 font-bold">${el.c}</span>
-              </div>
-              <div class="flex items-center justify-between text-[11px] text-slate-400">
-                <span>خولی ${el.p} • کۆمەڵەی ${el.g}</span>
-                <span class="text-slate-500">بلۆکی ${el.b}</span>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-2 gap-2 pt-1">
-              <button 
-                onclick="quickSolveWithSymbol('${el.s}')"
-                class="py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1 shadow-sm transition-all active:scale-95">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                <span>شیکارکردن</span>
-              </button>
-              <button 
-                onclick="showElementDetails(${el.z})"
-                class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs flex items-center justify-center transition-all">
-                <span>وردەکاری ←</span>
-              </button>
+            <div class="text-[9px] font-bold text-slate-300 truncate leading-tight">
+              ${el.n}
             </div>
 
           </div>
@@ -1219,7 +1255,89 @@
       }).join('');
     }
 
-    // 18-COLUMN PERIODIC GRID
+    // "WHEN THEY PRESS IT ANY THINGS THEN IT CAME TO BIG" -> Opens the glorious BIG Card
+    function expandElementToBig(atomicNumber) {
+      const el = ALL_ELEMENTS.find(e => e.z === atomicNumber);
+      if (!el) return;
+
+      const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
+      const bigContainer = document.getElementById('activeBigCardContainer');
+
+      bigContainer.innerHTML = `
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+          
+          <div class="flex items-center gap-3.5 sm:gap-5 w-full sm:w-auto">
+            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-slate-950 border-2 border-cyan-400 flex flex-col items-center justify-center text-center shadow-neon-cyan shrink-0">
+              <span class="text-[10px] text-slate-400 font-mono font-bold leading-none mt-1">#${el.z}</span>
+              <span class="text-2xl sm:text-3xl font-black font-formula text-cyan-300 leading-tight">${el.s}</span>
+              <span class="text-[9px] text-slate-400 font-mono leading-none mb-1">${el.m}</span>
+            </div>
+
+            <div class="space-y-1 text-right min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-lg sm:text-xl font-black text-white">${el.n}</h3>
+                <span class="text-[11px] font-bold px-2.5 py-0.5 rounded-full ${style.bg} border ${style.border} ${style.text}">
+                  ${style.ku}
+                </span>
+              </div>
+              <div class="text-xs text-slate-300 font-mono space-x-2 space-x-reverse">
+                <span>خولی <strong>${el.p}</strong></span> • 
+                <span>کۆمەڵەی <strong>${el.g}</strong></span> • 
+                <span>بلۆکی <strong>${el.b}</strong></span>
+              </div>
+              <div class="text-xs text-cyan-400 font-mono font-bold truncate">
+                ڕیزبەندی ئەلیکترۆنی: ${el.c}
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-slate-800">
+            <button 
+              type="button" 
+              onclick="quickSolveWithSymbol('${el.s}')" 
+              class="flex-grow sm:flex-grow-0 py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2">
+              <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>شیکارکردنی هاوکێشە</span>
+            </button>
+            <button 
+              type="button" 
+              onclick="closeBigCard()" 
+              class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
+              داخستن ✕
+            </button>
+          </div>
+
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 mt-3 border-t border-slate-800/80 text-xs font-mono">
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-400 text-[10px] block">بارستەی ئەتۆمی:</span>
+            <span class="text-white font-bold">${el.m} g/mol</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-400 text-[10px] block">باری ئۆکسان:</span>
+            <span class="text-emerald-400 font-bold">${el.ox}</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-400 text-[10px] block">ئەلیکترۆنی هێلانەیی:</span>
+            <span class="text-cyan-300 font-bold">${el.val} ئەلیکترۆن</span>
+          </div>
+          <div class="p-2 rounded-xl bg-slate-950/70 border border-slate-800">
+            <span class="text-slate-400 text-[10px] block">هاوپۆل:</span>
+            <span class="text-purple-300 font-bold truncate">${style.ku}</span>
+          </div>
+        </div>
+      `;
+
+      bigContainer.classList.remove('hidden');
+      bigContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeBigCard() {
+      document.getElementById('activeBigCardContainer').classList.add('hidden');
+    }
+
+    // 18-COLUMN PERIODIC GRID (FOR PC)
     function render18ColumnGrid() {
       const grid = document.getElementById('fullPeriodicGrid');
       let html = '';
@@ -1253,7 +1371,7 @@
 
         html += `
           <div 
-            onclick="showElementDetails(${el.z})"
+            onclick="expandElementToBig(${el.z})"
             style="grid-column: ${gridCol}; grid-row: ${gridRow};" 
             class="table-cell-el relative rounded-xl p-1 bg-slate-900 border ${style.border} ${style.bg} cursor-pointer flex flex-col justify-between text-center select-none ${opacityClass} ${glowClass} shadow-sm group">
             
@@ -1292,79 +1410,7 @@
       grid.innerHTML = html;
     }
 
-    function showElementDetails(atomicNumber) {
-      const el = ALL_ELEMENTS.find(e => e.z === atomicNumber);
-      if (!el) return;
-
-      const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
-      const content = document.getElementById('elementDetailModalContent');
-
-      content.innerHTML = `
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-          <div class="flex items-center gap-2.5">
-            <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 font-formula text-lg font-black">
-              ${el.s}
-            </div>
-            <div>
-              <h3 class="text-base font-black text-white">${el.n} (توخمی #${el.z})</h3>
-              <span class="text-xs font-semibold ${style.text}">${style.ku}</span>
-            </div>
-          </div>
-          <button onclick="closeElementDetailModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
-          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-slate-500 text-[10px] block">کێشی ئەتۆمی (Atomic Mass):</span>
-            <span class="text-white font-bold text-sm">${el.m} u</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-slate-500 text-[10px] block">باری ئۆکسان (Oxidation States):</span>
-            <span class="text-emerald-400 font-bold text-sm">${el.ox}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-slate-500 text-[10px] block">خولی خشتە (Period):</span>
-            <span class="text-cyan-300 font-bold">خولی ${el.p}</span>
-          </div>
-          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-            <span class="text-slate-500 text-[10px] block">کۆمەڵە (Group):</span>
-            <span class="text-cyan-300 font-bold">کۆمەڵەی ${el.g}</span>
-          </div>
-        </div>
-
-        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
-          <span class="text-[10px] text-slate-400 block font-mono">ڕیزبەندی ئەلیکترۆنی تەواو:</span>
-          <div class="text-xs sm:text-sm font-bold text-cyan-400 font-formula">${el.c}</div>
-        </div>
-
-        <div class="flex items-center gap-2 pt-2">
-          <button 
-            type="button" 
-            onclick="quickSolveWithSymbol('${el.s}')" 
-            class="flex-grow py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            <span>شیکارکردنی هاوکێشە بەم توخمە</span>
-          </button>
-          <button 
-            type="button" 
-            onclick="closeElementDetailModal()" 
-            class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
-            داخستن
-          </button>
-        </div>
-      `;
-
-      document.getElementById('elementDetailModal').classList.remove('hidden');
-    }
-
-    function closeElementDetailModal() {
-      document.getElementById('elementDetailModal').classList.add('hidden');
-    }
-
     function quickSolveWithSymbol(symbol) {
-      closeElementDetailModal();
       document.getElementById('solverTextInput').value = symbol;
       solveEquation();
       document.getElementById('solverSection').scrollIntoView({ behavior: 'smooth' });

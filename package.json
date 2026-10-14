@@ -1,10 +1,11 @@
 {
-  "name": "chemistry-11",
+  "name": "chemistry-app",
   "version": "1.0.0",
-  "description": "Chemistry 11th grade website",
+  "description": "Chemistry 11 by Shogar",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "dependencies": {
     "express": "^4.19.2"
