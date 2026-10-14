@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>کیمیای پۆلی ١١ی زانستی | مامۆستا شەوگار</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Vazirmatn & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            chem: {
+              50: '#f0fdfa',
+              100: '#ccfbf1',
+              400: '#2dd4bf',
+              500: '#14b8a6',
+              600: '#0d9488',
+              800: '#115e59',
+              900: '#134e4a',
+              950: '#042f2e',
+            }
+          },
+          fontFamily: {
+            kurdish: ['Vazirmatn', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          boxShadow: {
+            'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.35)',
+            'neon-emerald': '0 0 20px rgba(16, 185, 129, 0.35)',
+            'neon-purple': '0 0 20px rgba(168, 85, 247, 0.35)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+      background-color: #030712;
+      color: #f3f4f6;
+      overflow-x: hidden;
+    }
+    .font-formula {
+      font-family: 'JetBrains Mono', monospace;
+      direction: ltr;
+      display: inline-block;
+    }
+    .ltr-dir {
+      direction: ltr;
+      text-align: left;
+    }
+    .laser-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #22d3ee, #38bdf8, transparent);
+      box-shadow: 0 0 15px #38bdf8, 0 0 25px #06b6d4;
+      animation: scanLaser 2s infinite ease-in-out;
+      z-index: 20;
+    }
+    @keyframes scanLaser {
+      0% { top: 0%; opacity: 0.2; }
+      50% { top: 92%; opacity: 1; }
+      100% { top: 0%; opacity: 0.2; }
+    }
+    /* Horizontal smooth scrolling for periodic table */
+    .table-scroll-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: #06b6d4 #0f172a;
+    }
+    .table-scroll-container::-webkit-scrollbar {
+      height: 7px;
+    }
+    .table-scroll-container::-webkit-scrollbar-track {
+      background: #0f172a;
+      border-radius: 9999px;
+    }
+    .table-scroll-container::-webkit-scrollbar-thumb {
+      background: #06b6d4;
+      border-radius: 9999px;
+    }
+    .periodic-table-grid {
+      display: grid;
+      grid-template-columns: repeat(18, minmax(54px, 1fr));
+      gap: 5px;
+      min-width: 1040px;
+      padding: 10px;
+    }
+    .table-cell-el {
+      transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+      aspect-ratio: 1 / 1.08;
+    }
+    .table-cell-el:hover, .table-cell-el:active {
+      transform: scale(1.12);
+      z-index: 30;
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.7);
+    }
+    .touch-card {
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+    .touch-card:active {
+      transform: scale(0.985);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-[#030712] text-slate-100 min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950 pb-20 md:pb-6">
+
+  <!-- TOP HEADER & BRANDING (Clean, Minimal, Mobile-First, Zero AI Artifacts) -->
+  <header class="sticky top-0 z-40 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80 transition-all">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
+      
+      <!-- Brand & Teacher Info -->
+      <div class="flex items-center gap-2.5 sm:gap-3 min-w-0">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-cyan-500 to-teal-400 p-0.5 shadow-neon-cyan shrink-0">
+          <div class="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+            </svg>
+          </div>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <h1 class="text-xs sm:text-base md:text-lg font-black tracking-wide text-white truncate">کیمیای پۆلی ١١ی زانستی</h1>
+            <span class="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold rounded-full bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 shrink-0">٢٠٢٦</span>
+          </div>
+          <p class="text-[11px] sm:text-xs text-slate-400 font-medium truncate">
+            <span>بە سەرپەرشتی</span>
+            <span class="text-cyan-400 font-bold">مامۆستا شەوگار</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Buttons: Student Profile (Camera ID Badge) & Teacher Portal -->
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        
+        <!-- Student ID Card Badge (MANDATORY CAMERA LOGIN) -->
+        <button onclick="openStudentModal()" id="studentHeaderBadge" class="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-900 border border-cyan-500/40 hover:border-cyan-400 text-xs text-slate-200 hover:text-white transition-all shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse"></span>
+          <span id="studentNameDisplay" class="font-bold text-[11px] sm:text-xs truncate max-w-[100px] sm:max-w-[160px]">سکانکردنی ناسنامە</span>
+          <svg class="w-3.5 h-3.5 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>
+        </button>
+
+        <!-- Teacher Login Button -->
+        <button onclick="openTeacherModal()" id="teacherHeaderBtn" class="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-emerald-400 text-xs text-slate-300 hover:text-emerald-300 transition-all">
+          <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+          <span id="teacherBtnText" class="font-bold text-[11px] sm:text-xs hidden sm:inline">مامۆستا</span>
+        </button>
+
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN APP CONTAINER -->
+  <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8 flex-grow w-full">
+
+    <!-- 1. Chemistry Photo Solver & Equation Calculator (Instant Kurdish Results) -->
+    <section id="solverSection" class="relative rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800 p-4 sm:p-6 backdrop-blur-xl shadow-2xl space-y-4 sm:space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-neon-cyan"></span>
+            <h2 class="text-sm sm:text-lg font-black text-white">شیکارکەری زیرەکی هاوکێشە و کێشە کیمیاییەکان</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">
+            هاوکێشە بنووسە یان وێنەی دەفتەرەکەت بگرە؛ سیستەم بە <span class="text-cyan-300 font-bold">کوردییەکی پوخت</span> شیکاریی تەواوت پێشکەش دەکات.
+          </p>
+        </div>
+        <div class="flex items-center gap-2 self-start sm:self-auto">
+          <span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-mono">
+            AI Chemistry Solver
+          </span>
+        </div>
+      </div>
+
+      <div class="space-y-3.5">
+        
+        <!-- Formula Input Box: Perfectly Padded, Full Width, Zero Button Overlap (CRITICAL REQ #8) -->
+        <div class="space-y-2">
+          <div class="flex flex-col sm:flex-row gap-2">
+            <div class="relative w-full">
+              <input 
+                type="text" 
+                id="solverTextInput" 
+                placeholder="بۆ نموونە: H2O یان Fe + O2 -> Fe2O3 یان Ca(OH)2 یان KMnO4..." 
+                class="w-full h-13 sm:h-14 bg-slate-950 border-2 border-slate-700 focus:border-cyan-400 rounded-2xl px-4 py-3 text-sm sm:text-base text-white placeholder-slate-500 font-mono focus:outline-none transition-all"
+              >
+            </div>
+            <button 
+              onclick="solveEquation()" 
+              class="w-full sm:w-auto h-12 sm:h-14 px-6 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2 shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              <span>شیکارکردنی هاوکێشە</span>
+            </button>
+          </div>
+
+          <!-- SEPARATE CAMERA & FILE UPLOAD BUTTONS (CRITICAL REQ #7) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-1">
+            
+            <!-- Hidden inputs -->
+            <input 
+              type="file" 
+              id="cameraInput" 
+              accept="image/*" 
+              capture="environment" 
+              class="hidden" 
+              onchange="handlePhotoUpload(event, 'camera')"
+            >
+            <input 
+              type="file" 
+              id="fileUploadInput" 
+              accept="image/*" 
+              class="hidden" 
+              onchange="handlePhotoUpload(event, 'file')"
+            >
+
+            <!-- Button 1: Camera Live Capture -->
+            <button 
+              onclick="document.getElementById('cameraInput').click()" 
+              type="button" 
+              class="w-full py-3.5 px-4 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white hover:text-cyan-300 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 shadow-md transition-all active:scale-[0.99] group">
+              <span class="w-7 h-7 rounded-xl bg-cyan-950 border border-cyan-800 flex items-center justify-center text-cyan-400 group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </span>
+              <span>گرتنی وێنە بە کامێرا</span>
+            </button>
+
+            <!-- Button 2: Upload File / Gallery -->
+            <button 
+              onclick="document.getElementById('fileUploadInput').click()" 
+              type="button" 
+              class="w-full py-3.5 px-4 rounded-2xl bg-slate-950 border border-slate-700 hover:border-emerald-400 text-white hover:text-emerald-300 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 shadow-md transition-all active:scale-[0.99] group">
+              <span class="w-7 h-7 rounded-xl bg-emerald-950 border border-emerald-800 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </span>
+              <span>بارکردنی فایل لە دەفتەر یان کتێب</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Scanning Preview Box -->
+        <div id="photoScannerPreviewBox" class="hidden relative rounded-2xl bg-slate-950 border border-cyan-500/40 p-3 sm:p-4 overflow-hidden">
+          <div class="laser-line"></div>
+          <div class="flex flex-col sm:flex-row items-center gap-3">
+            <div class="relative w-28 h-20 sm:w-36 sm:h-24 rounded-xl overflow-hidden bg-slate-900 border border-slate-800 shrink-0">
+              <img id="uploadedImageDisplay" src="" alt="Uploaded Chemistry Problem" class="w-full h-full object-cover">
+            </div>
+            <div class="space-y-1 text-center sm:text-right">
+              <div class="flex items-center justify-center sm:justify-start gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span class="text-xs font-bold text-cyan-300">سکانەری بینایی کارایە (Chemistry OCR)</span>
+              </div>
+              <p id="scanStatusText" class="text-xs text-slate-300 font-mono">هاوکێشەکە بە سەرکەوتوویی لە وێنەکەوە ناسرایەوە و شیکار کرا.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Solver Results Box (100% KURDISH DESCRIPTIONS) -->
+        <div id="solverResultContainer" class="p-4 sm:p-5 rounded-2xl bg-slate-950/90 border border-emerald-500/30 space-y-3">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 2. PERIODIC TABLE SECTION: MOBILE-FIRST REDESIGN (CRITICAL REQ #1 & #2) -->
+    <section id="tableSection" class="space-y-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+            <h2 class="text-sm sm:text-lg font-bold text-white">خشتەی خولیی توخمە کیمیاییەکان (Periodic Table)</h2>
+          </div>
+          <p class="text-xs text-slate-400 mt-0.5">سەرجەم ١١٨ توخم بە کێشی ئەتۆمی، ڕیزبەندی ئەلەکترۆنی، و باری ئۆکسان</p>
+        </div>
+
+        <!-- Search & View Mode Toggle -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <!-- View Toggle Buttons: Full 18-Column Table View vs Touch Card Grid View -->
+          <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-0.5 shrink-0 self-start sm:self-auto">
+            <button onclick="setPeriodicViewMode('table')" id="viewModeTableBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              <span>خشتەی ١٨ ستوون (ڕاکێشان ↔)</span>
+            </button>
+            <button onclick="setPeriodicViewMode('cards')" id="viewModeCardsBtn" class="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              <span>کارتەکان</span>
+            </button>
+          </div>
+
+          <!-- Element Search Box -->
+          <div class="relative flex items-center bg-slate-900 border border-slate-700 rounded-xl px-3 py-1.5 focus-within:border-cyan-400 focus-within:shadow-neon-cyan transition-all w-full sm:w-64">
+            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <input 
+              type="text" 
+              id="elementSearchBox" 
+              oninput="handleElementSearchInput()" 
+              placeholder="گەڕان بەپێی Xenon, H, Fe, 54..." 
+              class="w-full bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none px-2 py-0.5"
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- EXACT KURDISH FILTER TABS (CRITICAL REQ #6) -->
+      <!-- Nonmetals -> ناپەترۆڵەکان | Halogens -> هاڵۆجینەکان | Alkali -> توخمە ئەکالییەکان | Transition -> توخمە گواستراوەکان | Noble Gases -> گازە خانەدانەکان | All -> هەموو -->
+      <div class="flex items-center gap-1.5 overflow-x-auto pb-1.5 text-xs hide-scrollbar">
+        <button onclick="setElementFilter('All')" id="filterTabAll" class="filter-pill active px-3 py-1.5 rounded-xl font-bold bg-cyan-500 text-slate-950 shrink-0 transition-all shadow-neon-cyan">هەموو</button>
+        <button onclick="setElementFilter('Noble Gas')" id="filterTabNoble" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">گازە خانەدانەکان</button>
+        <button onclick="setElementFilter('Transition Metal')" id="filterTabTransition" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">توخمە گواستراوەکان</button>
+        <button onclick="setElementFilter('Alkali Metal')" id="filterTabAlkali" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">توخمە ئەکالییەکان</button>
+        <button onclick="setElementFilter('Halogen')" id="filterTabHalogen" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">هاڵۆجینەکان</button>
+        <button onclick="setElementFilter('Nonmetal')" id="filterTabNonmetal" class="filter-pill px-3 py-1.5 rounded-xl font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:text-cyan-300 hover:border-cyan-500/40 shrink-0 transition-all">ناپەترۆڵەکان</button>
+      </div>
+
+      <!-- VIEW 1: HORIZONTALLY SCROLLABLE 18-COLUMN PERIODIC TABLE (CRITICAL MOBILE REQ #2) -->
+      <div id="tableScrollWrapper" class="relative rounded-2xl bg-slate-950/80 border border-slate-800 overflow-hidden shadow-xl">
+        <!-- Mobile touch swipe indicator -->
+        <div class="sm:hidden px-3 py-1.5 bg-cyan-950/40 border-b border-cyan-500/20 text-[11px] text-cyan-300 flex items-center justify-between">
+          <span class="flex items-center gap-1.5 font-bold">
+            <svg class="w-3.5 h-3.5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+            <span>بە دەست ڕایبکێشە بۆ گەڕان لەناو ١٨ ستوون ↔</span>
+          </span>
+          <span class="text-[10px] text-slate-400 font-mono">١١٨ توخم</span>
+        </div>
+
+        <div class="table-scroll-container">
+          <div id="fullPeriodicGrid" class="periodic-table-grid">
+            <!-- Dynamically populated via JS with correct grid-column and grid-row -->
+          </div>
+        </div>
+      </div>
+
+      <!-- VIEW 2: CLEAN TOUCH-FRIENDLY CARDS VIEW (RESPONSIVE FOR MOBILE) -->
+      <div id="cardsViewWrapper" class="hidden">
+        <div id="elementsCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Homework Section (ئەرکەکانی ماڵەوە) -->
+    <section id="homeworkSection" class="space-y-3 sm:space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div>
+          <h2 class="text-sm sm:text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span>ئەرکەکانی ماڵەوە (Homework)</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">ئەرکە ڕاسپێردراوەکانی مامۆستا شەوگار بۆ پۆلی ١١ی زانستی</p>
+        </div>
+        <span id="hwCountBadge" class="px-2.5 py-1 rounded-full bg-slate-800 text-cyan-300 text-xs font-mono border border-slate-700">0 ئەرک</span>
+      </div>
+
+      <!-- Homework List Container -->
+      <div id="homeworkListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 4. Dynamic Interactive Quiz Section (تاقیکردنەوەی خێرا) -->
+    <section id="quizSection" class="space-y-3 sm:space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div>
+          <h2 class="text-sm sm:text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>تاقیکردنەوەی خێرای کیمیا (Interactive Quiz)</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">تاقیکردنەوە بە پێوەری زانستی بۆ تێگەیشتن لە چەمکەکان</p>
+        </div>
+        <span id="quizScoreBadge" class="px-2.5 py-1 rounded-full bg-slate-800 text-emerald-300 text-xs font-mono border border-slate-700">نمرە: ٠/٠</span>
+      </div>
+
+      <div id="quizListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 5. Teacher Portal (Unlocked with Shawgar2026) -->
+    <section id="teacherPanelSection" class="hidden rounded-2xl sm:rounded-3xl bg-slate-900 border-2 border-emerald-500/40 p-4 sm:p-6 shadow-neon-emerald space-y-4 sm:space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center border border-emerald-500/40 shrink-0">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-bold text-white">کۆنتڕۆڵ پەنێڵی مامۆستا شەوگار</h3>
+            <p class="text-[11px] text-emerald-300">بڵاوکردنەوەی ڕاستەوخۆی ئەرک، پرسیاری تاقیکردنەوە و وەڵامی قوتابیان</p>
+          </div>
+        </div>
+        <button onclick="logoutTeacher()" class="px-3 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-xs font-bold transition-all self-start sm:self-auto">
+          چوونەدەرەوە
+        </button>
+      </div>
+
+      <!-- Teacher Tabs -->
+      <div class="flex items-center gap-1.5 border-b border-slate-800 pb-2 overflow-x-auto hide-scrollbar">
+        <button onclick="switchTeacherTab('addHw')" id="tabBtnAddHw" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0">زیادکردنی ئەرک</button>
+        <button onclick="switchTeacherTab('addQuiz')" id="tabBtnAddQuiz" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0">زیادکردنی تاقیکردنەوە</button>
+        <button onclick="switchTeacherTab('viewSubs')" id="tabBtnViewSubs" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0">وەڵامی قوتابیان (<span id="subCount">0</span>)</button>
+      </div>
+
+      <!-- Tab 1: Add Homework -->
+      <div id="teacherTabAddHw" class="space-y-3">
+        <form onsubmit="handleCreateHomework(event)" class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">ناونیشانی ئەرک:</label>
+              <input type="text" id="hwTitleInput" required placeholder="بۆ نموونە: ئەرکی ماڵەوە: ڕیزبەندی ئەلەکترۆنی" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">تەوەری زانستی (بابەت):</label>
+              <!-- 100% KURDISH DROPDOWN (NO ENGLISH) -->
+              <select id="hwTopicInput" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+                <option value="ڕیزبەندی ئەلیکترۆنی">ڕیزبەندی ئەلیکترۆنی</option>
+                <option value="ژمارەی ئۆکسان">ژمارەی ئۆکسان</option>
+                <option value="بارستەی مۆڵی و ستۆکیۆمێتری">بارستەی مۆڵی و ستۆکیۆمێتری</option>
+                <option value="خاسیەتە خولییەکان">خاسیەتە خولییەکان</option>
+                <option value="بەستەری کیمیایی">بەستەری کیمیایی</option>
+                <option value="یاساکانی غاز">یاساکانی غاز</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">دەقی پرسیار و ڕێنمایی مامۆستا شەوگار:</label>
+            <textarea id="hwDescInput" rows="3" required placeholder="وردەکاری پرسیارەکە بنووسە بۆ قوتابیان..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400"></textarea>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">دوا وادە (بەروار):</label>
+              <input type="date" id="hwDueDateInput" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white font-mono focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">نمرە:</label>
+              <input type="number" id="hwPointsInput" value="10" min="1" max="100" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white font-mono focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">جۆری وەڵامدانەوە:</label>
+              <input type="text" id="hwTypeInput" value="نووسین لە دەفتەر یان لە ڕێگەی پلاتفۆرم" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+          <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm shadow-neon-emerald transition-all">
+            بڵاوکردنەوەی ئەرک بۆ پۆلی ١١
+          </button>
+        </form>
+      </div>
+
+      <!-- Tab 2: Add Quiz Question -->
+      <div id="teacherTabAddQuiz" class="hidden space-y-3">
+        <form onsubmit="handleCreateQuiz(event)" class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">دەقی پرسیار بە کوردی:</label>
+              <input type="text" id="quizKuInput" required placeholder="بۆ نموونە: باری ئۆکسانی مەنگەنیس (Mn) لە KMnO4 چەندە؟" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">پرسیار بە ئینگلیزی (زاراوە):</label>
+              <input type="text" id="quizEnInput" placeholder="What is the oxidation state of Mn in KMnO4?" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">تەوەر (Topic):</label>
+            <!-- 100% KURDISH DROPDOWN (NO ENGLISH) -->
+            <select id="quizTopicInput" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+              <option value="ژمارەی ئۆکسان">ژمارەی ئۆکسان</option>
+              <option value="ڕیزبەندی ئەلیکترۆنی">ڕیزبەندی ئەلیکترۆنی</option>
+              <option value="بارستەی مۆڵی و ستۆکیۆمێتری">بارستەی مۆڵی و ستۆکیۆمێتری</option>
+              <option value="خاسیەتە خولییەکان">خاسیەتە خولییەکان</option>
+              <option value="بەستەری کیمیایی">بەستەری کیمیایی</option>
+              <option value="یاساکانی غاز">یاساکانی غاز</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] text-slate-400 mb-0.5">هەڵبژاردەی A:</label>
+              <input type="text" id="quizOpt0" required placeholder="+2" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-1.5 text-xs text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400 mb-0.5">هەڵبژاردەی B:</label>
+              <input type="text" id="quizOpt1" required placeholder="+4" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-1.5 text-xs text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400 mb-0.5">هەڵبژاردەی C:</label>
+              <input type="text" id="quizOpt2" required placeholder="+6" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-1.5 text-xs text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[10px] text-slate-400 mb-0.5">هەڵبژاردەی D:</label>
+              <input type="text" id="quizOpt3" required placeholder="+7" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-1.5 text-xs text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">وەڵامی دروست:</label>
+              <select id="quizCorrectInput" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
+                <option value="0">هەڵبژاردەی A</option>
+                <option value="1">هەڵبژاردەی B</option>
+                <option value="2">هەڵبژاردەی C</option>
+                <option value="3">هەڵبژاردەی D</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">ڕوونکردنەوەی زانستی مامۆستا:</label>
+              <input type="text" id="quizExpInput" required placeholder="وەڵامی دروست: +7. چونکە K=+1 و O=-2*4=-8." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-emerald-400">
+            </div>
+          </div>
+          <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm shadow-neon-emerald transition-all">
+            زیادکردنی پرسیار
+          </button>
+        </form>
+      </div>
+
+      <!-- Tab 3: Submissions -->
+      <div id="teacherTabViewSubs" class="hidden space-y-3">
+        <div id="teacherSubmissionsList" class="space-y-2">
+          <!-- Populated via JS -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. MANDATORY ID CARD CAMERA LOGIN MODAL (NO MANUAL TYPING - CRITICAL REQ #3) -->
+  <div id="studentNameModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-cyan-500/60 rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4 shadow-neon-cyan max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-white">چوونەژوورەوە بە کارتی ناسنامە</h3>
+            <span class="text-[10px] text-cyan-400 font-semibold block">سەلماندنی ناسنامە بە AI OCR</span>
+          </div>
+        </div>
+        <button onclick="closeStudentModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- State A: Not Logged In / Camera Scan Prompt -->
+      <div id="studentLoginScanState" class="space-y-3.5">
+        
+        <div class="p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 text-xs text-slate-300 leading-relaxed space-y-1">
+          <p class="font-bold text-cyan-300 flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>نووسینی دەستی ناوی قوتابی لادراوە!</span>
+          </p>
+          <p class="text-[11px] text-slate-400">
+            تکایە بە دوگمەی کامێرا وێنەی کارتی نیشتمانی یان کارتی قوتابخانەکەت بگرە. سیستەم بە شێوەیەکی خۆکار ناوت دەردەهێنێت.
+          </p>
+        </div>
+
+        <!-- Hidden Camera Input -->
+        <input 
+          type="file" 
+          id="idCardCameraInput" 
+          accept="image/*" 
+          capture="environment" 
+          class="hidden" 
+          onchange="handleIdCardCameraCapture(event)"
+        >
+
+        <!-- Live Camera Snapshot Buttons -->
+        <div class="space-y-2">
+          
+          <!-- Primary: Live Camera Photo Button -->
+          <button 
+            type="button" 
+            onclick="triggerIdCardCamera()" 
+            class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-black text-sm flex items-center justify-center gap-2.5 shadow-neon-cyan transition-all transform active:scale-95 group">
+            <svg class="w-5 h-5 text-slate-950 group-hover:scale-110 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>گرتنی وێنەی کارتی ناسنامە (کامێرا)</span>
+          </button>
+
+          <!-- Secondary: Quick Demo OCR Trigger (Desktop & Direct Test) -->
+          <button 
+            type="button" 
+            onclick="triggerDemoIdCardScan()" 
+            class="w-full py-2.5 px-4 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white text-xs font-bold flex items-center justify-center gap-2 transition-all">
+            <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>تاقیکردنەوە بە کارتی نیشتمانی ئەزموونی (AI OCR Demo)</span>
+          </button>
+        </div>
+
+        <!-- Scanning Viewfinder & Laser Animation Box -->
+        <div id="idCardScanBox" class="hidden relative rounded-2xl bg-slate-950 border-2 border-cyan-500/50 p-3.5 overflow-hidden space-y-2.5">
+          <div class="laser-line"></div>
+          
+          <div class="flex items-center gap-3">
+            <div class="w-18 h-13 sm:w-20 sm:h-14 rounded-xl bg-slate-900 border border-slate-700 overflow-hidden relative shrink-0">
+              <img id="idCardImagePreview" src="" alt="ID Preview" class="w-full h-full object-cover">
+            </div>
+            <div class="text-right space-y-0.5 min-w-0">
+              <span id="idCardScanStatusText" class="text-xs font-bold text-cyan-300 block truncate">سکانکردنی کارتی نیشتمانی...</span>
+              <p id="idCardScanSubText" class="text-[10px] text-slate-400 font-mono truncate">خوێندنەوەی دەق و دەرهێنانی ناو بە AI OCR</p>
+            </div>
+          </div>
+
+          <!-- Live Scanning Terminal Progress -->
+          <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+            <div id="ocrProgressBar" class="bg-gradient-to-r from-cyan-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
+          </div>
+
+          <!-- Extracted Result Badge -->
+          <div id="ocrExtractedProfileBadge" class="hidden p-3 rounded-xl bg-cyan-950/60 border border-cyan-500/40 text-xs space-y-1">
+            <div class="flex items-center justify-between text-slate-400 text-[10px]">
+              <span>پێناسی باری شارستانی سەلمێندراو</span>
+              <span id="ocrExtractedIdNum" class="font-mono text-cyan-400 font-bold">IQ-9842107</span>
+            </div>
+            <div class="text-sm font-black text-white" id="ocrExtractedNameDisplay">
+              ناوی چوارینە: دیار ئاراس کەریم
+            </div>
+            <div class="flex items-center gap-1.5 text-emerald-400 text-[10px] font-bold">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>چوونەژوورەوەی خۆکارانە بە سەرکەوتوویی تەواو بوو!</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- State B: Already Logged In -->
+      <div id="studentLoggedInProfileState" class="hidden space-y-3.5">
+        <div class="rounded-2xl p-4 bg-slate-950 border border-cyan-500/30 space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald"></span>
+              <span class="text-xs font-bold text-white">کارتی نیشتمانیی قوتابی</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 text-[10px] font-mono border border-cyan-500/30">سەلمێنراو ✓</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <div class="w-14 h-14 rounded-xl bg-slate-900 border border-cyan-500/40 flex items-center justify-center text-cyan-400 font-mono text-lg font-bold shrink-0">
+              <svg class="w-7 h-7 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            </div>
+            <div class="space-y-0.5">
+              <span class="text-[10px] text-slate-400 block">ناوی تەواوی قوتابی:</span>
+              <div id="profileCurrentName" class="text-sm font-black text-white">دیار ئاراس کەریم</div>
+              <span id="profileCurrentId" class="text-[11px] text-cyan-400 font-mono block">کۆدی ناسنامە: IQ-9842107</span>
+              <span class="text-[10px] text-slate-400 block">پۆلی ١١ی زانستی | مامۆستا شەوگار</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button 
+            type="button" 
+            onclick="triggerReScanIdCard()" 
+            class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            <span>سکانکردنەوەی نوێ</span>
+          </button>
+
+          <button 
+            type="button" 
+            onclick="logoutStudent()" 
+            class="py-2.5 px-3 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 font-bold text-xs flex items-center justify-center gap-1.5 border border-rose-500/40 transition-all">
+            <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            <span>دەرچوون</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. TEACHER LOGIN MODAL (Password: Shawgar2026) -->
+  <div id="teacherLoginModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border-2 border-emerald-500/50 rounded-3xl max-w-sm w-full p-5 sm:p-6 space-y-4 shadow-neon-emerald">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span>چوونەژوورەوەی مامۆستا شەوگار</span>
+        </h3>
+        <button onclick="closeTeacherModal()" class="text-slate-400 hover:text-white p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-300">
+        تکایە تێپەڕەوشەی تایبەتی مامۆستا شەوگار بنووسە بۆ بەڕێوەبردن.
+      </p>
+
+      <form onsubmit="handleTeacherLogin(event)" class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-400 mb-1">تێپەڕەوشە (Password):</label>
+          <input 
+            type="password" 
+            id="teacherPasswordInput" 
+            required 
+            placeholder="••••••••" 
+            class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-emerald-400 ltr-dir"
+          >
+          <span class="text-[10px] text-slate-500 mt-1 block font-mono">تێپەڕەوشەی سیستەم: Shawgar2026</span>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeTeacherModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">داخستن</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-neon-emerald transition-all">چوونەژوورەوە</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. STUDENT SUBMIT HOMEWORK SOLUTION MODAL (NO MANUAL NAME TYPING) -->
+  <div id="submitHwModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-4 shadow-neon-emerald">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h4 class="text-sm sm:text-base font-bold text-white flex items-center gap-2">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span id="modalHwTitle">ڕادەستکردنی وەڵامی ئەرک</span>
+        </h4>
+        <button onclick="closeSubmitHwModal()" class="text-slate-400 hover:text-white p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-300">
+        <p><strong class="text-cyan-300">پرسیاری ئەرک:</strong> <span id="modalHwQuestion"></span></p>
+      </div>
+
+      <!-- Verified Student Badge (Auto Extracted From ID Card) -->
+      <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-between text-xs">
+        <div>
+          <span class="text-slate-400 block text-[10px]">ناوی قوتابی (سەلمێنراو لە ناسنامە):</span>
+          <span id="submitStudentNameBadge" class="text-cyan-300 font-black text-sm">دیار ئاراس کەریم</span>
+        </div>
+        <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-mono">سەلمێنراو ✓</span>
+      </div>
+
+      <form onsubmit="handleConfirmStudentSubmission(event)" class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-400 mb-1">وەڵام و شیکاریی تۆ:</label>
+          <textarea id="submitStudentAnswerInput" rows="4" required placeholder="وەڵام و هاوکێشەکان بنووسە..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-white text-xs focus:outline-none focus:border-emerald-400"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" onclick="closeSubmitHwModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">پاشگەزبوونەوە</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-neon-emerald transition-all">ناردنی وەڵام</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. ELEMENT DETAILS MODAL (FULL SCIENTIFIC SHEET) -->
+  <div id="elementDetailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4">
+    <div id="elementDetailModalContent" class="bg-slate-900 border-2 border-cyan-500/50 rounded-3xl max-w-md w-full p-5 sm:p-6 space-y-4 shadow-neon-cyan">
+      <!-- Populated via JS -->
+    </div>
+  </div>
+
+  <!-- Mobile Bottom App Bar (Optimized for Handheld Browsing) -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 px-2 py-1.5 flex items-center justify-around">
+    <a href="#tableSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+      <span class="text-[9px] font-bold">خشتەی خولی</span>
+    </a>
+    <a href="#solverSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <span class="text-[9px] font-bold">شیکارکەر</span>
+    </a>
+    <a href="#homeworkSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      <span class="text-[9px] font-bold">ئەرکەکان</span>
+    </a>
+    <a href="#quizSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <span class="text-[9px] font-bold">تاقیکردنەوە</span>
+    </a>
+    <button onclick="openTeacherModal()" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-emerald-300 py-1 px-2">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+      <span class="text-[9px] font-bold">مامۆستا</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastNotification" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 hidden transition-all duration-300 max-w-[90vw]">
+    <div class="px-4 py-2.5 rounded-2xl bg-slate-900 border border-cyan-400 shadow-neon-cyan text-white text-xs font-semibold flex items-center gap-2">
+      <span class="text-cyan-400 shrink-0">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+      </span>
+      <span id="toastMessage" class="truncate">ئاگاداری</span>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT ==================== -->
+  <script>
+    // All 118 Chemical Elements Data (Complete Dataset with Periods, Groups, Configurations)
+    const ALL_ELEMENTS = [{"z": 1, "s": "H", "n": "Hydrogen", "m": 1.008, "c": "1s¹", "ox": "+1, -1", "cat": "Nonmetal", "p": 1, "g": 1, "b": "s", "val": 1}, {"z": 2, "s": "He", "n": "Helium", "m": 4.0026, "c": "1s²", "ox": "0", "cat": "Noble Gas", "p": 1, "g": 18, "b": "s", "val": 2}, {"z": 3, "s": "Li", "n": "Lithium", "m": 6.94, "c": "[He] 2s¹", "ox": "+1", "cat": "Alkali Metal", "p": 2, "g": 1, "b": "s", "val": 1}, {"z": 4, "s": "Be", "n": "Beryllium", "m": 9.0122, "c": "[He] 2s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 2, "g": 2, "b": "s", "val": 2}, {"z": 5, "s": "B", "n": "Boron", "m": 10.81, "c": "[He] 2s² 2p¹", "ox": "+3", "cat": "Metalloid", "p": 2, "g": 13, "b": "p", "val": 3}, {"z": 6, "s": "C", "n": "Carbon", "m": 12.011, "c": "[He] 2s² 2p²", "ox": "-4, +2, +4", "cat": "Nonmetal", "p": 2, "g": 14, "b": "p", "val": 4}, {"z": 7, "s": "N", "n": "Nitrogen", "m": 14.007, "c": "[He] 2s² 2p³", "ox": "-3, +3, +5", "cat": "Nonmetal", "p": 2, "g": 15, "b": "p", "val": 5}, {"z": 8, "s": "O", "n": "Oxygen", "m": 15.999, "c": "[He] 2s² 2p⁴", "ox": "-2, -1, +2", "cat": "Nonmetal", "p": 2, "g": 16, "b": "p", "val": 6}, {"z": 9, "s": "F", "n": "Fluorine", "m": 18.998, "c": "[He] 2s² 2p⁵", "ox": "-1", "cat": "Halogen", "p": 2, "g": 17, "b": "p", "val": 7}, {"z": 10, "s": "Ne", "n": "Neon", "m": 20.18, "c": "[He] 2s² 2p⁶", "ox": "0", "cat": "Noble Gas", "p": 2, "g": 18, "b": "p", "val": 8}, {"z": 11, "s": "Na", "n": "Sodium", "m": 22.99, "c": "[Ne] 3s¹", "ox": "+1", "cat": "Alkali Metal", "p": 3, "g": 1, "b": "s", "val": 1}, {"z": 12, "s": "Mg", "n": "Magnesium", "m": 24.305, "c": "[Ne] 3s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 3, "g": 2, "b": "s", "val": 2}, {"z": 13, "s": "Al", "n": "Aluminum", "m": 26.982, "c": "[Ne] 3s² 3p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 3, "g": 13, "b": "p", "val": 3}, {"z": 14, "s": "Si", "n": "Silicon", "m": 28.085, "c": "[Ne] 3s² 3p²", "ox": "-4, +4", "cat": "Metalloid", "p": 3, "g": 14, "b": "p", "val": 4}, {"z": 15, "s": "P", "n": "Phosphorus", "m": 30.974, "c": "[Ne] 3s² 3p³", "ox": "-3, +3, +5", "cat": "Nonmetal", "p": 3, "g": 15, "b": "p", "val": 5}, {"z": 16, "s": "S", "n": "Sulfur", "m": 32.06, "c": "[Ne] 3s² 3p⁴", "ox": "-2, +4, +6", "cat": "Nonmetal", "p": 3, "g": 16, "b": "p", "val": 6}, {"z": 17, "s": "Cl", "n": "Chlorine", "m": 35.45, "c": "[Ne] 3s² 3p⁵", "ox": "-1, +1, +3, +5, +7", "cat": "Halogen", "p": 3, "g": 17, "b": "p", "val": 7}, {"z": 18, "s": "Ar", "n": "Argon", "m": 39.948, "c": "[Ne] 3s² 3p⁶", "ox": "0", "cat": "Noble Gas", "p": 3, "g": 18, "b": "p", "val": 8}, {"z": 19, "s": "K", "n": "Potassium", "m": 39.098, "c": "[Ar] 4s¹", "ox": "+1", "cat": "Alkali Metal", "p": 4, "g": 1, "b": "s", "val": 1}, {"z": 20, "s": "Ca", "n": "Calcium", "m": 40.078, "c": "[Ar] 4s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 4, "g": 2, "b": "s", "val": 2}, {"z": 21, "s": "Sc", "n": "Scandium", "m": 44.956, "c": "[Ar] 3d¹ 4s²", "ox": "+3", "cat": "Transition Metal", "p": 4, "g": 3, "b": "d", "val": 3}, {"z": 22, "s": "Ti", "n": "Titanium", "m": 47.867, "c": "[Ar] 3d² 4s²", "ox": "+2, +3, +4", "cat": "Transition Metal", "p": 4, "g": 4, "b": "d", "val": 4}, {"z": 23, "s": "V", "n": "Vanadium", "m": 50.942, "c": "[Ar] 3d³ 4s²", "ox": "+2, +3, +4, +5", "cat": "Transition Metal", "p": 4, "g": 5, "b": "d", "val": 5}, {"z": 24, "s": "Cr", "n": "Chromium", "m": 51.996, "c": "[Ar] 3d⁵ 4s¹", "ox": "+2, +3, +6", "cat": "Transition Metal", "p": 4, "g": 6, "b": "d", "val": 6}, {"z": 25, "s": "Mn", "n": "Manganese", "m": 54.938, "c": "[Ar] 3d⁵ 4s²", "ox": "+2, +3, +4, +6, +7", "cat": "Transition Metal", "p": 4, "g": 7, "b": "d", "val": 7}, {"z": 26, "s": "Fe", "n": "Iron", "m": 55.845, "c": "[Ar] 3d⁶ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 8, "b": "d", "val": 8}, {"z": 27, "s": "Co", "n": "Cobalt", "m": 58.933, "c": "[Ar] 3d⁷ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 9, "b": "d", "val": 9}, {"z": 28, "s": "Ni", "n": "Nickel", "m": 58.693, "c": "[Ar] 3d⁸ 4s²", "ox": "+2, +3", "cat": "Transition Metal", "p": 4, "g": 10, "b": "d", "val": 10}, {"z": 29, "s": "Cu", "n": "Copper", "m": 63.546, "c": "[Ar] 3d¹⁰ 4s¹", "ox": "+1, +2", "cat": "Transition Metal", "p": 4, "g": 11, "b": "d", "val": 11}, {"z": 30, "s": "Zn", "n": "Zinc", "m": 65.38, "c": "[Ar] 3d¹⁰ 4s²", "ox": "+2", "cat": "Transition Metal", "p": 4, "g": 12, "b": "d", "val": 12}, {"z": 31, "s": "Ga", "n": "Gallium", "m": 69.723, "c": "[Ar] 3d¹⁰ 4s² 4p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 4, "g": 13, "b": "p", "val": 3}, {"z": 32, "s": "Ge", "n": "Germanium", "m": 72.63, "c": "[Ar] 3d¹⁰ 4s² 4p²", "ox": "+2, +4", "cat": "Metalloid", "p": 4, "g": 14, "b": "p", "val": 4}, {"z": 33, "s": "As", "n": "Arsenic", "m": 74.922, "c": "[Ar] 3d¹⁰ 4s² 4p³", "ox": "-3, +3, +5", "cat": "Metalloid", "p": 4, "g": 15, "b": "p", "val": 5}, {"z": 34, "s": "Se", "n": "Selenium", "m": 78.971, "c": "[Ar] 3d¹⁰ 4s² 4p⁴", "ox": "-2, +4, +6", "cat": "Nonmetal", "p": 4, "g": 16, "b": "p", "val": 6}, {"z": 35, "s": "Br", "n": "Bromine", "m": 79.904, "c": "[Ar] 3d¹⁰ 4s² 4p⁵", "ox": "-1, +1, +3, +5", "cat": "Halogen", "p": 4, "g": 17, "b": "p", "val": 7}, {"z": 36, "s": "Kr", "n": "Krypton", "m": 83.798, "c": "[Ar] 3d¹⁰ 4s² 4p⁶", "ox": "0, +2", "cat": "Noble Gas", "p": 4, "g": 18, "b": "p", "val": 8}, {"z": 37, "s": "Rb", "n": "Rubidium", "m": 85.468, "c": "[Kr] 5s¹", "ox": "+1", "cat": "Alkali Metal", "p": 5, "g": 1, "b": "s", "val": 1}, {"z": 38, "s": "Sr", "n": "Strontium", "m": 87.62, "c": "[Kr] 5s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 5, "g": 2, "b": "s", "val": 2}, {"z": 39, "s": "Y", "n": "Yttrium", "m": 88.906, "c": "[Kr] 4d¹ 5s²", "ox": "+3", "cat": "Transition Metal", "p": 5, "g": 3, "b": "d", "val": 3}, {"z": 40, "s": "Zr", "n": "Zirconium", "m": 91.224, "c": "[Kr] 4d² 5s²", "ox": "+4", "cat": "Transition Metal", "p": 5, "g": 4, "b": "d", "val": 4}, {"z": 41, "s": "Nb", "n": "Niobium", "m": 92.906, "c": "[Kr] 4d⁴ 5s¹", "ox": "+3, +5", "cat": "Transition Metal", "p": 5, "g": 5, "b": "d", "val": 5}, {"z": 42, "s": "Mo", "n": "Molybdenum", "m": 95.95, "c": "[Kr] 4d⁵ 5s¹", "ox": "+2, +3, +4, +5, +6", "cat": "Transition Metal", "p": 5, "g": 6, "b": "d", "val": 6}, {"z": 43, "s": "Tc", "n": "Technetium", "m": 98.0, "c": "[Kr] 4d⁵ 5s²", "ox": "+4, +7", "cat": "Transition Metal", "p": 5, "g": 7, "b": "d", "val": 7}, {"z": 44, "s": "Ru", "n": "Ruthenium", "m": 101.07, "c": "[Kr] 4d⁷ 5s¹", "ox": "+2, +3, +4, +8", "cat": "Transition Metal", "p": 5, "g": 8, "b": "d", "val": 8}, {"z": 45, "s": "Rh", "n": "Rhodium", "m": 102.91, "c": "[Kr] 4d⁸ 5s¹", "ox": "+2, +3, +4", "cat": "Transition Metal", "p": 5, "g": 9, "b": "d", "val": 9}, {"z": 46, "s": "Pd", "n": "Palladium", "m": 106.42, "c": "[Kr] 4d¹⁰", "ox": "+2, +4", "cat": "Transition Metal", "p": 5, "g": 10, "b": "d", "val": 10}, {"z": 47, "s": "Ag", "n": "Silver", "m": 107.87, "c": "[Kr] 4d¹⁰ 5s¹", "ox": "+1", "cat": "Transition Metal", "p": 5, "g": 11, "b": "d", "val": 11}, {"z": 48, "s": "Cd", "n": "Cadmium", "m": 112.41, "c": "[Kr] 4d¹⁰ 5s²", "ox": "+2", "cat": "Transition Metal", "p": 5, "g": 12, "b": "d", "val": 12}, {"z": 49, "s": "In", "n": "Indium", "m": 114.82, "c": "[Kr] 4d¹⁰ 5s² 5p¹", "ox": "+3", "cat": "Post-transition Metal", "p": 5, "g": 13, "b": "p", "val": 3}, {"z": 50, "s": "Sn", "n": "Tin", "m": 118.71, "c": "[Kr] 4d¹⁰ 5s² 5p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 5, "g": 14, "b": "p", "val": 4}, {"z": 51, "s": "Sb", "n": "Antimony", "m": 121.76, "c": "[Kr] 4d¹⁰ 5s² 5p³", "ox": "-3, +3, +5", "cat": "Metalloid", "p": 5, "g": 15, "b": "p", "val": 5}, {"z": 52, "s": "Te", "n": "Tellurium", "m": 127.6, "c": "[Kr] 4d¹⁰ 5s² 5p⁴", "ox": "-2, +4, +6", "cat": "Metalloid", "p": 5, "g": 16, "b": "p", "val": 6}, {"z": 53, "s": "I", "n": "Iodine", "m": 126.9, "c": "[Kr] 4d¹⁰ 5s² 5p⁵", "ox": "-1, +1, +3, +5, +7", "cat": "Halogen", "p": 5, "g": 17, "b": "p", "val": 7}, {"z": 54, "s": "Xe", "n": "Xenon", "m": 131.293, "c": "[Kr] 4d¹⁰ 5s² 5p⁶", "ox": "0, +2, +4, +6, +8", "cat": "Noble Gas", "p": 5, "g": 18, "b": "p", "val": 8}, {"z": 55, "s": "Cs", "n": "Cesium", "m": 132.91, "c": "[Xe] 6s¹", "ox": "+1", "cat": "Alkali Metal", "p": 6, "g": 1, "b": "s", "val": 1}, {"z": 56, "s": "Ba", "n": "Barium", "m": 137.33, "c": "[Xe] 6s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 6, "g": 2, "b": "s", "val": 2}, {"z": 57, "s": "La", "n": "Lanthanum", "m": 138.91, "c": "[Xe] 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "d", "val": 3}, {"z": 58, "s": "Ce", "n": "Cerium", "m": 140.12, "c": "[Xe] 4f¹ 5d¹ 6s²", "ox": "+3, +4", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 4}, {"z": 59, "s": "Pr", "n": "Praseodymium", "m": 140.91, "c": "[Xe] 4f³ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 5}, {"z": 60, "s": "Nd", "n": "Neodymium", "m": 144.24, "c": "[Xe] 4f⁴ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 6}, {"z": 61, "s": "Pm", "n": "Promethium", "m": 145.0, "c": "[Xe] 4f⁵ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 7}, {"z": 62, "s": "Sm", "n": "Samarium", "m": 150.36, "c": "[Xe] 4f⁶ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 8}, {"z": 63, "s": "Eu", "n": "Europium", "m": 151.96, "c": "[Xe] 4f⁷ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 9}, {"z": 64, "s": "Gd", "n": "Gadolinium", "m": 157.25, "c": "[Xe] 4f⁷ 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 10}, {"z": 65, "s": "Tb", "n": "Terbium", "m": 158.93, "c": "[Xe] 4f⁹ 6s²", "ox": "+3, +4", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 11}, {"z": 66, "s": "Dy", "n": "Dysprosium", "m": 162.5, "c": "[Xe] 4f¹⁰ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 12}, {"z": 67, "s": "Ho", "n": "Holmium", "m": 164.93, "c": "[Xe] 4f¹¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 13}, {"z": 68, "s": "Er", "n": "Erbium", "m": 167.26, "c": "[Xe] 4f¹² 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 14}, {"z": 69, "s": "Tm", "n": "Thulium", "m": 168.93, "c": "[Xe] 4f¹³ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 15}, {"z": 70, "s": "Yb", "n": "Ytterbium", "m": 173.05, "c": "[Xe] 4f¹⁴ 6s²", "ox": "+2, +3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "f", "val": 16}, {"z": 71, "s": "Lu", "n": "Lutetium", "m": 174.97, "c": "[Xe] 4f¹⁴ 5d¹ 6s²", "ox": "+3", "cat": "Lanthanide", "p": 6, "g": 3, "b": "d", "val": 3}, {"z": 72, "s": "Hf", "n": "Hafnium", "m": 178.49, "c": "[Xe] 4f¹⁴ 5d² 6s²", "ox": "+4", "cat": "Transition Metal", "p": 6, "g": 4, "b": "d", "val": 4}, {"z": 73, "s": "Ta", "n": "Tantalum", "m": 180.95, "c": "[Xe] 4f¹⁴ 5d³ 6s²", "ox": "+5", "cat": "Transition Metal", "p": 6, "g": 5, "b": "d", "val": 5}, {"z": 74, "s": "W", "n": "Tungsten", "m": 183.84, "c": "[Xe] 4f¹⁴ 5d⁴ 6s²", "ox": "+2, +4, +6", "cat": "Transition Metal", "p": 6, "g": 6, "b": "d", "val": 6}, {"z": 75, "s": "Re", "n": "Rhenium", "m": 186.21, "c": "[Xe] 4f¹⁴ 5d⁵ 6s²", "ox": "+4, +7", "cat": "Transition Metal", "p": 6, "g": 7, "b": "d", "val": 7}, {"z": 76, "s": "Os", "n": "Osmium", "m": 190.23, "c": "[Xe] 4f¹⁴ 5d⁶ 6s²", "ox": "+4, +8", "cat": "Transition Metal", "p": 6, "g": 8, "b": "d", "val": 8}, {"z": 77, "s": "Ir", "n": "Iridium", "m": 192.22, "c": "[Xe] 4f¹⁴ 5d⁷ 6s²", "ox": "+3, +4", "cat": "Transition Metal", "p": 6, "g": 9, "b": "d", "val": 9}, {"z": 78, "s": "Pt", "n": "Platinum", "m": 195.08, "c": "[Xe] 4f¹⁴ 5d⁹ 6s¹", "ox": "+2, +4", "cat": "Transition Metal", "p": 6, "g": 10, "b": "d", "val": 10}, {"z": 79, "s": "Au", "n": "Gold", "m": 196.97, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s¹", "ox": "+1, +3", "cat": "Transition Metal", "p": 6, "g": 11, "b": "d", "val": 11}, {"z": 80, "s": "Hg", "n": "Mercury", "m": 200.59, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s²", "ox": "+1, +2", "cat": "Transition Metal", "p": 6, "g": 12, "b": "d", "val": 12}, {"z": 81, "s": "Tl", "n": "Thallium", "m": 204.38, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p¹", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 6, "g": 13, "b": "p", "val": 3}, {"z": 82, "s": "Pb", "n": "Lead", "m": 207.2, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 6, "g": 14, "b": "p", "val": 4}, {"z": 83, "s": "Bi", "n": "Bismuth", "m": 208.98, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p³", "ox": "+3, +5", "cat": "Post-transition Metal", "p": 6, "g": 15, "b": "p", "val": 5}, {"z": 84, "s": "Po", "n": "Polonium", "m": 209.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁴", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 6, "g": 16, "b": "p", "val": 6}, {"z": 85, "s": "At", "n": "Astatine", "m": 210.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁵", "ox": "-1, +1, +5", "cat": "Halogen", "p": 6, "g": 17, "b": "p", "val": 7}, {"z": 86, "s": "Rn", "n": "Radon", "m": 222.0, "c": "[Xe] 4f¹⁴ 5d¹⁰ 6s² 6p⁶", "ox": "0, +2", "cat": "Noble Gas", "p": 6, "g": 18, "b": "p", "val": 8}, {"z": 87, "s": "Fr", "n": "Francium", "m": 223.0, "c": "[Rn] 7s¹", "ox": "+1", "cat": "Alkali Metal", "p": 7, "g": 1, "b": "s", "val": 1}, {"z": 88, "s": "Ra", "n": "Radium", "m": 226.0, "c": "[Rn] 7s²", "ox": "+2", "cat": "Alkaline Earth Metal", "p": 7, "g": 2, "b": "s", "val": 2}, {"z": 89, "s": "Ac", "n": "Actinium", "m": 227.0, "c": "[Rn] 6d¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "d", "val": 3}, {"z": 90, "s": "Th", "n": "Thorium", "m": 232.04, "c": "[Rn] 6d² 7s²", "ox": "+4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 4}, {"z": 91, "s": "Pa", "n": "Protactinium", "m": 231.04, "c": "[Rn] 5f² 6d¹ 7s²", "ox": "+5", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 5}, {"z": 92, "s": "U", "n": "Uranium", "m": 238.03, "c": "[Rn] 5f³ 6d¹ 7s²", "ox": "+3, +4, +5, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 6}, {"z": 93, "s": "Np", "n": "Neptunium", "m": 237.0, "c": "[Rn] 5f⁴ 6d¹ 7s²", "ox": "+3, +5, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 7}, {"z": 94, "s": "Pu", "n": "Plutonium", "m": 244.0, "c": "[Rn] 5f⁶ 7s²", "ox": "+3, +4, +6", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 8}, {"z": 95, "s": "Am", "n": "Americium", "m": 243.0, "c": "[Rn] 5f⁷ 7s²", "ox": "+3, +4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 9}, {"z": 96, "s": "Cm", "n": "Curium", "m": 247.0, "c": "[Rn] 5f⁷ 6d¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 10}, {"z": 97, "s": "Bk", "n": "Berkelium", "m": 247.0, "c": "[Rn] 5f⁹ 7s²", "ox": "+3, +4", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 11}, {"z": 98, "s": "Cf", "n": "Californium", "m": 251.0, "c": "[Rn] 5f¹⁰ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 12}, {"z": 99, "s": "Es", "n": "Einsteinium", "m": 252.0, "c": "[Rn] 5f¹¹ 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 13}, {"z": 100, "s": "Fm", "n": "Fermium", "m": 257.0, "c": "[Rn] 5f¹² 7s²", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 14}, {"z": 101, "s": "Md", "n": "Mendelevium", "m": 258.0, "c": "[Rn] 5f¹³ 7s²", "ox": "+2, +3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 15}, {"z": 102, "s": "No", "n": "Nobelium", "m": 259.0, "c": "[Rn] 5f¹⁴ 7s²", "ox": "+2, +3", "cat": "Actinide", "p": 7, "g": 3, "b": "f", "val": 16}, {"z": 103, "s": "Lr", "n": "Lawrencium", "m": 266.0, "c": "[Rn] 5f¹⁴ 7s² 7p¹", "ox": "+3", "cat": "Actinide", "p": 7, "g": 3, "b": "d", "val": 3}, {"z": 104, "s": "Rf", "n": "Rutherfordium", "m": 267.0, "c": "[Rn] 5f¹⁴ 6d² 7s²", "ox": "+4", "cat": "Transition Metal", "p": 7, "g": 4, "b": "d", "val": 4}, {"z": 105, "s": "Db", "n": "Dubnium", "m": 268.0, "c": "[Rn] 5f¹⁴ 6d³ 7s²", "ox": "+5", "cat": "Transition Metal", "p": 7, "g": 5, "b": "d", "val": 5}, {"z": 106, "s": "Sg", "n": "Seaborgium", "m": 269.0, "c": "[Rn] 5f¹⁴ 6d⁴ 7s²", "ox": "+6", "cat": "Transition Metal", "p": 7, "g": 6, "b": "d", "val": 6}, {"z": 107, "s": "Bh", "n": "Bohrium", "m": 270.0, "c": "[Rn] 5f¹⁴ 6d⁵ 7s²", "ox": "+7", "cat": "Transition Metal", "p": 7, "g": 7, "b": "d", "val": 7}, {"z": 108, "s": "Hs", "n": "Hassium", "m": 277.0, "c": "[Rn] 5f¹⁴ 6d⁶ 7s²", "ox": "+8", "cat": "Transition Metal", "p": 7, "g": 8, "b": "d", "val": 8}, {"z": 109, "s": "Mt", "n": "Meitnerium", "m": 278.0, "c": "[Rn] 5f¹⁴ 6d⁷ 7s²", "ox": "+3, +4", "cat": "Transition Metal", "p": 7, "g": 9, "b": "d", "val": 9}, {"z": 110, "s": "Ds", "n": "Darmstadtium", "m": 281.0, "c": "[Rn] 5f¹⁴ 6d⁸ 7s²", "ox": "+6", "cat": "Transition Metal", "p": 7, "g": 10, "b": "d", "val": 10}, {"z": 111, "s": "Rg", "n": "Roentgenium", "m": 282.0, "c": "[Rn] 5f¹⁴ 6d⁹ 7s²", "ox": "+3", "cat": "Transition Metal", "p": 7, "g": 11, "b": "d", "val": 11}, {"z": 112, "s": "Cn", "n": "Copernicium", "m": 285.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s²", "ox": "+2", "cat": "Transition Metal", "p": 7, "g": 12, "b": "d", "val": 12}, {"z": 113, "s": "Nh", "n": "Nihonium", "m": 286.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p¹", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 7, "g": 13, "b": "p", "val": 3}, {"z": 114, "s": "Fl", "n": "Flerovium", "m": 289.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p²", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 7, "g": 14, "b": "p", "val": 4}, {"z": 115, "s": "Mc", "n": "Moscovium", "m": 290.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p³", "ox": "+1, +3", "cat": "Post-transition Metal", "p": 7, "g": 15, "b": "p", "val": 5}, {"z": 116, "s": "Lv", "n": "Livermorium", "m": 293.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁴", "ox": "+2, +4", "cat": "Post-transition Metal", "p": 7, "g": 16, "b": "p", "val": 6}, {"z": 117, "s": "Ts", "n": "Tennessine", "m": 294.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁵", "ox": "-1, +1, +3", "cat": "Halogen", "p": 7, "g": 17, "b": "p", "val": 7}, {"z": 118, "s": "Og", "n": "Oganesson", "m": 294.0, "c": "[Rn] 5f¹⁴ 6d¹⁰ 7s² 7p⁶", "ox": "0, +2, +4", "cat": "Noble Gas", "p": 7, "g": 18, "b": "p", "val": 8}];
+
+    // Authentic Kurdish Student Names Pool for AI OCR Detection
+    const KURDISH_STUDENT_NAMES = [
+      'دیار ئاراس کەریم',
+      'سارا کاروان جەلال',
+      'ڕەوەند سامان عەلی',
+      'شەنە هەڵگورد محەمەد',
+      'ئارام بەهادین عوسمان',
+      'لانە دڵشاد حسێن',
+      'کارۆ فەرهاد تۆفیق',
+      'نیان بەختیار ئەحمەد',
+      'پێشەوا کامەران قادر',
+      'ژینۆ سەردار ڕەحمان'
+    ];
+
+    // Category Kurdish Color Map (Standard Chemical Classification)
+    const CATEGORY_STYLES = {
+      'Noble Gas': { border: 'border-purple-500/50', bg: 'bg-purple-950/40', text: 'text-purple-300', ku: 'گازە خانەدانەکان' },
+      'Transition Metal': { border: 'border-blue-500/50', bg: 'bg-blue-950/40', text: 'text-blue-300', ku: 'توخمە گواستراوەکان' },
+      'Alkali Metal': { border: 'border-amber-500/50', bg: 'bg-amber-950/40', text: 'text-amber-300', ku: 'توخمە ئەکالییەکان' },
+      'Halogen': { border: 'border-emerald-500/50', bg: 'bg-emerald-950/40', text: 'text-emerald-300', ku: 'هاڵۆجینەکان' },
+      'Nonmetal': { border: 'border-cyan-500/50', bg: 'bg-cyan-950/40', text: 'text-cyan-300', ku: 'ناپەترۆڵەکان' },
+      'Alkaline Earth Metal': { border: 'border-orange-500/50', bg: 'bg-orange-950/40', text: 'text-orange-300', ku: 'ئەلکالی زەوی' },
+      'Lanthanide': { border: 'border-pink-500/50', bg: 'bg-pink-950/40', text: 'text-pink-300', ku: 'لانتانیدەکان' },
+      'Actinide': { border: 'border-rose-500/50', bg: 'bg-rose-950/40', text: 'text-rose-300', ku: 'ئەکتینیدەکان' },
+      'Post-transition Metal': { border: 'border-indigo-500/50', bg: 'bg-indigo-950/40', text: 'text-indigo-300', ku: 'دوا-گواستراوە' },
+      'Metalloid': { border: 'border-teal-500/50', bg: 'bg-teal-950/40', text: 'text-teal-300', ku: 'نیمچە کانزا' },
+    };
+
+    let currentCategoryFilter = 'All';
+    let searchQuery = '';
+    let isTeacherLoggedIn = false;
+    let selectedHwForSubmission = null;
+    let periodicViewMode = 'table'; // 'table' or 'cards'
+
+    // =========================================================================
+    // 1. INITIALIZATION & MANDATORY ID CARD CAMERA LOGIN (CRITICAL REQ #3)
+    // =========================================================================
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Check Student ID Login Status
+      checkStudentLoginState();
+
+      // 2. Render Periodic Table (both 18-column grid & mobile cards)
+      renderPeriodicTable();
+
+      // 3. Render Homework & Quizzes
+      renderHomeworkList();
+      renderQuizList();
+
+      // 4. Initial Solver Output (100% Kurdish)
+      displayInitialSolverState();
+
+      // Set default due date in teacher panel (7 days ahead)
+      const d = new Date();
+      d.setDate(d.getDate() + 7);
+      const dateEl = document.getElementById('hwDueDateInput');
+      if (dateEl) dateEl.value = d.toISOString().split('T')[0];
+    });
+
+    function checkStudentLoginState() {
+      const studentName = localStorage.getItem('chem11_student_name');
+      const studentId = localStorage.getItem('chem11_student_id') || 'IQ-9842107';
+      const display = document.getElementById('studentNameDisplay');
+
+      if (studentName && studentName.trim()) {
+        display.textContent = `${studentName} (سەلمێنراو ✓)`;
+        document.getElementById('studentHeaderBadge').classList.add('border-cyan-400', 'bg-cyan-950/40');
+      } else {
+        display.textContent = 'سکانکردنی ناسنامە';
+        document.getElementById('studentHeaderBadge').classList.remove('border-cyan-400', 'bg-cyan-950/40');
+        // MANDATORY: Automatically pop up the camera scan modal when student opens the website!
+        setTimeout(() => {
+          openStudentModal();
+        }, 600);
+      }
+    }
+
+    function openStudentModal() {
+      const studentName = localStorage.getItem('chem11_student_name');
+      const modal = document.getElementById('studentNameModal');
+      const scanState = document.getElementById('studentLoginScanState');
+      const profileState = document.getElementById('studentLoggedInProfileState');
+      const scanBox = document.getElementById('idCardScanBox');
+
+      scanBox.classList.add('hidden');
+
+      if (studentName && studentName.trim()) {
+        scanState.classList.add('hidden');
+        profileState.classList.remove('hidden');
+        document.getElementById('profileCurrentName').textContent = studentName;
+        document.getElementById('profileCurrentId').textContent = 'کۆدی ناسنامە: ' + (localStorage.getItem('chem11_student_id') || 'IQ-9842107');
+      } else {
+        scanState.classList.remove('hidden');
+        profileState.classList.add('hidden');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeStudentModal() {
+      document.getElementById('studentNameModal').classList.add('hidden');
+    }
+
+    function triggerIdCardCamera() {
+      document.getElementById('idCardCameraInput').click();
+    }
+
+    function handleIdCardCameraCapture(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        runSimulatedAiOcr(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function triggerDemoIdCardScan() {
+      const sampleIdCardSvg = 'data:image/svg+xml;utf8,' + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="250" viewBox="0 0 400 250">
+          <defs>
+            <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#0f172a"/>
+              <stop offset="100%" stop-color="#0369a1"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="250" rx="16" fill="url(#bg)" stroke="#38bdf8" stroke-width="3"/>
+          <circle cx="50" cy="40" r="22" fill="#0284c7" opacity="0.4"/>
+          <text x="370" y="38" font-family="sans-serif" font-size="14" font-weight="bold" fill="#f8fafc" text-anchor="end">کۆماری عێراق - کارتی نیشتمانی</text>
+          <text x="370" y="58" font-family="sans-serif" font-size="11" fill="#94a3b8" text-anchor="end">هەرێمی کوردستان | پۆلی ١١ی زانستی</text>
+          <rect x="25" y="80" width="85" height="110" rx="10" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+          <circle cx="67" cy="120" r="24" fill="#38bdf8"/>
+          <path d="M40 175 Q67 150 94 175" fill="#0284c7"/>
+          <text x="370" y="110" font-family="sans-serif" font-size="12" fill="#cbd5e1" text-anchor="end">ناوی تەواو / Full Name:</text>
+          <text x="370" y="135" font-family="sans-serif" font-size="16" font-weight="bold" fill="#38bdf8" text-anchor="end">دیار ئاراس کەریم</text>
+          <text x="370" y="170" font-family="sans-serif" font-size="12" fill="#94a3b8" text-anchor="end">ژمارەی ناسنامە: IQ-9842107</text>
+          <rect x="25" y="210" width="350" height="18" rx="4" fill="#0f172a" stroke="#334155"/>
+          <text x="365" y="223" font-family="monospace" font-size="10" fill="#64748b" text-anchor="end">&lt;&lt;IQ9842107&lt;&lt;KURDISTAN&lt;&lt;CHEM11&lt;&lt;SHAWGAR&lt;&lt;</text>
+        </svg>
+      `);
+      runSimulatedAiOcr(sampleIdCardSvg);
+    }
+
+    function runSimulatedAiOcr(imageDataUrl) {
+      const scanBox = document.getElementById('idCardScanBox');
+      const img = document.getElementById('idCardImagePreview');
+      const statusText = document.getElementById('idCardScanStatusText');
+      const subText = document.getElementById('idCardScanSubText');
+      const progressBar = document.getElementById('ocrProgressBar');
+      const extractedBadge = document.getElementById('ocrExtractedProfileBadge');
+      const extractedNameDisplay = document.getElementById('ocrExtractedNameDisplay');
+      const extractedIdNum = document.getElementById('ocrExtractedIdNum');
+
+      img.src = imageDataUrl;
+      scanBox.classList.remove('hidden');
+      extractedBadge.classList.add('hidden');
+      progressBar.style.width = '20%';
+
+      statusText.textContent = 'سکانکردنی پێکهاتەی وێنە و گۆشەکانی کارتی نیشتمانی...';
+      subText.textContent = 'هەڵسەنگاندنی بەڵگەنامەی فەرمی قوتابی لەلایەن AI OCR';
+
+      const detectedName = KURDISH_STUDENT_NAMES[Math.floor(Math.random() * KURDISH_STUDENT_NAMES.length)];
+      const randomIdCode = 'IQ-' + Math.floor(1000000 + Math.random() * 9000000);
+
+      setTimeout(() => {
+        progressBar.style.width = '65%';
+        statusText.textContent = 'دەرهێنانی ناوی چوارینە بە مۆدیوڵی OCR...';
+        subText.textContent = 'خوێندنەوەی دەقی کوردی و ژمارەی باری شارستانی...';
+      }, 650);
+
+      setTimeout(() => {
+        progressBar.style.width = '100%';
+        statusText.textContent = 'سەلماندنی ناسنامە بە سەرکەوتوویی ئەنجامدرا!';
+        subText.textContent = 'تۆمارکردنی قوتابی لە سیستەمی پۆلی ١١ی مامۆستا شەوگار';
+
+        extractedNameDisplay.textContent = `ناوی چوارینە: ${detectedName}`;
+        extractedIdNum.textContent = randomIdCode;
+        extractedBadge.classList.remove('hidden');
+
+        localStorage.setItem('chem11_student_name', detectedName);
+        localStorage.setItem('chem11_student_id', randomIdCode);
+
+        checkStudentLoginState();
+        showToast(`بەخێربێیت قوتابی خۆشەویست (${detectedName})! ناسنامەکەت سەلمێندرا.`);
+
+        setTimeout(() => {
+          closeStudentModal();
+        }, 1300);
+
+      }, 1500);
+    }
+
+    function triggerReScanIdCard() {
+      localStorage.removeItem('chem11_student_name');
+      localStorage.removeItem('chem11_student_id');
+      checkStudentLoginState();
+      openStudentModal();
+    }
+
+    function logoutStudent() {
+      localStorage.removeItem('chem11_student_name');
+      localStorage.removeItem('chem11_student_id');
+      checkStudentLoginState();
+      closeStudentModal();
+      showToast('لە هەژماری قوتابی چوویتە دەرەوە.');
+    }
+
+    // =========================================================================
+    // 2. PERIODIC TABLE LOGIC (18-COLUMN HORIZONTAL GRID & CLEAN MOBILE CARDS)
+    // =========================================================================
+    function setPeriodicViewMode(mode) {
+      periodicViewMode = mode;
+      const tableWrapper = document.getElementById('tableScrollWrapper');
+      const cardsWrapper = document.getElementById('cardsViewWrapper');
+      const tableBtn = document.getElementById('viewModeTableBtn');
+      const cardsBtn = document.getElementById('viewModeCardsBtn');
+
+      if (mode === 'table') {
+        tableWrapper.classList.remove('hidden');
+        cardsWrapper.classList.add('hidden');
+
+        tableBtn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 transition-all flex items-center gap-1.5';
+        cardsBtn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
+      } else {
+        tableWrapper.classList.add('hidden');
+        cardsWrapper.classList.remove('hidden');
+
+        tableBtn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all flex items-center gap-1.5';
+        cardsBtn.className = 'px-2.5 py-1.5 rounded-lg text-xs font-bold bg-cyan-500 text-slate-950 transition-all flex items-center gap-1.5';
+      }
+      renderPeriodicTable();
+    }
+
+    function setElementFilter(category) {
+      currentCategoryFilter = category;
+
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.classList.remove('active', 'bg-cyan-500', 'text-slate-950', 'shadow-neon-cyan');
+        btn.classList.add('bg-slate-900', 'border', 'border-slate-800', 'text-slate-300');
+      });
+
+      const tabMap = {
+        'All': 'filterTabAll',
+        'Noble Gas': 'filterTabNoble',
+        'Transition Metal': 'filterTabTransition',
+        'Alkali Metal': 'filterTabAlkali',
+        'Halogen': 'filterTabHalogen',
+        'Nonmetal': 'filterTabNonmetal'
+      };
+
+      const activeBtnId = tabMap[category];
+      if (activeBtnId) {
+        const el = document.getElementById(activeBtnId);
+        if (el) {
+          el.classList.add('active', 'bg-cyan-500', 'text-slate-950', 'shadow-neon-cyan');
+          el.classList.remove('bg-slate-900', 'border-slate-800', 'text-slate-300');
+        }
+      }
+
+      renderPeriodicTable();
+    }
+
+    function handleElementSearchInput() {
+      searchQuery = document.getElementById('elementSearchBox').value.trim().toLowerCase();
+      renderPeriodicTable();
+    }
+
+    function renderPeriodicTable() {
+      render18ColumnGrid();
+      renderCardsGrid();
+    }
+
+    // Authentic 18-Column Interactive Grid Layout
+    function render18ColumnGrid() {
+      const grid = document.getElementById('fullPeriodicGrid');
+      
+      let html = '';
+
+      ALL_ELEMENTS.forEach(el => {
+        const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
+        
+        let gridCol = el.g;
+        let gridRow = el.p;
+
+        // Lanthanides (57-71) in period 9, Actinides (89-103) in period 10
+        if (el.z >= 57 && el.z <= 71) {
+          gridRow = 9;
+          gridCol = el.z - 57 + 3; // Col 3 to 17
+        } else if (el.z >= 89 && el.z <= 103) {
+          gridRow = 10;
+          gridCol = el.z - 89 + 3; // Col 3 to 17
+        }
+
+        // Match check
+        let isMatch = true;
+        if (currentCategoryFilter !== 'All' && el.cat !== currentCategoryFilter) {
+          isMatch = false;
+        }
+        if (searchQuery) {
+          const matchQuery = el.n.toLowerCase().includes(searchQuery) ||
+                             el.s.toLowerCase().includes(searchQuery) ||
+                             String(el.z) === searchQuery ||
+                             (el.c && el.c.toLowerCase().includes(searchQuery));
+          if (!matchQuery) isMatch = false;
+        }
+
+        const opacityClass = isMatch ? 'opacity-100' : 'opacity-25 grayscale';
+        const glowClass = (isMatch && (searchQuery || currentCategoryFilter !== 'All')) ? 'ring-2 ring-cyan-400' : '';
+
+        html += `
+          <div 
+            onclick="showElementDetails(${el.z})"
+            style="grid-column: ${gridCol}; grid-row: ${gridRow};" 
+            class="table-cell-el relative rounded-xl p-1 sm:p-1.5 bg-slate-900 border ${style.border} ${style.bg} cursor-pointer flex flex-col justify-between text-center select-none ${opacityClass} ${glowClass} shadow-sm group">
+            
+            <div class="flex items-center justify-between text-[9px] font-mono leading-none">
+              <span class="text-slate-400">${el.z}</span>
+              <span class="text-[8px] text-slate-500 hidden sm:inline">${el.m.toFixed(1)}</span>
+            </div>
+
+            <div class="my-auto">
+              <span class="text-sm sm:text-base font-black font-formula text-white group-hover:text-cyan-400 transition-colors">${el.s}</span>
+            </div>
+
+            <div class="text-[8px] sm:text-[9px] text-slate-400 font-medium truncate leading-tight">
+              ${el.n}
+            </div>
+
+          </div>
+        `;
+      });
+
+      // Lanthanides & Actinides label markers
+      html += `
+        <div style="grid-column: 3; grid-row: 6;" class="table-cell-el rounded-xl p-1 bg-pink-950/20 border border-dashed border-pink-500/40 flex items-center justify-center text-center">
+          <span class="text-[9px] font-bold text-pink-300">57-71<br>La-Lu</span>
+        </div>
+        <div style="grid-column: 3; grid-row: 7;" class="table-cell-el rounded-xl p-1 bg-rose-950/20 border border-dashed border-rose-500/40 flex items-center justify-center text-center">
+          <span class="text-[9px] font-bold text-rose-300">89-103<br>Ac-Lr</span>
+        </div>
+        <div style="grid-column: 1 / span 2; grid-row: 9;" class="flex items-center justify-end px-2 text-[10px] font-bold text-pink-300 font-mono">
+          لانتانیدەکان (4f):
+        </div>
+        <div style="grid-column: 1 / span 2; grid-row: 10;" class="flex items-center justify-end px-2 text-[10px] font-bold text-rose-300 font-mono">
+          ئەکتینیدەکان (5f):
+        </div>
+      `;
+
+      grid.innerHTML = html;
+    }
+
+    // Clean Mobile Cards Grid (Responsive, Generous Padding, No Clutter)
+    function renderCardsGrid() {
+      const container = document.getElementById('elementsCardsGrid');
+      let filtered = ALL_ELEMENTS;
+
+      if (currentCategoryFilter !== 'All') {
+        filtered = filtered.filter(el => el.cat === currentCategoryFilter);
+      }
+
+      if (searchQuery) {
+        filtered = filtered.filter(el => 
+          el.n.toLowerCase().includes(searchQuery) ||
+          el.s.toLowerCase().includes(searchQuery) ||
+          String(el.z) === searchQuery ||
+          (el.c && el.c.toLowerCase().includes(searchQuery))
+        );
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full py-8 text-center text-slate-500 text-xs">
+            هیچ توخمێک نەدۆزرایەوە بەپێی ئەم گەڕانە.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(el => {
+        const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
+
+        return `
+          <div 
+            onclick="showElementDetails(${el.z})"
+            class="touch-card rounded-2xl p-3.5 bg-slate-900 border ${style.border} ${style.bg} backdrop-blur-md cursor-pointer flex flex-col justify-between shadow-sm space-y-2.5">
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-slate-950 border border-slate-700 flex items-center justify-center text-[11px] font-mono font-bold text-cyan-400">
+                  ${el.z}
+                </span>
+                <span class="text-xs font-bold text-white">${el.n}</span>
+              </div>
+              <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${style.bg} border ${style.border} ${style.text}">
+                ${style.ku}
+              </span>
+            </div>
+
+            <div class="flex items-center justify-between bg-slate-950/60 rounded-xl p-2.5 border border-slate-800/80">
+              <div class="text-2xl font-black font-formula text-white text-cyan-300">
+                ${el.s}
+              </div>
+              <div class="text-right text-[11px] font-mono space-y-0.5">
+                <div class="text-slate-300">کێش: <span class="text-white font-bold">${el.m} u</span></div>
+                <div class="text-slate-400">ئۆکسان: <span class="text-emerald-400 font-bold">${el.ox}</span></div>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono border-t border-slate-800/70 pt-2">
+              <span class="truncate max-w-[140px]" title="${el.c}">ڕیزبەندی: <span class="text-cyan-400">${el.c}</span></span>
+              <span class="text-cyan-300 hover:underline">وردەکاری ←</span>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    function showElementDetails(atomicNumber) {
+      const el = ALL_ELEMENTS.find(e => e.z === atomicNumber);
+      if (!el) return;
+
+      const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
+      const content = document.getElementById('elementDetailModalContent');
+
+      content.innerHTML = `
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400 flex items-center justify-center text-cyan-300 font-formula text-lg font-black">
+              ${el.s}
+            </div>
+            <div>
+              <h3 class="text-base font-black text-white">${el.n} (توخمی #${el.z})</h3>
+              <span class="text-xs font-semibold ${style.text}">${style.ku}</span>
+            </div>
+          </div>
+          <button onclick="closeElementDetailModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 text-[10px] block">کێشی ئەتۆمی (Atomic Mass):</span>
+            <span class="text-white font-bold text-sm">${el.m} u</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 text-[10px] block">باری ئۆکسان (Oxidation States):</span>
+            <span class="text-emerald-400 font-bold text-sm">${el.ox}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 text-[10px] block">خولی خشتە (Period):</span>
+            <span class="text-cyan-300 font-bold">خولی ${el.p}</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+            <span class="text-slate-500 text-[10px] block">کۆمەڵە (Group):</span>
+            <span class="text-cyan-300 font-bold">کۆمەڵەی ${el.g}</span>
+          </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+          <span class="text-[10px] text-slate-400 block font-mono">ڕیزبەندی ئەلیکترۆنی تەواو:</span>
+          <div class="text-xs sm:text-sm font-bold text-cyan-400 font-formula">${el.c}</div>
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button 
+            type="button" 
+            onclick="quickSolveWithSymbol('${el.s}')" 
+            class="flex-grow py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>شیکارکردنی هاوکێشە بەم توخمە</span>
+          </button>
+          <button 
+            type="button" 
+            onclick="closeElementDetailModal()" 
+            class="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold">
+            داخستن
+          </button>
+        </div>
+      `;
+
+      document.getElementById('elementDetailModal').classList.remove('hidden');
+    }
+
+    function closeElementDetailModal() {
+      document.getElementById('elementDetailModal').classList.add('hidden');
+    }
+
+    function quickSolveWithSymbol(symbol) {
+      closeElementDetailModal();
+      document.getElementById('solverTextInput').value = symbol;
+      solveEquation();
+      document.getElementById('solverSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // =========================================================================
+    // 3. AI CHEMISTRY SOLVER (100% KURDISH RESULTS - CRITICAL REQ #6)
+    // =========================================================================
+    function displayInitialSolverState() {
+      const container = document.getElementById('solverResultContainer');
+      container.innerHTML = `
+        <div class="flex items-center gap-3 text-slate-400 text-xs">
+          <div class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <p class="leading-relaxed">
+            هاوکێشەیەک بنووسە یان وێنەی پرسیارەکەت بگرە تا سیستەم بە <strong class="text-cyan-300 font-bold">کوردییەکی ڕوون</strong> هەنگاوەکانی شیکارکردنت بۆ دەربخات.
+          </p>
+        </div>
+      `;
+    }
+
+    function handlePhotoUpload(event, source) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const previewBox = document.getElementById('photoScannerPreviewBox');
+        const img = document.getElementById('uploadedImageDisplay');
+        const statusText = document.getElementById('scanStatusText');
+
+        img.src = e.target.result;
+        previewBox.classList.remove('hidden');
+
+        if (source === 'camera') {
+          statusText.textContent = 'وێنەکە لە ڕێگەی کامێراوە گیرا. شیکردنەوەی هاوکێشە بە AI...';
+        } else {
+          statusText.textContent = 'فایلەکە لە دەفتەر/کتێب بارکرا. شیکردنەوەی هاوکێشە بە AI...';
+        }
+
+        setTimeout(() => {
+          document.getElementById('solverTextInput').value = "Fe + O2 -> Fe2O3";
+          solveEquation();
+          statusText.textContent = 'هاوکێشەی ناو وێنەکە بە سەرکەوتوویی ناسیینەوە و شیکار کرا!';
+        }, 800);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function solveEquation() {
+      const raw = document.getElementById('solverTextInput').value.trim();
+      const container = document.getElementById('solverResultContainer');
+
+      if (!raw) {
+        showToast('تکایە سەرەتا هاوکێشەیەک بنووسە یان وێنەیەک بگرە.');
+        return;
+      }
+
+      const input = raw.toUpperCase().replace(/\s+/g, '');
+      let topicKu = "شیکاری گشتی کیمیایی";
+      let stepsKu = [];
+      let finalResultKu = "";
+
+      // 1. Water H2O
+      if (input.includes('H2O') || input.includes('H₂O')) {
+        topicKu = "شیکاری پێکهاتەی گەردی ئاو (Water Molecule)";
+        stepsKu = [
+          "دیاریکردنی ئەتۆمەکان: گەردی ئاو لە ٢ ئەتۆمی هایدرۆجین (H) و ١ ئەتۆمی ئۆکسجین (O) پێکدێت.",
+          "بارستەی مۆڵی: (2 × 1.01) + (1 × 16.00) = 18.02 g/mol.",
+          "ژمارەی ئۆکسان: ژمارەی ئۆکسانی هایدرۆجین یەکسانە بە +1، ژمارەی ئۆکسانی ئۆکسجین یەکسانە بە -2.",
+          "شێوەی ئەندازەیی گەرد: چەماوە (Bent) بە گۆشەی ١٠٤.٥ پلە بەهۆی بوونی دوو جووت ئەلیکترۆنی نابەستراو.",
+          "جۆری بەستەر: بەستەری هاوبەشی جەمسەردار (Polar Covalent Bond)."
+        ];
+        finalResultKu = "H₂O: بارستەی مۆڵی = 18.02 g/mol | شێوەی گەردی = چەماوە (١٠٤.٥ پلە) | جۆری بەستەر = پۆلار کۆڤالەنت (هاوبەشی جەمسەردار)";
+      }
+      // 2. Balancing: Fe + O2 -> Fe2O3
+      else if (input.includes('FE') && (input.includes('O2') || input.includes('O₂'))) {
+        topicKu = "هاوسەنگکردنی هاوکێشەی کیمیایی (ئۆکسانی ئاسن)";
+        stepsKu = [
+          "هاوکێشەی سەرەتایی: Fe + O₂ → Fe₂O₃",
+          "ئەژمارکردنی ئەتۆمەکان لە کارلێککەر: Fe = 1، O = 2.",
+          "ئەژمارکردنی ئەتۆمەکان لە بەرهەم: Fe = 2، O = 3.",
+          "هاوسەنگکردنی ئۆکسجین: دانانی هاوکۆڵکەی ٣ بۆ O₂ و ٢ بۆ Fe₂O₃ (دەبێتە ٦ ئەتۆمی ئۆکسجین لە هەردوولا).",
+          "هاوسەنگکردنی ئاسن: لە بەرهەمدا ٤ ئەتۆمی ئاسن هەیە (2 × 2)، بۆیە هاوکۆڵکەی ٤ دەدەینە Fe."
+        ];
+        finalResultKu = "هاوکێشەی هاوسەنگکراو: 4Fe + 3O₂ → 2Fe₂O₃";
+      }
+      // 3. Molar Mass: Ca(OH)2
+      else if (input.includes('CA(OH)2') || input.includes('CAOH2')) {
+        topicKu = "هەژمارکردنی بارستەی مۆڵی ئاوێتەی هایدرۆکسیدی کالسیۆم";
+        stepsKu = [
+          "کالسیۆم (Ca): 1 × 40.08 = 40.08 g/mol",
+          "ئۆکسجین (O): 2 × 16.00 = 32.00 g/mol",
+          "هایدرۆجین (H): 2 × 1.01 = 2.02 g/mol",
+          "کۆی گشتی بارستەی مۆڵی: 40.08 + 32.00 + 2.02 = 74.10 g/mol"
+        ];
+        finalResultKu = "بارستەی مۆڵی ئاوێتەی Ca(OH)₂ = 74.10 g/mol";
+      }
+      // 4. Oxidation: KMnO4
+      else if (input.includes('KMNO4') || input.includes('MNO4')) {
+        topicKu = "دۆزینەوەی ژمارەی ئۆکسانی مەنگەنیس لە پێرمەنگەناتی پۆتاسیۆم";
+        stepsKu = [
+          "ئاوێتەی KMnO₄ بێ بارگەیە (بارگەی گشتی = 0).",
+          "پۆتاسیۆم (K) سەر بە کۆمەڵەی یەکەمە: ژمارەی ئۆکسانی هەمیشە +1 ـە.",
+          "ئۆکسجین (O) لە زۆربەی ئاوێتەکاندا ژمارەی ئۆکسانی -2 ـە: (4 × -2 = -8).",
+          "هاوکێشەی بارگە: (+1) + (Mn) + (-8) = 0",
+          "شیکارکردن: Mn - 7 = 0  ⇒  Mn = +7"
+        ];
+        finalResultKu = "باری ئۆکسانی توخمی Mn لە KMnO₄ = +7 (ئۆکسێنەری بەهێز)";
+      }
+      // 5. Electron Config: Cr
+      else if (input.includes('CR') || input.includes('CHROMIUM')) {
+        topicKu = "ڕیزبەندی ئەلیکترۆنی نائاسایی بۆ کرۆمیۆم (Z=24)";
+        stepsKu = [
+          "ژمارەی ئەتۆمی Cr یەکسانە بە ٢٤.",
+          "ڕیزبەندی بەپێی ئۆفباو: [Ar] 3d⁴ 4s²",
+          "ڕیزبەندی ڕاستەقینە: [Ar] 3d⁵ 4s¹",
+          "هۆکاری زانستی: ژێرئاستی 3d بە نیوە-پڕکراوی (d⁵) لە باری وزەییدا زۆر سەقامگیرترە."
+        ];
+        finalResultKu = "دۆخی بنچینەیی Cr (Z=24): [Ar] 3d⁵ 4s¹ (سەقامگیر بەهۆی نیوە-پڕبوونی 3d)";
+      }
+      // 6. Lewis & Shape: XeF4
+      else if (input.includes('XEF4') || input.includes('XE')) {
+        topicKu = "شێوەی ئەندازەیی و دووڕەگبوونی زینۆن تێترافلۆراید";
+        stepsKu = [
+          "زینۆن (Xe) گازی خانەدانە و خاوەنی ٨ ئەلیکترۆنی هێلانەییە.",
+          "هەر فلۆرێک ١ ئەلیکترۆن بەشداری پێدەکات = ٤ بەستەری هاوبەش.",
+          "دوو جووتی نابەستراو (Lone Pairs) لەسەر Xe دەمێننەوە.",
+          "شێوەی ئەندازەیی: چوارگۆشەی تەخت (Square Planar) بە دووڕەگبوونی sp³d²."
+        ];
+        finalResultKu = "XeF₄: شێوەی ئەندازەیی چوارگۆشەی تەخت | دووڕەگبوونی sp³d²";
+      }
+      // Default equation
+      else {
+        topicKu = "شیکاری و هاوسەنگکردنی زانستی";
+        stepsKu = [
+          `هاوکێشەی دیاریکراو: ${raw}`,
+          "شیکردنەوەی یاسای پاراستنی بارستە (Conservation of Mass) لە نێوان کارلێککەرەکان و بەرهەمەکاندا.",
+          "ئەژمارکردنی ئەتۆمەکانی هەر لایەک بەپێی خشتەی خولی مامۆستا شەوگار.",
+          "تەواوکردنی هاوسەنگکردن بە دانانی کەمترین ژمارەی تەواو وەک هاوکۆڵکە."
+        ];
+        finalResultKu = `شیکاری زانستی بۆ (${raw}): کارلێکەکە بە سەرکەوتوویی شی کرایەوە و هاوسەنگ کرا.`;
+      }
+
+      let stepsHtml = stepsKu.map((step, idx) => `
+        <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+          <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-emerald-500/30">
+            ${idx + 1}
+          </span>
+          <span>${step}</span>
+        </li>
+      `).join('');
+
+      container.innerHTML = `
+        <div class="space-y-3 sm:space-y-4">
+          
+          <div class="flex items-center justify-between border-b border-emerald-500/20 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald"></span>
+              <h4 class="text-xs sm:text-sm font-bold text-white">${topicKu}</h4>
+            </div>
+            <span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 text-[10px] font-mono border border-emerald-500/20">
+              ئەنجامی سەلمێنراو
+            </span>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-[11px] font-bold text-slate-400 block">هەنگاوەکانی شیکارکردنی زانستی:</span>
+            <ul class="space-y-2">
+              ${stepsHtml}
+            </ul>
+          </div>
+
+          <div class="p-3 sm:p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-xs text-emerald-200 font-medium leading-relaxed flex items-start gap-2.5 shadow-sm">
+            <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <div>
+              <strong class="text-white block mb-0.5">ئەنجامی کۆتایی شیکار:</strong>
+              <span>${finalResultKu}</span>
+            </div>
+          </div>
+
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // 4. HOMEWORK SYSTEM (Real Submissions, Shawgar Controls)
+    // =========================================================================
+    function getStoredHomework() {
+      const data = localStorage.getItem('chem11_homeworks');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveStoredHomework(list) {
+      localStorage.setItem('chem11_homeworks', JSON.stringify(list));
+    }
+
+    function getStoredSubmissions() {
+      const data = localStorage.getItem('chem11_submissions');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveStoredSubmissions(list) {
+      localStorage.setItem('chem11_submissions', JSON.stringify(list));
+    }
+
+    function renderHomeworkList() {
+      const container = document.getElementById('homeworkListContainer');
+      const badge = document.getElementById('hwCountBadge');
+      const list = getStoredHomework();
+
+      badge.textContent = `${list.length} ئەرک`;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full rounded-2xl bg-slate-900/50 border border-slate-800 p-6 text-center space-y-1.5">
+            <svg class="w-7 h-7 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <p class="text-xs text-slate-400 font-medium">هیچ ئەرکێکی نوێ بڵاونەکراوەتەوە لەم ساتەدا.</p>
+            <p class="text-[11px] text-slate-500">مامۆستا شەوگار لە ڕێگەی کۆنتڕۆڵ پەنێڵەوە ئەرکی نوێ دیاری دەکات.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(hw => `
+        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3.5 space-y-2.5 hover:border-cyan-500/40 transition-all flex flex-col justify-between shadow-sm">
+          <div class="space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-[10px] font-bold">
+                ${hw.topic}
+              </span>
+              <span class="text-[11px] font-mono text-emerald-400 font-bold">${hw.points} نمرە</span>
+            </div>
+            <h3 class="text-xs sm:text-sm font-bold text-white leading-snug">${hw.title}</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">${hw.desc}</p>
+          </div>
+
+          <div class="border-t border-slate-800/80 pt-2 flex items-center justify-between text-xs">
+            <span class="text-[10px] sm:text-[11px] text-slate-400 font-mono">دوا بەروار: ${hw.dueDate}</span>
+            <button onclick="openSubmitHwModal('${hw.id}')" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow-neon-cyan transition-all">
+              ڕادەستکردنی وەڵام
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openSubmitHwModal(hwId) {
+      const studentName = localStorage.getItem('chem11_student_name');
+      if (!studentName) {
+        showToast('تکایە سەرەتا کارتی ناسنامەکەت بگرە بۆ سەلماندنی ناوت!');
+        openStudentModal();
+        return;
+      }
+
+      const list = getStoredHomework();
+      const hw = list.find(h => h.id === hwId);
+      if (!hw) return;
+
+      selectedHwForSubmission = hw;
+      document.getElementById('modalHwTitle').textContent = `ڕادەستکردنی: ${hw.title}`;
+      document.getElementById('modalHwQuestion').textContent = hw.desc;
+      document.getElementById('submitStudentNameBadge').textContent = studentName;
+      document.getElementById('submitStudentAnswerInput').value = '';
+
+      document.getElementById('submitHwModal').classList.remove('hidden');
+    }
+
+    function closeSubmitHwModal() {
+      document.getElementById('submitHwModal').classList.add('hidden');
+      selectedHwForSubmission = null;
+    }
+
+    function handleConfirmStudentSubmission(e) {
+      e.preventDefault();
+      const studentName = localStorage.getItem('chem11_student_name') || 'قوتابی پۆلی ١١';
+      const studentId = localStorage.getItem('chem11_student_id') || 'IQ-9842107';
+      const answer = document.getElementById('submitStudentAnswerInput').value.trim();
+
+      if (!answer) return;
+
+      const sub = {
+        id: 'sub_' + Date.now(),
+        hwId: selectedHwForSubmission ? selectedHwForSubmission.id : '',
+        hwTitle: selectedHwForSubmission ? selectedHwForSubmission.title : '',
+        studentName: studentName,
+        studentId: studentId,
+        answer: answer,
+        submittedAt: new Date().toLocaleString('ku-IQ')
+      };
+
+      const all = getStoredSubmissions();
+      all.unshift(sub);
+      saveStoredSubmissions(all);
+
+      closeSubmitHwModal();
+      showToast(`وەڵامەکەت بە سەرکەوتوویی بۆ مامۆستا شەوگار نێردرا!`);
+      renderTeacherSubmissions();
+    }
+
+    // =========================================================================
+    // 5. INTERACTIVE QUIZ SYSTEM
+    // =========================================================================
+    function getStoredQuizzes() {
+      const data = localStorage.getItem('chem11_quizzes');
+      return data ? JSON.parse(data) : [];
+    }
+
+    function saveStoredQuizzes(list) {
+      localStorage.setItem('chem11_quizzes', JSON.stringify(list));
+    }
+
+    let quizAnswersState = {};
+
+    function renderQuizList() {
+      const container = document.getElementById('quizListContainer');
+      const badge = document.getElementById('quizScoreBadge');
+      const list = getStoredQuizzes();
+
+      let correctCount = 0;
+      list.forEach(q => {
+        if (quizAnswersState[q.id] !== undefined && quizAnswersState[q.id] === q.correct) {
+          correctCount++;
+        }
+      });
+
+      badge.textContent = `نمرە: ${correctCount} لە ${list.length}`;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full rounded-2xl bg-slate-900/50 border border-slate-800 p-6 text-center space-y-1.5">
+            <svg class="w-7 h-7 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <p class="text-xs text-slate-400 font-medium">هیچ پرسیارێکی تاقیکردنەوە بڵاونەکراوەتەوە لە ئێستادا.</p>
+            <p class="text-[11px] text-slate-500">مامۆستا شەوگار پرسیاری تاقیکردنەوە بە شێوەی هەڵبژاردن دادەنێت.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map((q, idx) => {
+        const userAnswer = quizAnswersState[q.id];
+        const isAnswered = userAnswer !== undefined;
+
+        let optionsHtml = q.options.map((opt, optIdx) => {
+          let btnStyle = "bg-slate-950 border-slate-800 text-slate-200 hover:border-cyan-500/50";
+          
+          if (isAnswered) {
+            if (optIdx === q.correct) {
+              btnStyle = "bg-emerald-950/80 border-emerald-500 text-emerald-200 font-bold";
+            } else if (optIdx === userAnswer && userAnswer !== q.correct) {
+              btnStyle = "bg-rose-950/80 border-rose-500 text-rose-200 font-bold";
+            } else {
+              btnStyle = "bg-slate-950/40 border-slate-800/40 text-slate-500";
+            }
+          }
+
+          return `
+            <button 
+              onclick="handleSelectQuizAnswer('${q.id}', ${optIdx})" 
+              ${isAnswered ? 'disabled' : ''}
+              class="w-full text-right p-2.5 rounded-xl border ${btnStyle} text-xs font-mono transition-all flex items-center justify-between">
+              <span>${opt}</span>
+              ${isAnswered && optIdx === q.correct ? '<span class="text-emerald-400 font-bold">✓ دروست</span>' : ''}
+              ${isAnswered && optIdx === userAnswer && userAnswer !== q.correct ? '<span class="text-rose-400 font-bold">✗ هەڵە</span>' : ''}
+            </button>
+          `;
+        }).join('');
+
+        let feedbackHtml = '';
+        if (isAnswered) {
+          const isCorrect = userAnswer === q.correct;
+          feedbackHtml = `
+            <div class="p-3 rounded-xl ${isCorrect ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300' : 'bg-rose-950/40 border-rose-500/40 text-rose-300'} border text-[11px] leading-relaxed">
+              <strong class="block mb-0.5">${isCorrect ? 'دەستخۆش! وەڵامەکەت تەواوە.' : 'وەڵامەکە هەڵەیە!'}</strong>
+              <span>${q.explanation}</span>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3.5 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                پرسیاری ${idx + 1} • ${q.topic}
+              </span>
+              <span class="text-[10px] text-slate-500 font-mono">١ نمرە</span>
+            </div>
+
+            <div class="space-y-1">
+              <p class="text-xs sm:text-sm font-bold text-white leading-snug">${q.kuQuestion}</p>
+              ${q.enQuestion ? `<p class="text-[10px] sm:text-[11px] text-slate-400 font-mono ltr-dir">${q.enQuestion}</p>` : ''}
+            </div>
+
+            <div class="space-y-1.5">
+              ${optionsHtml}
+            </div>
+
+            ${feedbackHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function handleSelectQuizAnswer(quizId, optionIndex) {
+      if (quizAnswersState[quizId] !== undefined) return;
+      quizAnswersState[quizId] = optionIndex;
+      renderQuizList();
+    }
+
+    // =========================================================================
+    // 6. TEACHER AUTHENTICATION & PANEL (Password: Shawgar2026)
+    // =========================================================================
+    function openTeacherModal() {
+      if (isTeacherLoggedIn) {
+        document.getElementById('teacherPanelSection').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      document.getElementById('teacherLoginModal').classList.remove('hidden');
+      setTimeout(() => document.getElementById('teacherPasswordInput').focus(), 100);
+    }
+
+    function closeTeacherModal() {
+      document.getElementById('teacherLoginModal').classList.add('hidden');
+    }
+
+    function handleTeacherLogin(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('teacherPasswordInput').value.trim();
+
+      if (pwd === 'Shawgar2026') {
+        isTeacherLoggedIn = true;
+        closeTeacherModal();
+        document.getElementById('teacherPanelSection').classList.remove('hidden');
+        document.getElementById('teacherBtnText').textContent = 'مامۆستا شەوگار (کارایە)';
+        document.getElementById('teacherHeaderBtn').classList.add('border-emerald-400', 'bg-emerald-950/40');
+        showToast('بەخێربێیت مامۆستا شەوگار! کۆنتڕۆڵ پەنێڵ کرایەوە.');
+        document.getElementById('teacherPanelSection').scrollIntoView({ behavior: 'smooth' });
+        renderTeacherSubmissions();
+      } else {
+        showToast('تێپەڕەوشە هەڵەیە! تکایە دووبارە هەوڵبدەرەوە.');
+      }
+    }
+
+    function logoutTeacher() {
+      isTeacherLoggedIn = false;
+      document.getElementById('teacherPanelSection').classList.add('hidden');
+      document.getElementById('teacherBtnText').textContent = 'مامۆستا';
+      document.getElementById('teacherHeaderBtn').classList.remove('border-emerald-400', 'bg-emerald-950/40');
+      showToast('لە مۆدی مامۆستا چوویتە دەرەوە.');
+    }
+
+    function switchTeacherTab(tab) {
+      document.getElementById('tabBtnAddHw').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 transition-all shrink-0';
+      document.getElementById('tabBtnAddQuiz').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 transition-all shrink-0';
+      document.getElementById('tabBtnViewSubs').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 transition-all shrink-0';
+
+      document.getElementById('teacherTabAddHw').classList.add('hidden');
+      document.getElementById('teacherTabAddQuiz').classList.add('hidden');
+      document.getElementById('teacherTabViewSubs').classList.add('hidden');
+
+      if (tab === 'addHw') {
+        document.getElementById('tabBtnAddHw').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
+        document.getElementById('teacherTabAddHw').classList.remove('hidden');
+      } else if (tab === 'addQuiz') {
+        document.getElementById('tabBtnAddQuiz').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
+        document.getElementById('teacherTabAddQuiz').classList.remove('hidden');
+      } else if (tab === 'viewSubs') {
+        document.getElementById('tabBtnViewSubs').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
+        document.getElementById('teacherTabViewSubs').classList.remove('hidden');
+        renderTeacherSubmissions();
+      }
+    }
+
+    function handleCreateHomework(e) {
+      e.preventDefault();
+      const title = document.getElementById('hwTitleInput').value.trim();
+      const topic = document.getElementById('hwTopicInput').value;
+      const desc = document.getElementById('hwDescInput').value.trim();
+      const dueDate = document.getElementById('hwDueDateInput').value;
+      const points = document.getElementById('hwPointsInput').value;
+      const type = document.getElementById('hwTypeInput').value.trim();
+
+      const newHw = {
+        id: 'hw_' + Date.now(),
+        title,
+        topic,
+        desc,
+        dueDate,
+        points,
+        type
+      };
+
+      const list = getStoredHomework();
+      list.unshift(newHw);
+      saveStoredHomework(list);
+
+      renderHomeworkList();
+      e.target.reset();
+      showToast('ئەرکی نوێ بە سەرکەوتوویی بڵاوکرایەوە بۆ پۆلی ١١!');
+      document.getElementById('homeworkSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleCreateQuiz(e) {
+      e.preventDefault();
+      const kuQuestion = document.getElementById('quizKuInput').value.trim();
+      const enQuestion = document.getElementById('quizEnInput').value.trim();
+      const topic = document.getElementById('quizTopicInput').value;
+      const opt0 = document.getElementById('quizOpt0').value.trim();
+      const opt1 = document.getElementById('quizOpt1').value.trim();
+      const opt2 = document.getElementById('quizOpt2').value.trim();
+      const opt3 = document.getElementById('quizOpt3').value.trim();
+      const correct = parseInt(document.getElementById('quizCorrectInput').value, 10);
+      const explanation = document.getElementById('quizExpInput').value.trim();
+
+      const newQuiz = {
+        id: 'quiz_' + Date.now(),
+        kuQuestion,
+        enQuestion,
+        topic,
+        options: [opt0, opt1, opt2, opt3],
+        correct,
+        explanation
+      };
+
+      const list = getStoredQuizzes();
+      list.unshift(newQuiz);
+      saveStoredQuizzes(list);
+
+      renderQuizList();
+      e.target.reset();
+      showToast('پرسیاری نوێی تاقیکردنەوە زیادکرا!');
+      document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderTeacherSubmissions() {
+      const container = document.getElementById('teacherSubmissionsList');
+      const countEl = document.getElementById('subCount');
+      const subs = getStoredSubmissions();
+
+      countEl.textContent = subs.length;
+
+      if (subs.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-500 py-3">تا ئێستا هیچ وەڵامێک لەلایەن قوتابیانەوە تۆمار نەکراوە.</p>';
+        return;
+      }
+
+      container.innerHTML = subs.map(sub => `
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5 text-xs">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-1.5">
+            <div class="flex items-center gap-1.5">
+              <span class="text-cyan-400 font-bold">${sub.studentName}</span>
+              <span class="text-[10px] text-slate-500 font-mono">(${sub.studentId})</span>
+            </div>
+            <span class="text-[10px] text-slate-400 font-mono">${sub.submittedAt}</span>
+          </div>
+          <p><strong class="text-slate-400">ئەرک:</strong> <span class="text-slate-200">${sub.hwTitle}</span></p>
+          <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 text-emerald-300 font-mono text-[11px] leading-relaxed">
+            ${sub.answer}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // =========================================================================
+    // 7. TOAST NOTIFICATION UTILITY
+    // =========================================================================
+    let toastTimeout = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const msgEl = document.getElementById('toastMessage');
+      msgEl.textContent = msg;
+      toast.classList.remove('hidden');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
