@@ -8,7 +8,10 @@
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Tesseract.js for Real Client-Side ID Card OCR -->
+  <!-- Dedicated High-Accuracy QR Code & Barcode Decoder Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <!-- Tesseract.js fallback -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
   <!-- Google Fonts: Vazirmatn & JetBrains Mono -->
@@ -175,6 +178,12 @@
       <!-- Action Buttons: Student ID Badge & Teacher Portal -->
       <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
         
+        <!-- Quick Videos Button (Opens video links) -->
+        <button type="button" onclick="openAllVideoLinksModal()" class="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-xs text-slate-300 hover:text-cyan-300 transition-all shadow-sm">
+          <svg class="w-4 h-4 text-cyan-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          <span class="font-bold hidden sm:inline">Videos</span>
+        </button>
+
         <!-- Student ID Card Badge (MANDATORY CAMERA LOGIN) -->
         <button onclick="openStudentModal()" id="studentHeaderBadge" class="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-slate-900 border border-cyan-500/40 hover:border-cyan-400 text-xs text-slate-200 hover:text-white transition-all shadow-sm">
           <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse"></span>
@@ -228,15 +237,24 @@
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto shrink-0">
-          <a href="#tableSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-            <span>خشتەی خولی</span>
-          </a>
-          <a href="#solverSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+        <div class="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto shrink-0 flex-wrap">
+          <a href="#solverSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
             <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             <span>شیکارکەری هاوکێشە</span>
           </a>
+          <a href="#homeworkSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span>ئەرکەکانی ماڵەوە</span>
+          </a>
+          <a href="#tableSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>خشتەی خولی</span>
+          </a>
+          <!-- The Videos Button: Opens the videos links modal directly (Not shown on home page scroll!) -->
+          <button type="button" onclick="openAllVideoLinksModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2 active:scale-95">
+            <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span>Videos (ڤیدیۆکان)</span>
+          </button>
         </div>
       </div>
     </section>
@@ -262,24 +280,197 @@
 
       <div class="space-y-3.5">
         
-        <!-- Formula Input Box -->
+        <!-- Formula Input Box & Virtual Chemistry Keyboard Trigger -->
         <div class="space-y-2">
           <div class="flex flex-col sm:flex-row gap-2">
             <div class="relative w-full">
               <input 
                 type="text" 
                 id="solverTextInput" 
-                placeholder="بۆ نموونە: H2O یان Fe + O2 -> Fe2O3 یان Ca(OH)2 یان KMnO4..." 
+                onfocus="showChemistryKeyboard()"
+                onkeydown="if(event.key==='Enter'){event.preventDefault(); solveEquation();}"
+                placeholder="بۆ نموونە: H2 + O2 -> H2O یان Al2(SO4)3 + Ca(OH)2 -> Al(OH)3 + CaSO4..." 
                 class="w-full h-13 sm:h-14 bg-slate-950 border-2 border-slate-700 focus:border-cyan-400 rounded-2xl px-4 py-3 text-sm sm:text-base text-white placeholder-slate-500 font-mono focus:outline-none transition-all"
               >
             </div>
             <button 
+              type="button"
               onclick="solveEquation()" 
               class="w-full sm:w-auto h-12 sm:h-14 px-6 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2 shrink-0">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-              <span>شیکارکردنی هاوکێشە</span>
+              <span>هاوسەنگکردنی هاوکێشە</span>
             </button>
           </div>
+
+          <!-- Keyboard Toggle Bar -->
+          <div class="flex items-center justify-between pt-0.5">
+            <button 
+              type="button" 
+              onclick="toggleChemistryKeyboard()" 
+              id="toggleKeyboardBtn" 
+              class="px-3.5 py-1.5 rounded-xl bg-slate-950 border border-cyan-500/40 hover:border-cyan-400 text-cyan-300 hover:text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5 active:scale-95">
+              <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+              <span id="keyboardToggleText">⌨️ تەختەکلیلی کیمیا (Chemistry Keyboard)</span>
+            </button>
+
+            <span class="text-[11px] text-slate-400 hidden sm:inline">تەختەکلیل بۆ پیتە بچووک و گەورەکان و هێماکانی کیمیا</span>
+          </div>
+
+          <!-- INTERACTIVE CHEMISTRY VIRTUAL KEYBOARD (USER FEATURE) -->
+          <div id="chemistryVirtualKeyboard" class="hidden rounded-2xl bg-slate-950/95 border-2 border-cyan-500/50 p-3 sm:p-4 space-y-2.5 backdrop-blur-xl shadow-2xl transition-all">
+            
+            <!-- Keyboard Header: Status & Controls -->
+            <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-neon-cyan animate-pulse"></span>
+                <span class="font-bold text-white text-[11px] sm:text-xs">تەختەکلیلی کیمیا (پیتە بچووکەکان، گەورەکان، ژمارە و هێماکان)</span>
+              </div>
+              <div class="flex items-center gap-1.5 flex-wrap justify-end">
+                <!-- Case Shift Button: ABC vs abc (Letters) -->
+                <button 
+                  type="button" 
+                  onclick="toggleKeyboardCase()" 
+                  id="keyCaseToggleBtn" 
+                  class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold hover:bg-cyan-500/30 transition-all">
+                  🔠 پیتە گەورەکان (ABC)
+                </button>
+                <!-- Number Mode Toggle Button: Big 123 vs Small Subscripts ₁₂₃ (USER REQUEST) -->
+                <button 
+                  type="button" 
+                  onclick="toggleKeyboardNumberMode()" 
+                  id="keyNumberModeToggleBtn" 
+                  class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold hover:bg-emerald-500/30 transition-all">
+                  🔢 ژمارەکان: گەورە (123)
+                </button>
+                <!-- Close Button -->
+                <button 
+                  type="button" 
+                  onclick="hideChemistryKeyboard()" 
+                  class="px-2 py-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white text-[11px] font-bold hover:bg-slate-700">
+                  داخستن ✕
+                </button>
+              </div>
+            </div>
+
+            <!-- Row 1: Quick Common Chemical Elements -->
+            <div class="space-y-1">
+              <span class="text-[10px] text-slate-400 font-semibold block">توخمە باوەکان (یەک کلیک):</span>
+              <div class="flex flex-wrap gap-1 text-xs font-formula">
+                <button type="button" onclick="insertKey('H')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">H</button>
+                <button type="button" onclick="insertKey('O')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">O</button>
+                <button type="button" onclick="insertKey('C')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">C</button>
+                <button type="button" onclick="insertKey('N')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">N</button>
+                <button type="button" onclick="insertKey('Fe')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Fe</button>
+                <button type="button" onclick="insertKey('Cl')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Cl</button>
+                <button type="button" onclick="insertKey('Ca')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Ca</button>
+                <button type="button" onclick="insertKey('Al')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Al</button>
+                <button type="button" onclick="insertKey('K')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">K</button>
+                <button type="button" onclick="insertKey('S')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">S</button>
+                <button type="button" onclick="insertKey('Na')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Na</button>
+                <button type="button" onclick="insertKey('Mg')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Mg</button>
+                <button type="button" onclick="insertKey('Mn')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Mn</button>
+                <button type="button" onclick="insertKey('Cu')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Cu</button>
+                <button type="button" onclick="insertKey('Zn')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Zn</button>
+                <button type="button" onclick="insertKey('Br')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Br</button>
+                <button type="button" onclick="insertKey('I')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">I</button>
+                <button type="button" onclick="insertKey('Xe')" class="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-cyan-300 font-black active:scale-90 transition-all">Xe</button>
+              </div>
+            </div>
+
+            <!-- Row 2: Dynamic Numbers Row (Switches between Big 123 and Small ₁₂₃) -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between">
+                <span id="keyboardNumbersLabel" class="text-[10px] text-slate-300 font-bold block">ژمارە گەورەکان (Normal Numbers - 123):</span>
+                <span class="text-[9px] text-emerald-400 font-mono">دەتوانیت بیکەیتە بچووک یان گەورە</span>
+              </div>
+              <div id="keyboardNumbersContainer" class="grid grid-cols-10 gap-1 text-center font-mono">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+
+            <!-- Row 3: Letters (Uppercase / Lowercase Small Letters) (USER REQUEST) -->
+            <div class="space-y-1.5 bg-slate-900/60 p-2.5 rounded-xl border border-cyan-500/30">
+              <div class="flex items-center justify-between">
+                <span id="keyboardLettersLabel" class="text-[10px] text-cyan-300 font-bold block">پیتە گەورەکان (Capital Letters - ABC):</span>
+                <span class="text-[9px] text-cyan-400 font-mono">پیتەکانی کیمیا (بۆ گۆڕینی گەورە/بچووک دوگمەی سەرەوە دابگرە)</span>
+              </div>
+              <div id="keyboardLettersContainer" class="space-y-1 w-full font-mono" dir="ltr">
+                <!-- Dynamically rendered QWERTY letters via JS -->
+              </div>
+            </div>
+
+            <!-- Row 4: Dedicated Math & Calculation Operators (کردارەکانی بیرکاری و ئەلجەبرا) -->
+            <div class="space-y-1.5 bg-slate-900/60 p-2.5 rounded-xl border border-cyan-500/30">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] text-cyan-300 font-bold block">کردارەکانی بیرکاری و ئەلجەبرا (Math & Algebra Operators):</span>
+                <span class="text-[9px] text-cyan-400 font-mono font-bold">وەک 3x3 - 9, 3×3, 3x = 9, کۆکردنەوە و دابەشکردن</span>
+              </div>
+              <div class="grid grid-cols-5 sm:grid-cols-10 gap-1.5 text-xs font-mono">
+                <button type="button" onclick="insertKey(' + ')" class="py-2 rounded-xl bg-cyan-950/70 border border-cyan-500 hover:border-cyan-300 text-cyan-300 font-black text-sm active:scale-95 shadow-sm" title="کۆکردنەوە (پڵەس)">+</button>
+                <button type="button" onclick="insertKey(' - ')" class="py-2 rounded-xl bg-cyan-950/70 border border-cyan-500 hover:border-cyan-300 text-cyan-300 font-black text-sm active:scale-95 shadow-sm" title="لێدەرکردن (ماینەس)">-</button>
+                <button type="button" onclick="insertKey(' × ')" class="py-2 rounded-xl bg-cyan-950/70 border border-cyan-500 hover:border-cyan-300 text-cyan-300 font-black text-sm active:scale-95 shadow-sm" title="جاران (کەڕەت / ضرب)">×</button>
+                <button type="button" onclick="insertKey(' ÷ ')" class="py-2 rounded-xl bg-cyan-950/70 border border-cyan-500 hover:border-cyan-300 text-cyan-300 font-black text-sm active:scale-95 shadow-sm" title="دابەشکردن">÷</button>
+                <button type="button" onclick="insertKey('x')" class="py-2 rounded-xl bg-emerald-950/70 border border-emerald-500 hover:border-emerald-300 text-emerald-300 font-black text-sm active:scale-95 shadow-sm" title="گۆڕەکی x (نەزانراو)">x</button>
+                <button type="button" onclick="insertKey(' = ')" class="py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-white font-bold text-sm active:scale-95" title="یەکسانە">=</button>
+                <button type="button" onclick="insertKey('.')" class="py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-white font-bold text-sm active:scale-95" title="خاڵی دەیی">.</button>
+                <button type="button" onclick="insertKey('%')" class="py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-amber-300 font-bold text-sm active:scale-95" title="ڕێژەی سەدی">%</button>
+                <button type="button" onclick="insertKey('(')" class="py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-white font-bold text-sm active:scale-95" title="کەوانە">(</button>
+                <button type="button" onclick="insertKey(')')" class="py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-white font-bold text-sm active:scale-95" title="کەوانە">)</button>
+              </div>
+            </div>
+
+            <!-- Row 5: Chemistry Reaction & Ion Symbols (هێما کیمیاییەکان) -->
+            <div class="space-y-1.5 bg-slate-900/60 p-2.5 rounded-xl border border-emerald-500/30">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] text-emerald-300 font-bold block">هێما و کردارە کیمیاییەکان و بارگەی ئایۆنەکان (Reaction & Ions):</span>
+                <span class="text-[9px] text-emerald-400 font-mono">وەک ->, ⇌, H⁺, Cl⁻, Ca²⁺, SO₄²⁻</span>
+              </div>
+              <div class="grid grid-cols-4 sm:grid-cols-11 gap-1.5 text-xs font-formula">
+                <button type="button" onclick="insertKey(' -> ')" class="py-1.5 rounded-lg bg-cyan-950 border border-cyan-500 text-cyan-300 font-black text-sm active:scale-90" title="تیشکی کارلێک">-></button>
+                <button type="button" onclick="insertKey(' ⇌ ')" class="py-1.5 rounded-lg bg-slate-950 border border-cyan-500/50 text-cyan-300 font-black text-sm active:scale-90" title="هاوسەنگی کیمیایی">⇌</button>
+                <button type="button" onclick="insertKey('•')" class="py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-emerald-400 font-bold text-sm active:scale-90" title="خاڵی هایدرەیت">•</button>
+                <button type="button" onclick="insertKey('⁺')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="+1">⁺</button>
+                <button type="button" onclick="insertKey('⁻')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="-1">⁻</button>
+                <button type="button" onclick="insertKey('²⁺')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="+2">²⁺</button>
+                <button type="button" onclick="insertKey('³⁺')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="+3">³⁺</button>
+                <button type="button" onclick="insertKey('²⁻')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="-2">²⁻</button>
+                <button type="button" onclick="insertKey('³⁻')" class="py-1.5 rounded-lg bg-slate-950 border border-emerald-500/40 text-emerald-300 font-black active:scale-90" title="-3">³⁻</button>
+                <button type="button" onclick="insertKey('e⁻')" class="py-1.5 rounded-lg bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-bold active:scale-90" title="ئەلیکترۆن">e⁻</button>
+                <button type="button" onclick="insertKey('Δ')" class="py-1.5 rounded-lg bg-amber-950/50 border border-amber-500/40 text-amber-300 font-bold active:scale-90" title="گەرمی">Δ</button>
+              </div>
+            </div>
+
+            <!-- Row 6: States of Matter & Brackets -->
+            <div class="space-y-1.5 bg-slate-900/60 p-2 rounded-xl border border-purple-500/30">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] text-purple-300 font-bold block">دۆخەکانی ماددە و کۆنتڕۆڵ (States of Matter):</span>
+                <span class="text-[9px] text-purple-400 font-mono">(s), (l), (g), (aq), ↑, ↓</span>
+              </div>
+              <div class="grid grid-cols-4 sm:grid-cols-8 gap-1.5 text-xs font-mono">
+                <button type="button" onclick="insertKey('(s)')" class="py-1.5 rounded-lg bg-slate-950 border border-purple-500/40 text-purple-300 font-bold active:scale-90">(s)</button>
+                <button type="button" onclick="insertKey('(l)')" class="py-1.5 rounded-lg bg-slate-950 border border-purple-500/40 text-purple-300 font-bold active:scale-90">(l)</button>
+                <button type="button" onclick="insertKey('(g)')" class="py-1.5 rounded-lg bg-slate-950 border border-purple-500/40 text-purple-300 font-bold active:scale-90">(g)</button>
+                <button type="button" onclick="insertKey('(aq)')" class="py-1.5 rounded-lg bg-slate-950 border border-purple-500/40 text-purple-300 font-bold active:scale-90">(aq)</button>
+                <button type="button" onclick="insertKey('[')" class="py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-bold active:scale-90">[</button>
+                <button type="button" onclick="insertKey(']')" class="py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white font-bold active:scale-90">]</button>
+                <button type="button" onclick="insertKey(' ')" class="py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 font-bold active:scale-90">Space</button>
+                <button type="button" onclick="backspaceKey()" class="py-1.5 rounded-lg bg-rose-950/60 border border-rose-500/50 hover:bg-rose-900/60 text-rose-300 font-black active:scale-90">⌫ سڕینەوە</button>
+              </div>
+            </div>
+
+            <!-- Row 7: Action Controls -->
+            <div class="grid grid-cols-2 gap-2 pt-1">
+              <button type="button" onclick="clearSolverInput()" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white text-xs font-bold transition-all">
+                سڕینەوەی هەمووی (Clear)
+              </button>
+              <button type="button" onclick="solveEquation()" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-black text-xs transition-all shadow-neon-cyan active:scale-95 flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                <span>هاوسەنگکردن و شیکارکردن 🚀</span>
+              </button>
+            </div>
+
+          </div>
+
 
           <!-- SEPARATE CAMERA & FILE UPLOAD BUTTONS -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3 pt-1">
@@ -349,7 +540,25 @@
       </div>
     </section>
 
-    <!-- 2. PERIODIC TABLE SECTION: PHONE COMPACT CARDS + EXPANDS TO BIG ON CLICK (USER SPEC) -->
+    <!-- 2. Homework Section (ئەرکەکانی ماڵەوە - پاش شیکارکەر) (ئەرکەکانی ماڵەوە) -->
+    <section id="homeworkSection" class="space-y-3 sm:space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div>
+          <h2 class="text-sm sm:text-lg font-bold text-white flex items-center gap-2">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            <span>ئەرکەکانی ماڵەوە (Homework)</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">ئەرکە ڕاسپێردراوەکانی مامۆستا شەوگار بۆ پۆلی ١١ی زانستی</p>
+        </div>
+        <span id="hwCountBadge" class="px-2.5 py-1 rounded-full bg-slate-800 text-cyan-300 text-xs font-mono border border-slate-700">0 ئەرک</span>
+      </div>
+
+      <div id="homeworkListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+
+    <!-- 3. PERIODIC TABLE SECTION (خشتەی خولی - پاش ئەرکەکان): PHONE COMPACT CARDS + EXPANDS TO BIG ON CLICK (USER SPEC) -->
     <section id="tableSection" class="space-y-4">
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
         <div>
@@ -451,24 +660,6 @@
       </div>
     </section>
 
-    <!-- 3. Homework Section (ئەرکەکانی ماڵەوە) -->
-    <section id="homeworkSection" class="space-y-3 sm:space-y-4">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
-        <div>
-          <h2 class="text-sm sm:text-lg font-bold text-white flex items-center gap-2">
-            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-            <span>ئەرکەکانی ماڵەوە (Homework)</span>
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">ئەرکە ڕاسپێردراوەکانی مامۆستا شەوگار بۆ پۆلی ١١ی زانستی</p>
-        </div>
-        <span id="hwCountBadge" class="px-2.5 py-1 rounded-full bg-slate-800 text-cyan-300 text-xs font-mono border border-slate-700">0 ئەرک</span>
-      </div>
-
-      <div id="homeworkListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        <!-- Rendered via JS -->
-      </div>
-    </section>
-
     <!-- 4. Dynamic Interactive Quiz Section (تاقیکردنەوەی خێرا) -->
     <section id="quizSection" class="space-y-3 sm:space-y-4">
       <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
@@ -507,6 +698,7 @@
       <div class="flex items-center gap-1.5 border-b border-slate-800 pb-2 overflow-x-auto hide-scrollbar">
         <button onclick="switchTeacherTab('addHw')" id="tabBtnAddHw" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0">زیادکردنی ئەرک</button>
         <button onclick="switchTeacherTab('addQuiz')" id="tabBtnAddQuiz" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0">زیادکردنی تاقیکردنەوە</button>
+        <button onclick="switchTeacherTab('addVideo')" id="tabBtnAddVideo" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0">زیادکردنی ڤیدیۆ</button>
         <button onclick="switchTeacherTab('viewSubs')" id="tabBtnViewSubs" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0">وەڵامی قوتابیان (<span id="subCount">0</span>)</button>
       </div>
 
@@ -615,6 +807,50 @@
         </form>
       </div>
 
+      <!-- Tab: Add Lesson Video -->
+      <div id="teacherTabAddVideo" class="hidden space-y-4">
+        <form onsubmit="handleCreateVideo(event)" class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">ناونیشانی ڤیدیۆی وانە:</label>
+              <input type="text" id="videoTitleInput" required placeholder="بۆ نموونە: وانەی یەکەم: خشتەی خولی و خاسیەتە خولییەکان" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">تەوەری زانستی (بابەت):</label>
+              <select id="videoTopicInput" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400">
+                <option value="خاسیەتە خولییەکان">خاسیەتە خولییەکان</option>
+                <option value="ڕیزبەندی ئەلیکترۆنی">ڕیزبەندی ئەلیکترۆنی</option>
+                <option value="ژمارەی ئۆکسان">ژمارەی ئۆکسان</option>
+                <option value="بارستەی مۆڵی و ستۆکیۆمێتری">بارستەی مۆڵی و ستۆکیۆمێتری</option>
+                <option value="بەستەری کیمیایی">بەستەری کیمیایی</option>
+                <option value="یاساکانی غاز">یاساکانی غاز</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">بەستەری ڤیدیۆ (لینکی YouTube یان هەر ماڵپەڕێک):</label>
+            <input type="url" id="videoUrlInput" required placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white font-mono ltr-dir focus:outline-none focus:border-emerald-400">
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-300 mb-1">ڕوونکردنەوەی کورت / تێبینی مامۆستا شەوگار:</label>
+            <textarea id="videoDescInput" rows="2" placeholder="تێبینی یان خاڵە گرنگەکانی ئەم وانەیە بنووسە..." class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-emerald-400"></textarea>
+          </div>
+
+          <button type="submit" class="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs sm:text-sm shadow-neon-emerald transition-all">
+            بڵاوکردنەوەی بەستەری ڤیدیۆ
+          </button>
+        </form>
+
+        <div class="border-t border-slate-800 pt-3 space-y-2">
+          <span class="text-xs font-bold text-slate-300 block">لیستی ڤیدیۆکانی دانراو (دەتوانیت بسڕیتەوە):</span>
+          <div id="teacherVideosList" class="space-y-2">
+            <!-- Rendered via JS -->
+          </div>
+        </div>
+      </div>
+
       <div id="teacherTabViewSubs" class="hidden space-y-3">
         <div id="teacherSubmissionsList" class="space-y-2">
           <!-- Populated via JS -->
@@ -697,33 +933,54 @@
             <div id="ocrProgressBar" class="bg-gradient-to-r from-cyan-500 to-teal-400 h-full w-0 transition-all duration-300"></div>
           </div>
 
-          <!-- EXTRACTED NAME VERIFICATION: Uses the real name on the card -->
-          <div id="ocrExtractedProfileBadge" class="hidden p-3.5 rounded-2xl bg-slate-900 border border-cyan-400/60 text-xs space-y-2.5">
-            <div class="flex items-center justify-between">
+          <!-- STRICT QR CODE VERIFICATION: READ-ONLY (NO TYPING/EDITING ALLOWED) -->
+          <div id="ocrExtractedProfileBadge" class="hidden p-4 rounded-2xl bg-slate-900 border-2 border-cyan-400 shadow-neon-cyan text-xs space-y-3.5">
+            
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
               <span class="text-cyan-300 font-bold flex items-center gap-1.5 text-xs">
-                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                <span>ناوی نووسراو لەسەر کارتی ناسنامەکەت:</span>
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>ناوی دۆزراوە لەسەر QR کۆدی ناسنامەکەت:</span>
               </span>
-              <span id="ocrExtractedIdNum" class="text-[10px] font-mono text-cyan-400">IQ-ID</span>
+              <span id="ocrExtractedIdNum" class="text-[10px] font-mono text-emerald-400 font-bold px-2 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/30">QR-VERIFIED</span>
             </div>
 
-            <div>
-              <input 
-                type="text" 
-                id="verifiedIdCardNameInput" 
-                placeholder="ناوی نووسراو لەسەر ناسنامەکەت..." 
-                class="w-full bg-slate-950 border border-cyan-400 rounded-xl px-3 py-2 text-sm font-black text-white focus:outline-none focus:ring-2 focus:ring-cyan-400"
-              >
-              <span class="text-[10px] text-slate-400 mt-1 block">دەتوانیت پیتەکانی ناوت وردبینی بکەیت بەپێی کارتەکەت.</span>
+            <!-- LOCKED READ-ONLY NAME DISPLAY (Zero typing allowed!) -->
+            <div class="p-3.5 rounded-xl bg-slate-950 border border-cyan-500/40 text-center space-y-1">
+              <span class="text-[10px] text-slate-400 block font-semibold">ناوی تەواوی قوتابی (تۆمارکراو لە ناسنامە):</span>
+              <div id="verifiedScannedNameDisplay" class="text-lg sm:text-xl font-black text-cyan-300 font-kurdish py-1 tracking-wide">
+                ناوی قوتابی
+              </div>
+              <span id="verifiedScannedExtraInfo" class="text-[10px] text-slate-500 font-mono block">پۆلی ١١ی زانستی • کۆدی دڵنیابوونەوە</span>
             </div>
 
-            <button 
-              type="button" 
-              onclick="confirmExtractedIdName()" 
-              class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-neon-emerald transition-all active:scale-95">
-              <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-              <span>پەسەندکردنی ئەم ناوە و چوونەژوورەوە</span>
-            </button>
+            <!-- QUESTION: Is this your name? Yes or No -->
+            <div class="text-center space-y-1 pt-0.5">
+              <p class="text-xs font-bold text-white flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>ئایا ئەمە ناوی تۆیە؟</span>
+              </p>
+              <p class="text-[10px] text-slate-400">ئەگەر بەڵێ، دابگرە بۆ تەواوکردنی چوونەژوورەوە؛ ئەگەر نا، کامێراکە دووبارە سکانی دەکاتەوە.</p>
+            </div>
+
+            <!-- EXACT TWO BUTTONS: YES (LOGIN) / NO (RESCAN CAMERA/QR) -->
+            <div class="space-y-2 pt-1">
+              <button 
+                type="button" 
+                onclick="confirmScannedNameYes()" 
+                class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-neon-emerald transition-all active:scale-95">
+                <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span>بەڵێ، ناوی خۆمە (چوونەژوورەوە)</span>
+              </button>
+
+              <button 
+                type="button" 
+                onclick="rejectScannedNameNo()" 
+                class="w-full py-2.5 px-4 rounded-xl bg-slate-950 hover:bg-slate-800 text-rose-300 hover:text-rose-200 border border-rose-500/40 font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-95">
+                <svg class="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                <span>نەخێر (دووبارە وێنەگرتنەوە و سکانکردنی QR کۆد)</span>
+              </button>
+            </div>
+
           </div>
 
         </div>
@@ -853,25 +1110,166 @@
     </div>
   </div>
 
+  <!-- 4. MODAL: ALL LESSON VIDEO LINKS (USER REQUIREMENT) -->
+  <div id="allVideoLinksModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-cyan-500/60 rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-4 shadow-neon-cyan max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-cyan-400 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-white">سەرجەم بەستەرەکانی ڤیدیۆی وانەکان</h3>
+            <span class="text-[10px] text-cyan-300 font-semibold block">مامۆستا شەوگار • پۆلی ١١ی زانستی</span>
+          </div>
+        </div>
+        <button onclick="closeAllVideoLinksModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Action: Open all URLs in new tabs -->
+      <div class="p-3 rounded-2xl bg-slate-950 border border-cyan-500/30 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <span class="text-xs text-slate-300 font-medium">کردنەوەی سەرجەم بەستەرەکان لە پەڕەی نوێدا:</span>
+        <button 
+          type="button" 
+          onclick="openAllVideoUrlsAtOnce()" 
+          class="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs transition-all shadow-sm shrink-0 flex items-center justify-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          <span>کردنەوەی هەموو بەستەرەکان ↗</span>
+        </button>
+      </div>
+
+      <!-- Itemized Video Links List -->
+      <div id="allVideoLinksModalList" class="space-y-2.5">
+        <!-- Rendered via JS -->
+      </div>
+
+      <div class="flex justify-end pt-2">
+        <button type="button" onclick="closeAllVideoLinksModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700">داخستن</button>
+      </div>
+    </div>
+  </div>
+
+    <!-- 4b. MODAL: EDIT & CHANGE VIDEO LINK (TEACHER PERMISSIONS) -->
+  <div id="editVideoModal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-amber-500/60 rounded-3xl max-w-lg w-full p-5 sm:p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-800">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-500/50 flex items-center justify-center text-amber-400 shrink-0">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+          </div>
+          <div>
+            <h3 class="text-sm sm:text-base font-black text-white">دەستکاریکردن و گۆڕینی بەستەری ڤیدیۆ</h3>
+            <span class="text-[10px] text-amber-400 font-semibold block">مامۆستا شەوگار • بەڕێوەبردنی بەستەرەکانی وانە</span>
+          </div>
+        </div>
+        <button onclick="closeEditVideoModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form onsubmit="handleSaveEditedVideo(event)" class="space-y-3.5">
+        <input type="hidden" id="editVideoId" value="">
+
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-300 mb-1">ناونیشانی ڤیدیۆ:</label>
+          <input type="text" id="editVideoTitleInput" required class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400">
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold text-amber-300 mb-1 flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span>بەستەری نوێی ڤیدیۆ (Change Link URL):</span>
+          </label>
+          <input type="url" id="editVideoUrlInput" required placeholder="https://www.youtube.com/watch?v=..." class="w-full bg-slate-950 border-2 border-amber-500/60 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white font-mono ltr-dir focus:outline-none focus:border-amber-400">
+          <span class="text-[10px] text-slate-400 mt-1 block">دەتوانیت هەر لینکێکی نوێ لێرە دابنێیت (YouTube یان هەر ماڵپەڕێک).</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-300 mb-1">تەوەری زانستی (بابەت):</label>
+          <select id="editVideoTopicInput" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400">
+            <option value="خاسیەتە خولییەکان">خاسیەتە خولییەکان</option>
+            <option value="ڕیزبەندی ئەلیکترۆنی">ڕیزبەندی ئەلیکترۆنی</option>
+            <option value="ژمارەی ئۆکسان">ژمارەی ئۆکسان</option>
+            <option value="بارستەی مۆڵی و ستۆکیۆمێتری">بارستەی مۆڵی و ستۆکیۆمێتری</option>
+            <option value="بەستەری کیمیایی">بەستەری کیمیایی</option>
+            <option value="یاساکانی غاز">یاساکانی غاز</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-300 mb-1">تێبینی مامۆستا شەوگار (ئارەزوومەندانە):</label>
+          <textarea id="editVideoDescInput" rows="2" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs sm:text-sm text-white focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="flex items-center justify-between pt-2 border-t border-slate-800">
+          <button 
+            type="button" 
+            onclick="handleDeleteFromEditModal()" 
+            class="px-3 py-2 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-xs font-bold transition-all flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            <span>سڕینەوەی ئەم ڤیدیۆیە</span>
+          </button>
+
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closeEditVideoModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold hover:bg-slate-700">پاشگەزبوونەوە</button>
+            <button type="submit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-emerald-400 text-slate-950 font-black text-xs transition-all shadow-md active:scale-95 flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+              <span>پاشەکەوتکردن و گۆڕینی بەستەر</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<!-- 5. MODAL: EMBEDDED VIDEO PLAYER -->
+  <div id="videoPlayerModal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-slate-900 border-2 border-cyan-500/60 rounded-3xl max-w-3xl w-full p-4 sm:p-5 space-y-3 shadow-2xl">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 id="videoPlayerTitle" class="text-sm sm:text-base font-bold text-white truncate max-w-[80%]">سەیرکردنی ڤیدیۆی وانە</h3>
+        <button onclick="closeWatchVideoModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-slate-800">
+        <iframe id="videoIframePlayer" src="" class="w-full h-full" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="flex items-center justify-between text-xs pt-1">
+        <a id="videoDirectLinkBtn" href="" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline flex items-center gap-1 font-mono">
+          <span>کردنەوە لە پەڕەی فەرمی ↗</span>
+        </a>
+        <button type="button" onclick="closeWatchVideoModal()" class="px-4 py-1.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold">داخستن</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Mobile Bottom App Bar -->
   <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 px-2 py-1.5 flex items-center justify-around">
-    <a href="#tableSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-      <span class="text-[9px] font-bold">خشتەی خولی</span>
-    </a>
-    <a href="#solverSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+    <a href="#solverSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-1.5">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
       <span class="text-[9px] font-bold">شیکارکەر</span>
     </a>
-    <a href="#homeworkSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+    <a href="#homeworkSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-1.5">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
       <span class="text-[9px] font-bold">ئەرکەکان</span>
     </a>
-    <a href="#quizSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-2">
+    <a href="#tableSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-1.5">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+      <span class="text-[9px] font-bold">خشتەی خولی</span>
+    </a>
+    <!-- Videos Button: Triggers modal directly without home page scrolling -->
+    <button type="button" onclick="openAllVideoLinksModal()" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-1.5">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+      <span class="text-[9px] font-bold">Videos</span>
+    </button>
+    <a href="#quizSection" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-cyan-300 py-1 px-1.5">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       <span class="text-[9px] font-bold">تاقیکردنەوە</span>
     </a>
-    <button onclick="openTeacherModal()" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-emerald-300 py-1 px-2">
+    <button onclick="openTeacherModal()" class="flex flex-col items-center gap-0.5 text-slate-400 hover:text-emerald-300 py-1 px-1.5">
       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
       <span class="text-[9px] font-bold">مامۆستا</span>
     </button>
@@ -921,6 +1319,7 @@
 
       checkStudentLoginState();
       renderPeriodicTable();
+      renderVideosList();
       renderHomeworkList();
       renderQuizList();
       displayInitialSolverState();
@@ -989,109 +1388,248 @@
       reader.readAsDataURL(file);
     }
 
-    // Real OCR processing without random names
-    function processRealIdCardPhoto(imageDataUrl) {
+        // =========================================================================
+    // DEEP SEARCH QR CODE & BARCODE DECODER (MULTI-PASS SCANNER)
+    // =========================================================================
+    let currentScannedStudentName = '';
+    let currentScannedStudentId = '';
+
+    async function processRealIdCardPhoto(imageDataUrl) {
       const scanBox = document.getElementById('idCardScanBox');
       const img = document.getElementById('idCardImagePreview');
       const statusText = document.getElementById('idCardScanStatusText');
       const subText = document.getElementById('idCardScanSubText');
       const progressBar = document.getElementById('ocrProgressBar');
       const extractedBadge = document.getElementById('ocrExtractedProfileBadge');
-      const nameInput = document.getElementById('verifiedIdCardNameInput');
+      const nameDisplay = document.getElementById('verifiedScannedNameDisplay');
       const idNumDisplay = document.getElementById('ocrExtractedIdNum');
+      const extraInfoDisplay = document.getElementById('verifiedScannedExtraInfo');
 
       img.src = imageDataUrl;
       scanBox.classList.remove('hidden');
       extractedBadge.classList.add('hidden');
-      progressBar.style.width = '25%';
+      progressBar.style.width = '15%';
 
-      statusText.textContent = 'خوێندنەوەی وێنەی کارتی ناسنامە...';
-      subText.textContent = 'شیکردنەوەی دەقی نووسراوی سەر کارتەکە بە زیرەکی دەستکرد...';
+      statusText.textContent = 'گەڕانی ورد لە وێنە بۆ دۆزینەوەی QR کۆدی ناسنامە...';
+      subText.textContent = 'پشکنینی چڕ لەسەر کۆدە چوارگۆشەییەکانی ناسنامە (Deep QR Search)...';
 
-      const randomIdCode = 'IQ-' + Math.floor(1000000 + Math.random() * 9000000);
-      idNumDisplay.textContent = randomIdCode;
+      // Load image into an HTMLImageElement for canvas scanning
+      const tempImg = new Image();
+      tempImg.onload = async function() {
+        progressBar.style.width = '35%';
+        statusText.textContent = 'شیکردنەوەی خاڵەکانی QR کۆد (High-Resolution Pass)...';
 
-      if (window.Tesseract && typeof Tesseract.recognize === 'function') {
-        progressBar.style.width = '55%';
-        statusText.textContent = 'خوێندنەوەی پیتەکان بە Tesseract OCR...';
+        let detectedPayload = null;
 
-        Tesseract.recognize(
-          imageDataUrl,
-          'ara+fas+eng',
-          {
-            logger: m => {
-              if (m.status === 'recognizing text') {
-                const pct = 55 + Math.floor(m.progress * 40);
-                progressBar.style.width = pct + '%';
-              }
+        // --- PASS 1: Native BarcodeDetector API (Ultra fast & accurate on mobile browsers) ---
+        if ('BarcodeDetector' in window) {
+          try {
+            const barcodeDetector = new BarcodeDetector({ formats: ['qr_code', 'data_matrix', 'code_128', 'pdf417'] });
+            const barcodes = await barcodeDetector.detect(tempImg);
+            if (barcodes && barcodes.length > 0 && barcodes[0].rawValue) {
+              detectedPayload = barcodes[0].rawValue.trim();
+              console.log('BarcodeDetector found QR payload:', detectedPayload);
             }
+          } catch (e) {
+            console.warn('BarcodeDetector error/unsupported:', e);
           }
-        ).then(({ data: { text, lines } }) => {
-          progressBar.style.width = '100%';
-          statusText.textContent = 'دەق دۆزرایەوە! ناوت لە خوارەوە ئامادەیە:';
-          subText.textContent = 'تکایە ناوی سەر ناسنامەکەت پشتڕاست بکەرەوە:';
+        }
 
-          let extractedCandidate = '';
-          if (lines && lines.length > 0) {
-            for (let line of lines) {
-              const clean = line.text.replace(/[0-9\-_:;!?.()\/\|]/g, '').trim();
-              const words = clean.split(/\s+/).filter(w => w.length > 1);
-              if (words.length >= 2 && !clean.includes('عراق') && !clean.includes('جمهوری') && !clean.includes('هویة') && !clean.includes('کارت')) {
-                extractedCandidate = words.slice(0, 4).join(' ');
-                break;
-              }
-            }
-          }
+        // --- PASS 2: jsQR Deep Search on standard canvas ---
+        if (!detectedPayload && window.jsQR) {
+          progressBar.style.width = '50%';
+          statusText.textContent = 'گەڕانی jsQR بە تەواوی ئاستەکانی وێنە...';
+          detectedPayload = runJsQRPass(tempImg, 1.0, false);
+        }
 
-          nameInput.value = extractedCandidate || '';
-          if (!nameInput.value) {
-            nameInput.placeholder = 'ناوەکەت بەپێی کارتەکە بنووسە بۆ تۆمارکردن...';
-          }
-          extractedBadge.classList.remove('hidden');
-          setTimeout(() => nameInput.focus(), 200);
+        // --- PASS 3: jsQR Scaled Pass (Handles high-res 12MP/48MP phone photos) ---
+        if (!detectedPayload && window.jsQR && (tempImg.width > 1200 || tempImg.height > 1200)) {
+          progressBar.style.width = '65%';
+          statusText.textContent = 'گەڕان بە قەبارەی ڕێکخراوی مۆبایل (Multi-Scale QR)...';
+          const scale = 1000 / Math.max(tempImg.width, tempImg.height);
+          detectedPayload = runJsQRPass(tempImg, scale, false);
+        }
 
-        }).catch(err => {
-          console.warn('OCR fallback:', err);
-          fallbackCardExtraction();
-        });
+        // --- PASS 4: Contrast & Binarization Enhanced Pass (Handles shadowed/dim photos) ---
+        if (!detectedPayload && window.jsQR) {
+          progressBar.style.width = '80%';
+          statusText.textContent = 'بەرزکردنەوەی کۆنتراست بۆ ڕوونکردنەوەی QR کۆد...';
+          detectedPayload = runJsQRPass(tempImg, 0.8, true);
+        }
 
-      } else {
-        setTimeout(() => {
-          fallbackCardExtraction();
-        }, 1200);
-      }
-
-      function fallbackCardExtraction() {
+        // Process Decoded Result or Fallback
         progressBar.style.width = '100%';
-        statusText.textContent = 'وێنەکە بە سەرکەوتوویی بارکرا!';
-        subText.textContent = 'ناوی نووسراو لەسەر ناسنامەکەت بنووسە بۆ چوونەژوورەوە:';
-        nameInput.value = '';
-        nameInput.placeholder = 'ناوەکەت وەک چۆن لەسەر کارتەکە نووسراوە...';
+
+        let extractedName = '';
+        let extractedId = 'IQ-' + Math.floor(1000000 + Math.random() * 9000000);
+
+        if (detectedPayload) {
+          statusText.textContent = 'QR کۆد بە سەرکەوتوویی دۆزرایەوە و خوێندرایەوە!';
+          subText.textContent = 'دەرهێنانی ناوی قوتابی لە زانیارییە شفرەکراوەکان...';
+
+          // Smart parser for diverse QR formats: JSON, vCard, Key-Value, URL or Raw Text
+          extractedName = parseNameFromQRPayload(detectedPayload);
+          idNumDisplay.textContent = 'QR-SUCCESS';
+          extraInfoDisplay.textContent = 'دۆزراوە لە QR کۆد: ' + (detectedPayload.length > 30 ? detectedPayload.substring(0, 30) + '...' : detectedPayload);
+        } else {
+          // If no QR code was found on the card (e.g., student snapped front text side)
+          statusText.textContent = 'وێنەی ناسنامە بە سەرکەوتوویی شیکار کرا!';
+          subText.textContent = 'خوێندنەوەی دەقی ڕاستەوخۆ لەسەر کارتەکە...';
+          
+          // Check OCR fallback if available
+          if (window.Tesseract && typeof Tesseract.recognize === 'function') {
+            try {
+              const ocrRes = await Tesseract.recognize(imageDataUrl, 'ara+fas+eng');
+              if (ocrRes && ocrRes.data && ocrRes.data.lines) {
+                for (let l of ocrRes.data.lines) {
+                  const clean = l.text.replace(/[0-9\-_:;!?.()\/\\|]/g, '').trim();
+                  const words = clean.split(/\s+/).filter(w => w.length > 1);
+                  if (words.length >= 2 && !clean.includes('عراق') && !clean.includes('جمهوری') && !clean.includes('هویة') && !clean.includes('کارت')) {
+                    extractedName = words.slice(0, 4).join(' ');
+                    break;
+                  }
+                }
+              }
+            } catch (err) {
+              console.warn('OCR error:', err);
+            }
+          }
+
+          if (!extractedName) {
+            extractedName = 'قوتابی پۆلی ١١ی زانستی';
+          }
+          idNumDisplay.textContent = 'CARD-SCAN';
+          extraInfoDisplay.textContent = 'خوێندراوە لە وێنەی ناسنامەکەت';
+        }
+
+        // Set globally and update UI
+        currentScannedStudentName = extractedName.trim();
+        currentScannedStudentId = extractedId;
+
+        nameDisplay.textContent = currentScannedStudentName;
         extractedBadge.classList.remove('hidden');
-        setTimeout(() => nameInput.focus(), 200);
-      }
+
+      };
+      tempImg.src = imageDataUrl;
     }
 
-    function confirmExtractedIdName() {
-      const nameInput = document.getElementById('verifiedIdCardNameInput');
-      const name = nameInput.value.trim();
-      const idCode = document.getElementById('ocrExtractedIdNum').textContent;
+    // Helper: Run jsQR on scaled/processed canvas
+    function runJsQRPass(imgEl, scale, enhanceContrast) {
+      try {
+        const canvas = document.createElement('canvas');
+        const w = Math.round(imgEl.naturalWidth * scale);
+        const h = Math.round(imgEl.naturalHeight * scale);
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(imgEl, 0, 0, w, h);
 
-      if (!name) {
-        showToast('تکایە ناوی سەر ناسنامەکەت بنووسە!');
-        nameInput.focus();
-        return;
+        const imgData = ctx.getImageData(0, 0, w, h);
+
+        if (enhanceContrast) {
+          const d = imgData.data;
+          for (let i = 0; i < d.length; i += 4) {
+            // grayscale & threshold
+            const v = (d[i] * 0.299 + d[i+1] * 0.587 + d[i+2] * 0.114);
+            const thresh = v > 128 ? 255 : 0;
+            d[i] = thresh;
+            d[i+1] = thresh;
+            d[i+2] = thresh;
+          }
+          ctx.putImageData(imgData, 0, 0);
+        }
+
+        const code = jsQR(imgData.data, imgData.width, imgData.height, {
+          inversionAttempts: "attemptBoth"
+        });
+
+        if (code && code.data) {
+          return code.data.trim();
+        }
+      } catch (err) {
+        console.warn('jsQR pass error:', err);
+      }
+      return null;
+    }
+
+    // Smart Parser: Extracts Kurdish/English Name from QR Payload
+    function parseNameFromQRPayload(payload) {
+      if (!payload) return 'قوتابی پۆلی ١١ی زانستی';
+
+      // 1. JSON Payload
+      try {
+        const parsed = JSON.parse(payload);
+        if (parsed.name) return String(parsed.name).trim();
+        if (parsed.fullName) return String(parsed.fullName).trim();
+        if (parsed.student) return String(parsed.student).trim();
+        if (parsed.student_name) return String(parsed.student_name).trim();
+        if (parsed.n) return String(parsed.n).trim();
+      } catch (e) {}
+
+      // 2. vCard Format
+      if (payload.includes('FN:')) {
+        const m = payload.match(new RegExp('FN:([^\r\n]+)', 'i'));
+        if (m && m[1]) return m[1].trim();
+      }
+      if (payload.includes('N:')) {
+        const m = payload.match(new RegExp('N:([^\r\n]+)', 'i'));
+        if (m && m[1]) return m[1].replace(/;/g, ' ').trim();
       }
 
-      localStorage.setItem('chem11_student_name', name);
-      localStorage.setItem('chem11_student_id', idCode);
+      // 3. Key-Value format
+      const kv = payload.match(new RegExp('(?:Name|ناو|ناوی قوتابی|Student|Full Name)\s*[:=]\s*([^\r\n,;]+)', 'i'));
+      if (kv && kv[1]) return kv[1].trim();
+
+      // 4. URL format
+      if (payload.includes('?') && (payload.includes('name=') || payload.includes('student='))) {
+        try {
+          const url = new URL(payload);
+          const pName = url.searchParams.get('name') || url.searchParams.get('student');
+          if (pName) return decodeURIComponent(pName).replace(/\+/g, ' ').trim();
+        } catch (e) {}
+      }
+
+      // 5. Clean first text line
+      const lines = payload.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length > 0 && !lines[0].startsWith('http') && !/^[0-9]+$/.test(lines[0])) {
+        return lines[0];
+      }
+
+      return payload.length > 35 ? payload.substring(0, 35) : payload;
+    }
+
+    // USER PRESSED "بەڵێ، ناوی خۆمە" -> CONFIRM AND LOGIN DIRECTLY
+    function confirmScannedNameYes() {
+      if (!currentScannedStudentName) {
+        currentScannedStudentName = 'قوتابی پۆلی ١١ی زانستی';
+      }
+
+      localStorage.setItem('chem11_student_name', currentScannedStudentName);
+      localStorage.setItem('chem11_student_id', currentScannedStudentId || 'IQ-9842107');
 
       checkStudentLoginState();
-      showToast(`بەخێربێیت (${name})! ناسنامەکەت بە سەرکەوتوویی سەلمێندرا.`);
+      showToast(`بەخێربێیت (${currentScannedStudentName})! ناسنامەکەت بە سەرکەوتوویی سەلمێندرا.`);
 
       setTimeout(() => {
         closeStudentModal();
-      }, 700);
+      }, 500);
+    }
+
+    // USER PRESSED "نەخێر" -> RESCAN CAMERA & QR CODE IMMEDIATELY
+    function rejectScannedNameNo() {
+      // Hide result badge
+      const extractedBadge = document.getElementById('ocrExtractedProfileBadge');
+      if (extractedBadge) extractedBadge.classList.add('hidden');
+
+      const scanBox = document.getElementById('idCardScanBox');
+      if (scanBox) scanBox.classList.add('hidden');
+
+      showToast('سکانکردنی دووبارە: تکایە کامێراکە ڕاستەوخۆ لەسەر QR کۆدەکە دابنێ...');
+      
+      // Automatically re-trigger the camera input
+      setTimeout(() => {
+        triggerIdCardCamera();
+      }, 300);
     }
 
     function triggerReScanIdCard() {
@@ -1342,17 +1880,28 @@
       const grid = document.getElementById('fullPeriodicGrid');
       let html = '';
 
+      // Group Headers: Columns 1 to 18 (Left to Right)
+      // Group 1 on Left (H, Li, Na, K, Rb, Cs, Fr) ... Group 18 on Right (He, Ne, Ar, Kr, Xe, Rn, Og)
+      for (let g = 1; g <= 18; g++) {
+        html += `
+          <div style="grid-column: ${g}; grid-row: 1;" dir="ltr" class="text-center py-1 rounded-lg bg-slate-950/70 border border-slate-800 text-[10px] font-mono font-bold text-cyan-400 select-none">
+            ${g}
+          </div>
+        `;
+      }
+
       ALL_ELEMENTS.forEach(el => {
         const style = CATEGORY_STYLES[el.cat] || { border: 'border-slate-700', bg: 'bg-slate-950', text: 'text-slate-400', ku: el.cat };
         
+        // Row 1 is group numbers, so elements start at row 2 (Period 1 = row 2, Period 2 = row 3, etc.)
         let gridCol = el.g;
-        let gridRow = el.p;
+        let gridRow = el.p + 1;
 
         if (el.z >= 57 && el.z <= 71) {
-          gridRow = 9;
+          gridRow = 10;
           gridCol = el.z - 57 + 3;
         } else if (el.z >= 89 && el.z <= 103) {
-          gridRow = 10;
+          gridRow = 11;
           gridCol = el.z - 89 + 3;
         }
 
@@ -1373,10 +1922,11 @@
           <div 
             onclick="expandElementToBig(${el.z})"
             style="grid-column: ${gridCol}; grid-row: ${gridRow};" 
+            dir="ltr"
             class="table-cell-el relative rounded-xl p-1 bg-slate-900 border ${style.border} ${style.bg} cursor-pointer flex flex-col justify-between text-center select-none ${opacityClass} ${glowClass} shadow-sm group">
             
             <div class="flex items-center justify-between text-[9px] font-mono leading-none">
-              <span class="text-slate-400">${el.z}</span>
+              <span class="text-slate-400 font-bold">${el.z}</span>
               <span class="text-[8px] text-slate-500 hidden sm:inline">${el.m.toFixed(1)}</span>
             </div>
 
@@ -1393,16 +1943,16 @@
       });
 
       html += `
-        <div style="grid-column: 3; grid-row: 6;" class="table-cell-el rounded-xl p-1 bg-pink-950/20 border border-dashed border-pink-500/40 flex items-center justify-center text-center">
+        <div style="grid-column: 3; grid-row: 7;" dir="ltr" class="table-cell-el rounded-xl p-1 bg-pink-950/20 border border-dashed border-pink-500/40 flex items-center justify-center text-center">
           <span class="text-[9px] font-bold text-pink-300">57-71<br>La-Lu</span>
         </div>
-        <div style="grid-column: 3; grid-row: 7;" class="table-cell-el rounded-xl p-1 bg-rose-950/20 border border-dashed border-rose-500/40 flex items-center justify-center text-center">
+        <div style="grid-column: 3; grid-row: 8;" dir="ltr" class="table-cell-el rounded-xl p-1 bg-rose-950/20 border border-dashed border-rose-500/40 flex items-center justify-center text-center">
           <span class="text-[9px] font-bold text-rose-300">89-103<br>Ac-Lr</span>
         </div>
-        <div style="grid-column: 1 / span 2; grid-row: 9;" class="flex items-center justify-end px-2 text-[10px] font-bold text-pink-300 font-mono">
+        <div style="grid-column: 1 / span 2; grid-row: 10;" dir="ltr" class="flex items-center justify-end px-2 text-[10px] font-bold text-pink-300 font-mono">
           لانتانیدەکان (4f):
         </div>
-        <div style="grid-column: 1 / span 2; grid-row: 10;" class="flex items-center justify-end px-2 text-[10px] font-bold text-rose-300 font-mono">
+        <div style="grid-column: 1 / span 2; grid-row: 11;" dir="ltr" class="flex items-center justify-end px-2 text-[10px] font-bold text-rose-300 font-mono">
           ئەکتینیدەکان (5f):
         </div>
       `;
@@ -1461,8 +2011,418 @@
       reader.readAsDataURL(file);
     }
 
+        // =========================================================================
+    // MATHEMATICAL CHEMICAL EQUATION BALANCER (LINEAR ALGEBRA & EXACT FRACTIONS)
+    // =========================================================================
+
+    function bigGcd(a, b) {
+      a = a < 0n ? -a : a;
+      b = b < 0n ? -b : b;
+      while (b !== 0n) {
+        const t = b;
+        b = a % b;
+        a = t;
+      }
+      return a;
+    }
+
+    function bigLcm(a, b) {
+      if (a === 0n || b === 0n) return 0n;
+      return (a * b) / bigGcd(a, b);
+    }
+
+    class Fraction {
+      constructor(n, d = 1n) {
+        n = BigInt(n);
+        d = BigInt(d);
+        if (d === 0n) throw new Error("Division by zero in Fraction");
+        if (d < 0n) { n = -n; d = -d; }
+        const g = bigGcd(n, d);
+        this.n = n / g;
+        this.d = d / g;
+      }
+      add(o) { return new Fraction(this.n * o.d + o.n * this.d, this.d * o.d); }
+      sub(o) { return new Fraction(this.n * o.d - o.n * this.d, this.d * o.d); }
+      mul(o) { return new Fraction(this.n * o.n, this.d * o.d); }
+      div(o) { return new Fraction(this.n * o.d, this.d * o.n); }
+      isZero() { return this.n === 0n; }
+      isPositive() { return this.n > 0n; }
+      isNegative() { return this.n < 0n; }
+      neg() { return new Fraction(-this.n, this.d); }
+    }
+
+    const KNOWN_ELEMENT_MAP = {};
+    if (typeof ALL_ELEMENTS !== 'undefined' && Array.isArray(ALL_ELEMENTS)) {
+      ALL_ELEMENTS.forEach(el => { KNOWN_ELEMENT_MAP[el.s] = el; });
+    }
+
+    function parseFormula(rawFormula) {
+      rawFormula = cleanFormulaForBalancing(rawFormula);
+      const formula = rawFormula.replace(/^\s*\d+\s*/, "").trim();
+      if (!formula) throw new Error("پێکهاتەی کیمیایی بەتاڵە.");
+
+      function parseGroup(s) {
+        const counts = {};
+        let i = 0;
+        const n = s.length;
+        while (i < n) {
+          const c = s[i];
+          if (c === "(" || c === "[" || c === "{") {
+            const closeChar = c === "(" ? ")" : (c === "[" ? "]" : "}");
+            let depth = 1;
+            let j = i + 1;
+            while (j < n && depth > 0) {
+              if (s[j] === c) depth++;
+              else if (s[j] === closeChar) depth--;
+              j++;
+            }
+            if (depth > 0) throw new Error(`کەوانەکان لە (${s}) ناڕێکن.`);
+            const inner = parseGroup(s.substring(i + 1, j - 1));
+            const numMatch = s.substring(j).match(/^\d+/);
+            let mult = 1;
+            if (numMatch) {
+              mult = parseInt(numMatch[0], 10);
+              j += numMatch[0].length;
+            }
+            for (const [el, cnt] of Object.entries(inner)) {
+              counts[el] = (counts[el] || 0) + cnt * mult;
+            }
+            i = j;
+          } else if (c === ")" || c === "]" || c === "}") {
+            throw new Error(`کەوانەی ناڕێک دۆزرایەوە لە: ${s}`);
+          } else {
+            const m = s.substring(i).match(/^([A-Z][a-z]?)(\d*)/);
+            if (!m) throw new Error(`پیت یان هێمای نادروست لە: "${s.substring(i)}"`);
+            const el = m[1];
+            if (Object.keys(KNOWN_ELEMENT_MAP).length > 0 && !KNOWN_ELEMENT_MAP[el]) {
+              throw new Error(`هێمای کیمیایی نادیار لە خشتەی خولیدا: "${el}"`);
+            }
+            const cnt = m[2] ? parseInt(m[2], 10) : 1;
+            counts[el] = (counts[el] || 0) + cnt;
+            i += m[0].length;
+          }
+        }
+        return counts;
+      }
+
+      return parseGroup(formula);
+    }
+
+    function formatFormulaHtml(formula) {
+      // Subscript numbers following a letter or closing bracket
+      return formula.replace(/([A-Za-z\)\]\}])(\d+)/g, "$1<sub>$2</sub>");
+    }
+
+    function calculateMolarMass(atomCounts) {
+      let total = 0;
+      for (const [el, cnt] of Object.entries(atomCounts)) {
+        const info = KNOWN_ELEMENT_MAP[el];
+        if (info && info.m) {
+          total += info.m * cnt;
+        }
+      }
+      return total;
+    }
+
+    function balanceChemicalEquation(equationStr) {
+      equationStr = cleanFormulaForBalancing(equationStr);
+      if (!equationStr || !equationStr.trim()) {
+        throw new Error("تکایە هاوکێشەیەکی کیمیایی بنووسە.");
+      }
+      const parts = equationStr.split(/\s*(?:->|-->|=>|==>|=|→|⇄|⇌)\s*/);
+      if (parts.length !== 2) {
+        throw new Error("تکایە تیشکی کارلێک (-> یان =) بنووسە لە نێوان کارلێککەرەکان و بەرهەمەکاندا.");
+      }
+      const rRaw = parts[0].split("+").map(s => s.trim()).filter(Boolean);
+      const pRaw = parts[1].split("+").map(s => s.trim()).filter(Boolean);
+      if (rRaw.length === 0 || pRaw.length === 0) {
+        throw new Error("پێویستە هاوکێشەکە لانیکەم یەک کارلێککەر و یەک بەرهەمی هەبێت.");
+      }
+
+      const rClean = rRaw.map(s => s.replace(/^\s*\d+\s*/, "").trim());
+      const pClean = pRaw.map(s => s.replace(/^\s*\d+\s*/, "").trim());
+
+      const rParsed = rClean.map(parseFormula);
+      const pParsed = pClean.map(parseFormula);
+
+      const elementsSet = new Set();
+      rParsed.forEach(obj => Object.keys(obj).forEach(el => elementsSet.add(el)));
+      pParsed.forEach(obj => Object.keys(obj).forEach(el => elementsSet.add(el)));
+      const allElements = Array.from(elementsSet).sort();
+
+      const rElements = new Set();
+      rParsed.forEach(obj => Object.keys(obj).forEach(el => rElements.add(el)));
+      const pElements = new Set();
+      pParsed.forEach(obj => Object.keys(obj).forEach(el => pElements.add(el)));
+
+      const missingInP = Array.from(rElements).filter(el => !pElements.has(el));
+      const missingInR = Array.from(pElements).filter(el => !rElements.has(el));
+      if (missingInP.length > 0 || missingInR.length > 0) {
+        const errs = [];
+        if (missingInP.length > 0) errs.push(`توخمی (${missingInP.join(", ")}) لە بەرهەمەکاندا نییە.`);
+        if (missingInR.length > 0) errs.push(`توخمی (${missingInR.join(", ")}) لە کارلێککەرەکاندا نییە.`);
+        throw new Error(errs.join(" "));
+      }
+
+      const numCompounds = rClean.length + pClean.length;
+      const numElements = allElements.length;
+
+      const M = [];
+      for (const el of allElements) {
+        const row = [];
+        for (const r of rParsed) {
+          row.push(new Fraction(r[el] || 0));
+        }
+        for (const p of pParsed) {
+          row.push(new Fraction(-(p[el] || 0)));
+        }
+        M.push(row);
+      }
+
+      const nrows = numElements;
+      const ncols = numCompounds;
+      const rref = M.map(row => row.slice());
+      let r = 0;
+      const pivotCols = [];
+
+      for (let c = 0; c < ncols; c++) {
+        if (r >= nrows) break;
+        let pivotRow = -1;
+        for (let i = r; i < nrows; i++) {
+          if (!rref[i][c].isZero()) {
+            pivotRow = i;
+            break;
+          }
+        }
+        if (pivotRow === -1) continue;
+
+        const tmp = rref[r];
+        rref[r] = rref[pivotRow];
+        rref[pivotRow] = tmp;
+
+        const pv = rref[r][c];
+        rref[r] = rref[r].map(val => val.div(pv));
+
+        for (let i = 0; i < nrows; i++) {
+          if (i !== r && !rref[i][c].isZero()) {
+            const factor = rref[i][c];
+            rref[i] = rref[i].map((val, k) => val.sub(factor.mul(rref[r][k])));
+          }
+        }
+        pivotCols.push(c);
+        r++;
+      }
+
+      const freeCols = [];
+      for (let c = 0; c < ncols; c++) {
+        if (!pivotCols.includes(c)) freeCols.push(c);
+      }
+      if (freeCols.length === 0) {
+        throw new Error("ناتوانرێت هاوسەنگ بکرێت: هیچ شیکارێکی ناسیفر بوونی نییە.");
+      }
+
+      const nullVectors = [];
+      for (const f of freeCols) {
+        const vec = [];
+        for (let j = 0; j < ncols; j++) vec.push(new Fraction(0));
+        vec[f] = new Fraction(1);
+        for (let rowIdx = 0; rowIdx < pivotCols.length; rowIdx++) {
+          const pCol = pivotCols[rowIdx];
+          vec[pCol] = rref[rowIdx][f].neg();
+        }
+        nullVectors.push(vec);
+      }
+
+      let solution = null;
+      if (nullVectors.length === 1) {
+        const v = nullVectors[0];
+        if (v.every(x => x.isPositive())) solution = v;
+        else if (v.every(x => x.isNegative())) solution = v.map(x => x.neg());
+      } else {
+        for (const maxC of [1, 2, 5, 10, 20]) {
+          function searchComb(idx, current) {
+            if (solution) return;
+            if (idx === nullVectors.length) {
+              const cand = [];
+              for (let j = 0; j < ncols; j++) {
+                let sum = new Fraction(0);
+                for (let k = 0; k < nullVectors.length; k++) {
+                  sum = sum.add(nullVectors[k][j].mul(new Fraction(current[k])));
+                }
+                cand.push(sum);
+              }
+              if (cand.every(x => x.isPositive())) {
+                solution = cand;
+              }
+              return;
+            }
+            for (let val = 1; val <= maxC; val++) {
+              current[idx] = val;
+              searchComb(idx + 1, current);
+              if (solution) return;
+            }
+          }
+          searchComb(0, new Array(nullVectors.length));
+          if (solution) break;
+        }
+      }
+
+      if (!solution) {
+        throw new Error("ناتوانرێت هاوکێشەکە هاوسەنگ بکرێت بە هاوکۆڵکەی ئەرێنی.");
+      }
+
+      let overallLcm = 1n;
+      for (const x of solution) {
+        overallLcm = bigLcm(overallLcm, x.d);
+      }
+      const intCoeffs = solution.map(x => (x.n * (overallLcm / x.d)));
+      let overallGcd = 0n;
+      for (const c of intCoeffs) {
+        overallGcd = bigGcd(overallGcd, c);
+      }
+      const finalCoeffs = intCoeffs.map(c => Number(c / overallGcd));
+
+      // Mathematical Verification of Atom Counts
+      const atomCounts = {};
+      for (const el of allElements) {
+        let left = 0;
+        for (let i = 0; i < rClean.length; i++) {
+          left += finalCoeffs[i] * (rParsed[i][el] || 0);
+        }
+        let right = 0;
+        for (let j = 0; j < pClean.length; j++) {
+          right += finalCoeffs[rClean.length + j] * (pParsed[j][el] || 0);
+        }
+        if (left !== right) {
+          throw new Error(`هەڵە لە هاوسەنگی ئەتۆمەکانی ${el}: کارلێککەر=${left}، بەرهەم=${right}`);
+        }
+        atomCounts[el] = left;
+      }
+
+      function formatCompoundText(coeff, formula) {
+        const cStr = coeff === 1 ? "" : String(coeff);
+        return `${cStr}${formula}`;
+      }
+      function formatCompoundHtml(coeff, formula) {
+        const cStr = coeff === 1 ? "" : `<span class="text-cyan-400 font-black">${coeff}</span>`;
+        return `${cStr}${formatFormulaHtml(formula)}`;
+      }
+
+      const rStr = rClean.map((f, i) => formatCompoundText(finalCoeffs[i], f)).join(" + ");
+      const pStr = pClean.map((f, j) => formatCompoundText(finalCoeffs[rClean.length + j], f)).join(" + ");
+
+      const rHtml = rClean.map((f, i) => formatCompoundHtml(finalCoeffs[i], f)).join(' <span class="text-slate-400 font-bold">+</span> ');
+      const pHtml = pClean.map((f, j) => formatCompoundHtml(finalCoeffs[rClean.length + j], f)).join(' <span class="text-slate-400 font-bold">+</span> ');
+
+      return {
+        coefficients: finalCoeffs,
+        reactants: rClean,
+        products: pClean,
+        rParsed,
+        pParsed,
+        allElements,
+        atomCounts,
+        balancedEquation: `${rStr} -> ${pStr}`,
+        balancedEquationHtml: `${rHtml} <span class="text-cyan-400 font-bold mx-2">→</span> ${pHtml}`
+      };
+    }
+
+    function copyToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+        showToast("هاوکێشەکە کۆپی کرا!");
+      }
+    }
+
+    // =========================================================================
+    // MATH SOLVERS: ARITHMETIC & LINEAR ALGEBRA (STOICHIOMETRY & CALCULATIONS)
+    // =========================================================================
+    function solveLinearAlgebraEquation(eq) {
+      try {
+        const parts = eq.split('=');
+        if (parts.length !== 2) return null;
+
+        function parseSide(side) {
+          let s = side.replace(/\s+/g, '');
+          s = s.replace(/([0-9xX])-/g, '$1+-');
+          const terms = s.split('+').filter(Boolean);
+          let a = 0;
+          let b = 0;
+          for (let t of terms) {
+            if (/[xX]/.test(t)) {
+              let coeffStr = t.replace(/[xX]/g, '');
+              if (coeffStr === '' || coeffStr === '+') a += 1;
+              else if (coeffStr === '-') a -= 1;
+              else a += parseFloat(coeffStr);
+            } else {
+              b += parseFloat(t);
+            }
+          }
+          return { a, b };
+        }
+
+        const left = parseSide(parts[0]);
+        const right = parseSide(parts[1]);
+
+        const totalA = left.a - right.a;
+        const totalB = right.b - left.b;
+
+        if (totalA === 0) {
+          if (totalB === 0) return { status: 'infinite', msg: 'بێشومار شیکار هەیە' };
+          return { status: 'none', msg: 'هیچ شیکارێکی نییە' };
+        }
+
+        const xVal = totalB / totalA;
+        const formattedX = Number.isInteger(xVal) ? xVal : parseFloat(xVal.toFixed(4));
+        return {
+          status: 'ok',
+          a: totalA,
+          b: totalB,
+          x: formattedX,
+          original: eq,
+          steps: [
+            `هاوکێشەی سەرەتایی: ${eq}`,
+            `کۆکردنەوەی هاوکۆڵکەکانی x لە لایەک: ${totalA}x = ${totalB}`,
+            `دابەشکردنی هەردوو لا بەسەر (${totalA}): x = ${totalB} / ${totalA}`,
+            `بەهای کۆتایی نەزانراو: x = ${formattedX}`
+          ]
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function evaluateArithmeticExpression(raw) {
+      try {
+        let str = raw.trim();
+        // Convert 3x3 to 3 * 3
+        let expr = str.replace(/(\d+)\s*[xX×]\s*(\d+)/g, '$1 * $2');
+        expr = expr.replace(/×/g, '*').replace(/÷/g, '/');
+
+        // Safe evaluation
+        if (!/^[0-9\.\+\-\*/\(\)\s\^%]+$/.test(expr)) return null;
+
+        // Replace ^ with ** for power
+        const jsExpr = expr.replace(/\^/g, '**');
+        const val = Function('"use strict"; return (' + jsExpr + ')')();
+        if (typeof val !== 'number' || isNaN(val)) return null;
+
+        const formattedVal = Number.isInteger(val) ? val : parseFloat(val.toFixed(4));
+        const cleanDisplay = str.replace(/\*/g, '×').replace(/\//g, '÷');
+
+        return {
+          original: str,
+          cleanDisplay: cleanDisplay,
+          value: formattedVal
+        };
+      } catch (e) {
+        return null;
+      }
+    }
+
     function solveEquation() {
-      const raw = document.getElementById('solverTextInput').value.trim();
+      const inputEl = document.getElementById('solverTextInput');
+      const raw = inputEl.value.trim();
       const container = document.getElementById('solverResultContainer');
 
       if (!raw) {
@@ -1470,136 +2430,1202 @@
         return;
       }
 
-      const input = raw.toUpperCase().replace(/\s+/g, '');
-      let topicKu = "شیکاری گشتی کیمیایی";
-      let stepsKu = [];
-      let finalResultKu = "";
+      // Check classifications
+      const hasReactionArrow = /(?:->|-->|=>|==>|→|⇄|⇌)/.test(raw);
+      const isAlgebraEquation = raw.includes('=') && !hasReactionArrow && /[xX]/.test(raw) && !/[A-WY-Za-wy-z]/.test(raw);
+      const isArithmeticMath = !hasReactionArrow && !raw.includes('->') && (
+        /^\s*[\d\.\(\)\s+\-\*/×÷^%xX]+\s*$/.test(raw) && (/[+\-\*/×÷^%]/.test(raw) || /\d+\s*[xX]\s*\d+/.test(raw)) && !/[A-WY-Za-wy-z]/.test(raw)
+      );
 
-      // 1. Water H2O
-      if (input.includes('H2O') || input.includes('H₂O')) {
-        topicKu = "شیکاری پێکهاتەی گەردی ئاو (Water Molecule)";
-        stepsKu = [
-          "دیاریکردنی ئەتۆمەکان: گەردی ئاو لە ٢ ئەتۆمی هایدرۆجین (H) و ١ ئەتۆمی ئۆکسجین (O) پێکدێت.",
-          "بارستەی مۆڵی: (2 × 1.01) + (1 × 16.00) = 18.02 g/mol.",
-          "ژمارەی ئۆکسان: ژمارەی ئۆکسانی هایدرۆجین یەکسانە بە +1، ژمارەی ئۆکسانی ئۆکسجین یەکسانە بە -2.",
-          "شێوەی ئەندازەیی گەرد: چەماوە (Bent) بە گۆشەی ١٠٤.٥ پلە بەهۆی بوونی دوو جووت ئەلیکترۆنی نابەستراو.",
-          "جۆری بەستەر: بەستەری هاوبەشی جەمسەردار (Polar Covalent Bond)."
-        ];
-        finalResultKu = "H₂O: بارستەی مۆڵی = 18.02 g/mol | شێوەی گەردی = چەماوە (١٠٤.٥ پلە) | جۆری بەستەر = پۆلار کۆڤالەنت (هاوبەشی جەمسەردار)";
-      }
-      // 2. Balancing: Fe + O2 -> Fe2O3
-      else if (input.includes('FE') && (input.includes('O2') || input.includes('O₂'))) {
-        topicKu = "هاوسەنگکردنی هاوکێشەی کیمیایی (ئۆکسانی ئاسن)";
-        stepsKu = [
-          "هاوکێشەی سەرەتایی: Fe + O₂ → Fe₂O₃",
-          "ئەژمارکردنی ئەتۆمەکان لە کارلێککەر: Fe = 1، O = 2.",
-          "ئەژمارکردنی ئەتۆمەکان لە بەرهەم: Fe = 2، O = 3.",
-          "هاوسەنگکردنی ئۆکسجین: دانانی هاوکۆڵکەی ٣ بۆ O₂ و ٢ بۆ Fe₂O₃ (دەبێتە ٦ ئەتۆمی ئۆکسجین لە هەردوولا).",
-          "هاوسەنگکردنی ئاسن: لە بەرهەمدا ٤ ئەتۆمی ئاسن هەیە (2 × 2)، بۆیە هاوکۆڵکەی ٤ دەدەینە Fe."
-        ];
-        finalResultKu = "هاوکێشەی هاوسەنگکراو: 4Fe + 3O₂ → 2Fe₂O₃";
-      }
-      // 3. Molar Mass: Ca(OH)2
-      else if (input.includes('CA(OH)2') || input.includes('CAOH2')) {
-        topicKu = "هەژمارکردنی بارستەی مۆڵی ئاوێتەی هایدرۆکسیدی کالسیۆم";
-        stepsKu = [
-          "کالسیۆم (Ca): 1 × 40.08 = 40.08 g/mol",
-          "ئۆکسجین (O): 2 × 16.00 = 32.00 g/mol",
-          "هایدرۆجین (H): 2 × 1.01 = 2.02 g/mol",
-          "کۆی گشتی بارستەی مۆڵی: 40.08 + 32.00 + 2.02 = 74.10 g/mol"
-        ];
-        finalResultKu = "بارستەی مۆڵی ئاوێتەی Ca(OH)₂ = 74.10 g/mol";
-      }
-      // 4. Oxidation: KMnO4
-      else if (input.includes('KMNO4') || input.includes('MNO4')) {
-        topicKu = "دۆزینەوەی ژمارەی ئۆکسانی مەنگەنیس لە پێرمەنگەناتی پۆتاسیۆم";
-        stepsKu = [
-          "ئاوێتەی KMnO₄ بێ بارگەیە (بارگەی گشتی = 0).",
-          "پۆتاسیۆم (K) سەر بە کۆمەڵەی یەکەمە: ژمارەی ئۆکسانی هەمیشە +1 ـە.",
-          "ئۆکسجین (O) لە زۆربەی ئاوێتەکاندا ژمارەی ئۆکسانی -2 ـە: (4 × -2 = -8).",
-          "هاوکێشەی بارگە: (+1) + (Mn) + (-8) = 0",
-          "شیکارکردن: Mn - 7 = 0  ⇒  Mn = +7"
-        ];
-        finalResultKu = "باری ئۆکسانی توخمی Mn لە KMnO₄ = +7 (ئۆکسێنەری بەهێز)";
-      }
-      // 5. Electron Config: Cr
-      else if (input.includes('CR') || input.includes('CHROMIUM')) {
-        topicKu = "ڕیزبەندی ئەلیکترۆنی نائاسایی بۆ کرۆمیۆم (Z=24)";
-        stepsKu = [
-          "ژمارەی ئەتۆمی Cr یەکسانە بە ٢٤.",
-          "ڕیزبەندی بەپێی ئۆفباو: [Ar] 3d⁴ 4s²",
-          "ڕیزبەندی ڕاستەقینە: [Ar] 3d⁵ 4s¹",
-          "هۆکاری زانستی: ژێرئاستی 3d بە نیوە-پڕکراوی (d⁵) لە باری وزەییدا زۆر سەقامگیرترە."
-        ];
-        finalResultKu = "دۆخی بنچینەیی Cr (Z=24): [Ar] 3d⁵ 4s¹ (سەقامگیر بەهۆی نیوە-پڕبوونی 3d)";
-      }
-      // 6. Lewis & Shape: XeF4
-      else if (input.includes('XEF4') || input.includes('XE')) {
-        topicKu = "شێوەی ئەندازەیی و دووڕەگبوونی زینۆن تێترافلۆراید";
-        stepsKu = [
-          "زینۆن (Xe) گازی خانەدانە و خاوەنی ٨ ئەلیکترۆنی هێلانەییە.",
-          "هەر فلۆرێک ١ ئەلیکترۆن بەشداری پێدەکات = ٤ بەستەری هاوبەش.",
-          "دوو جووتی نابەستراو (Lone Pairs) لەسەر Xe دەمێننەوە.",
-          "شێوەی ئەندازەیی: چوارگۆشەی تەخت (Square Planar) بە دووڕەگبوونی sp³d²."
-        ];
-        finalResultKu = "XeF₄: شێوەی ئەندازەیی چوارگۆشەی تەخت | دووڕەگبوونی sp³d²";
-      }
-      // Default equation
-      else {
-        topicKu = "شیکاری و هاوسەنگکردنی زانستی";
-        stepsKu = [
-          `هاوکێشەی دیاریکراو: ${raw}`,
-          "شیکردنەوەی یاسای پاراستنی بارستە (Conservation of Mass) لە نێوان کارلێککەرەکان و بەرهەمەکاندا.",
-          "ئەژمارکردنی ئەتۆمەکانی هەر لایەک بەپێی خشتەی خولی مامۆستا شەوگار.",
-          "تەواوکردنی هاوسەنگکردن بە دانانی کەمترین ژمارەی تەواو وەک هاوکۆڵکە."
-        ];
-        finalResultKu = `شیکاری زانستی بۆ (${raw}): کارلێکەکە بە سەرکەوتوویی شی کرایەوە و هاوسەنگ کرا.`;
+      // Check if user multiplied chemical elements or formulas (e.g. Al × K or Al * K)
+      const isElementMultiplication = !hasReactionArrow && /[×*]/.test(raw) && /[A-Z]/.test(raw);
+
+      // Check if user wrote reactants with + but forgot reaction arrow (e.g. Al + K or H2 + O2)
+      const isUnfinishedReaction = !hasReactionArrow && raw.includes('+') && /[A-Z]/.test(raw);
+
+      // 1. Math Arithmetic Calculation (e.g., 3x3 - 9, 3×3, 15 / 3 + 2)
+      if (isArithmeticMath) {
+        const mathRes = evaluateArithmeticExpression(raw);
+        if (mathRes) {
+          container.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-cyan-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-neon-cyan"></span>
+                  <h4 class="text-sm sm:text-base font-black text-white">ئەنجامی کرداری بیرکاری و ژمێریاری (Math Calculation)</h4>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] font-mono border border-cyan-500/20 font-bold">
+                  ژمێریاری تەواو ✓
+                </span>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 text-center space-y-2 shadow-neon-cyan">
+                <span class="text-[11px] font-bold text-slate-400 block">کردار و ئەنجامی ژمێریاری:</span>
+                <div class="text-xl sm:text-3xl font-black font-formula text-white py-1">
+                  ${mathRes.cleanDisplay} = <span class="text-cyan-400 font-mono">${mathRes.value}</span>
+                </div>
+                <div class="text-xs text-slate-400">
+                  ئەنجامی کرداری بیرکاری: <strong class="text-emerald-400 font-mono text-sm">${mathRes.value}</strong>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-slate-300 block">هەنگاوەکانی شیکارکردن:</span>
+                <ul class="space-y-2 text-xs text-slate-300">
+                  <li class="bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">١</span>
+                    <span>دەستنیشانکردنی دەربڕینی بیرکاری: <code class="font-mono text-cyan-300">${mathRes.cleanDisplay}</code>.</span>
+                  </li>
+                  <li class="bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">٢</span>
+                    <span>جێبەجێکردنی پێشینەی کردارەکان (BODMAS: جاران و دابەش لەپێش کۆ و لێدەرکردنە).</span>
+                  </li>
+                  <li class="bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
+                    <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-emerald-500/30">٣</span>
+                    <span>ئەنجامی کۆتایی = <strong class="text-emerald-300 font-mono font-bold text-sm">${mathRes.value}</strong>.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          `;
+          return;
+        }
       }
 
-      let stepsHtml = stepsKu.map((step, idx) => `
-        <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
-          <span class="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-emerald-500/30">
-            ${idx + 1}
-          </span>
-          <span>${step}</span>
-        </li>
-      `).join('');
+      // 2. Math Linear Algebra Equation (e.g., 3x - 9 = 0 or 3x = 9)
+      if (isAlgebraEquation) {
+        const algRes = solveLinearAlgebraEquation(raw);
+        if (algRes && algRes.status === 'ok') {
+          container.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-emerald-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald"></span>
+                  <h4 class="text-sm sm:text-base font-black text-white">شیکاریی هاوکێشەی هێڵی بیرکاری (Linear Algebra Equation)</h4>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-[10px] font-mono border border-emerald-500/20 font-bold">
+                  شیکارکراو ✓
+                </span>
+              </div>
+
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 text-center space-y-2 shadow-neon-emerald">
+                <span class="text-[11px] font-bold text-slate-400 block">بەهای نەزانراوی گۆڕەکی x:</span>
+                <div class="text-2xl sm:text-4xl font-black font-formula text-white py-1">
+                  x = <span class="text-emerald-400">${algRes.x}</span>
+                </div>
+                <div class="text-xs text-slate-400">
+                  هاوکێشەی سەرەتایی: <span class="font-mono text-cyan-300 font-bold">${algRes.original}</span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-slate-300 block">هەنگاوەکانی شیکارکردنی ئەلجەبرا:</span>
+                <ul class="space-y-2 text-xs text-slate-300">
+                  ${algRes.steps.map((st, i) => `
+                    <li class="bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80 flex items-center gap-2">
+                      <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">${i + 1}</span>
+                      <span>${st}</span>
+                    </li>
+                  `).join('')}
+                </ul>
+              </div>
+            </div>
+          `;
+          return;
+        }
+      }
+
+      // 3. User multiplied chemical elements (e.g. Al × K or Al * K)
+      if (isElementMultiplication) {
+        const parts = raw.split(/[×*]/).map(s => s.trim()).filter(Boolean);
+        const itemResults = [];
+        let totalProduct = 1;
+        let allValid = true;
+
+        for (let p of parts) {
+          try {
+            const counts = parseFormula(p);
+            const mMass = calculateMolarMass(counts);
+            const info = KNOWN_ELEMENT_MAP[p] || { n: p, m: mMass };
+            totalProduct *= mMass;
+            itemResults.push({ formula: p, name: info.n, mass: mMass });
+          } catch(e) {
+            allValid = false;
+            break;
+          }
+        }
+
+        if (allValid && itemResults.length >= 2) {
+          const breakdownHtml = itemResults.map(it => `
+            <tr class="border-b border-slate-800/80">
+              <td class="py-2 px-3 text-cyan-300 font-bold font-formula">${it.formula} (${it.name})</td>
+              <td class="py-2 px-3 text-left font-mono text-white">${it.mass.toFixed(2)} g/mol</td>
+            </tr>
+          `).join('');
+
+          container.innerHTML = `
+            <div class="space-y-4">
+              <div class="flex items-center justify-between border-b border-cyan-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-neon-cyan"></span>
+                  <h4 class="text-sm sm:text-base font-black text-white">شیکاریی لێکدانی بارستەی توخمە کیمیاییەکان (${raw})</h4>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] font-mono border border-cyan-500/20 font-bold">
+                  Molar Multiplication
+                </span>
+              </div>
+
+              <!-- Main Result Card -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 text-center space-y-2 shadow-neon-cyan">
+                <span class="text-[11px] font-bold text-slate-400 block">بەرهەمی لێکدانی بارستەی ئەتۆمیی توخمەکان:</span>
+                <div class="text-xl sm:text-3xl font-black font-formula text-white py-1">
+                  ${raw} = <span class="text-emerald-400">${totalProduct.toFixed(2)}</span> g/mol
+                </div>
+                <div class="text-xs text-slate-400">
+                  (${itemResults.map(it => `${it.formula}: ${it.mass.toFixed(2)}`).join(' × ')}) = <strong>${totalProduct.toFixed(2)}</strong>
+                </div>
+              </div>
+
+              <!-- Elements Table -->
+              <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70">
+                <table class="w-full text-xs text-right">
+                  <thead class="bg-slate-900/80 text-slate-400 border-b border-slate-800 font-bold">
+                    <tr>
+                      <th class="py-2 px-3">توخمی کیمیایی</th>
+                      <th class="py-2 px-3 text-left">کێشی ئەتۆمی (Molar Mass)</th>
+                    </tr>
+                  </thead>
+                  <tbody>${breakdownHtml}</tbody>
+                </table>
+              </div>
+
+              <!-- Chemistry Guidance: Why × is not a reaction -->
+              <div class="p-4 rounded-2xl bg-amber-950/30 border border-amber-500/40 text-amber-200 text-xs space-y-2">
+                <div class="flex items-center gap-2 font-bold text-amber-300">
+                  <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>بۆچی لە کیمیادا هێمای جاران (×) دانانرێت؟</span>
+                </div>
+                <p class="leading-relaxed text-slate-300">
+                  لە زانستی کیمیادا، توخمەکان بە هێمای کۆکردنەوە (<code class="text-cyan-300 font-bold">+</code>) و تیشکی کارلێک (<code class="text-cyan-300 font-bold">-></code>) کارلێک دەکەن. هێمای (<code class="text-cyan-300 font-bold">×</code>) تەنها لە بیرکاری یان ژماردنی بارستەی مۆڵیدا بەکاردێت.
+                </p>
+                <p class="leading-relaxed text-slate-300">
+                  هەروەها <strong>ئەلەمینیۆم (Al)</strong> و <strong>پۆتاسیۆم (K)</strong> هەردووکیان کانزان و کارلێکی کیمیایی لەگەڵ یەکتر ناکەن چونکە کانزا لەگەڵ کانزا تەنها داڕشتە (Alloy) پێکدەهێنێت نەک ئاوێتە.
+                </p>
+                <div class="pt-1 text-[11px] text-slate-400">
+                  <span class="text-cyan-400 font-bold block mb-1">نموونەی هاوکێشەی دروست بۆ ئەم توخمانە (کلیک بکە بۆ هاوسەنگکردن):</span>
+                  <div class="flex flex-wrap gap-2 pt-1">
+                    <button type="button" onclick="quickSolveWithSymbol('Al + O2 -> Al2O3')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 font-mono text-xs">Al + O2 -> Al2O3</button>
+                    <button type="button" onclick="quickSolveWithSymbol('Al + HCl -> AlCl3 + H2')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 font-mono text-xs">Al + HCl -> AlCl3 + H2</button>
+                    <button type="button" onclick="quickSolveWithSymbol('K + H2O -> KOH + H2')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 font-mono text-xs">K + H2O -> KOH + H2</button>
+                    <button type="button" onclick="quickSolveWithSymbol('K + Cl2 -> KCl')" class="px-2.5 py-1 rounded-lg bg-slate-900 border border-cyan-500/30 hover:border-cyan-400 text-cyan-300 font-mono text-xs">K + Cl2 -> KCl</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          return;
+        }
+      }
+
+      // 4. User wrote reactants with + but forgot reaction arrow (e.g. Al + K or H2 + O2)
+      if (isUnfinishedReaction) {
+        container.innerHTML = `
+          <div class="p-4 sm:p-5 rounded-2xl bg-amber-950/30 border-2 border-amber-500/40 text-amber-200 text-xs sm:text-sm space-y-3 shadow-lg">
+            <div class="flex items-center gap-2 font-bold text-amber-300">
+              <svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              <span>هاوکێشەی کارلێک تیشک (->) و بەرهەمەکانی نییە</span>
+            </div>
+            <p class="leading-relaxed text-slate-300">
+              تۆ تەنها کارلێککەرەکانت نووسیوە: <code class="font-mono text-cyan-300 bg-slate-900 px-2 py-0.5 rounded">${raw}</code>. بۆ هاوسەنگکردن، پێویستە تیشکی کارلێک (<code class="text-cyan-300 font-bold">-></code>) و بەرهەمەکان بنووسیت.
+            </p>
+            <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1.5 text-xs text-slate-400">
+              <strong class="text-slate-300 block">شێوازی دروست:</strong>
+              <div>• نموونە: <code class="font-mono text-cyan-300">H2 + O2 -> H2O</code></div>
+              <div>• نموونە: <code class="font-mono text-cyan-300">Al + HCl -> AlCl3 + H2</code></div>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      // 5. Chemical Equation Balancing (Reactions with -> or =)
+      if (hasReactionArrow || (raw.includes('=') && !isAlgebraEquation && !isArithmeticMath)) {
+        try {
+          const res = balanceChemicalEquation(raw);
+
+          // Build Atom Conservation Table Rows
+          let atomRows = res.allElements.map(el => {
+            const count = res.atomCounts[el];
+            const info = KNOWN_ELEMENT_MAP[el];
+            const nameKu = info ? info.n : el;
+            return `
+              <tr class="border-b border-slate-800/80 hover:bg-slate-900/40 transition-colors">
+                <td class="py-2.5 px-3 text-cyan-300 font-bold font-formula">${el} <span class="text-[11px] text-slate-400 font-sans font-normal">(${nameKu})</span></td>
+                <td class="py-2.5 px-3 text-center text-slate-200 font-mono font-bold">${count}</td>
+                <td class="py-2.5 px-3 text-center text-slate-200 font-mono font-bold">${count}</td>
+                <td class="py-2.5 px-3 text-left">
+                  <span class="inline-flex items-center gap-1 text-[11px] text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                    <span>پارێزراوە</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  </span>
+                </td>
+              </tr>
+            `;
+          }).join('');
+
+          // Build Steps in Kurdish
+          const rFormattedList = res.reactants.map(formatFormulaHtml).join(' + ');
+          const pFormattedList = res.products.map(formatFormulaHtml).join(' + ');
+          const coeffsStr = res.coefficients.join(', ');
+
+          container.innerHTML = `
+            <div class="space-y-4">
+              
+              <!-- Result Header -->
+              <div class="flex items-center justify-between border-b border-emerald-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald"></span>
+                  <h4 class="text-sm sm:text-base font-black text-white">هاوسەنگکردنی هاوکێشەی کیمیایی (Chemical Equation Balancing)</h4>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-300 text-[10px] font-mono border border-emerald-500/20 font-bold">
+                  هاوسەنگکراو بە سەرکەوتوویی ✓
+                </span>
+              </div>
+
+              <!-- Main Balanced Equation Card -->
+              <div class="relative p-4 sm:p-5 rounded-2xl bg-slate-950 border-2 border-emerald-500/50 shadow-neon-emerald text-center space-y-2">
+                <span class="text-[11px] font-bold text-slate-400 block">هاوکێشەی هاوسەنگکراوی کۆتایی (بدون هاوکۆڵکەی ١):</span>
+                <div class="text-base sm:text-xl md:text-2xl font-black font-formula text-white py-2 px-3 tracking-wide ltr-dir select-all leading-relaxed">
+                  ${res.balancedEquationHtml}
+                </div>
+                <div class="flex items-center justify-center gap-2 pt-1">
+                  <button 
+                    type="button"
+                    onclick="copyToClipboard('${res.balancedEquation}')"
+                    class="px-3.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+                    <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                    <span>کۆپیکردنی دەق</span>
+                  </button>
+                  <span class="text-[11px] font-mono text-emerald-400 bg-emerald-950/40 border border-emerald-500/30 px-3 py-1.5 rounded-xl font-bold">
+                    هاوکۆڵکەکان: [${coeffsStr}]
+                  </span>
+                </div>
+              </div>
+
+              <!-- Atom Conservation Scorecard Table -->
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-slate-300 block flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <span>خشتەی سەلماندنی پاراستنی ئەتۆمەکان (Conservation of Mass Verification):</span>
+                </span>
+                <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70">
+                  <table class="w-full text-xs text-right">
+                    <thead class="bg-slate-900/80 text-slate-400 border-b border-slate-800 font-bold">
+                      <tr>
+                        <th class="py-2.5 px-3">توخمی کیمیایی</th>
+                        <th class="py-2.5 px-3 text-center">ئەتۆم لە کارلێککەرەکان</th>
+                        <th class="py-2.5 px-3 text-center">ئەتۆم لە بەرهەمەکان</th>
+                        <th class="py-2.5 px-3 text-left">دۆخی یاسای پاراستن</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${atomRows}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Step-by-Step Stoichiometric Deduction -->
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-slate-300 block">هەنگاوەکانی شیکارکردنی زانستی بە ماتماتیک:</span>
+                <ul class="space-y-2">
+                  <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">١</span>
+                    <span>دیاریکردنی کارلێککەرەکان: (${rFormattedList}) و بەرهەمەکان: (${pFormattedList}).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">٢</span>
+                    <span>ئەژمارکردنی ئەتۆمەکانی ناو کەوانەکان و گرووپە پۆلیئەتۆمییەکان بە وردی بەپێی هێماکانی خشتەی خولی.</span>
+                  </li>
+                  <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">٣</span>
+                    <span>پێکهێنانی سیستەمی هاوکێشە هێڵییەکان (Stoichiometric Linear System) و چارەسەرکردن بە ڕێگەی دابەزاندنی ماتریکسی (RREF).</span>
+                  </li>
+                  <li class="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed bg-slate-950/40 p-2.5 rounded-xl border border-slate-800/80">
+                    <span class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 border border-cyan-500/30">٤</span>
+                    <span>دۆزینەوەی بچووکترین هاوکۆڵکەی تەواوی ئەرێنی بە دابەشکردن بەسەر گەورەترین بەشداری هاوبەش (GCD): هاوکۆڵکەکان دەبنە <strong>[${coeffsStr}]</strong>.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Final Confirmation Note -->
+              <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-xs text-emerald-200 font-medium leading-relaxed flex items-start gap-2.5 shadow-sm">
+                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <div>
+                  <strong class="text-white block mb-0.5">ئەنجامی سەلمێنراو بۆ مامۆستا شەوگار:</strong>
+                  <span>هاوکێشەکە بە سەرکەوتوویی هاوسەنگ کرا. سەرجەم ${res.allElements.length} توخمە جیاوازەکە هاوسەنگی تەواویان بەدەستهێنا بەپێی یاساکانی کیمیای پۆلی ١١.</span>
+                </div>
+              </div>
+
+            </div>
+          `;
+        } catch (err) {
+          container.innerHTML = `
+            <div class="p-4 sm:p-5 rounded-2xl bg-rose-950/40 border border-rose-500/50 text-rose-300 text-xs sm:text-sm space-y-3 shadow-lg">
+              <div class="flex items-center gap-2 font-bold text-white">
+                <svg class="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>هەڵە لە هاوسەنگکردنی هاوکێشە</span>
+              </div>
+              <p class="leading-relaxed">${err.message}</p>
+              <div class="text-[11px] text-slate-400 bg-slate-950/80 p-3 rounded-xl border border-slate-800 space-y-1">
+                <strong class="text-slate-300 block">شێوازی دروستی نووسینی هاوکێشە:</strong>
+                <div>• کارلێککەرەکان و بەرهەمەکان بە تیشک جیا بکەرەوە: <span class="font-mono text-cyan-300">H2 + O2 -> H2O</span></div>
+                <div>• بۆ کەوانەکان و گرووپەکان: <span class="font-mono text-cyan-300">Al2(SO4)3 + Ca(OH)2 -> Al(OH)3 + CaSO4</span></div>
+                <div>• پیتە گەورە و بچووکەکانی توخمەکان بە دروستی بنووسە (وەک <span class="font-mono text-cyan-300">Fe, Cl, Ca</span>).</div>
+              </div>
+            </div>
+          `;
+        }
+      } else {
+        // 6. Single Chemical Formula Analysis (e.g., H2O, Ca(OH)2, KMnO4, XeF4)
+        try {
+          const counts = parseFormula(raw);
+          const molarMass = calculateMolarMass(counts);
+          const formattedHtml = formatFormulaHtml(raw);
+
+          let breakdownRows = Object.entries(counts).map(([el, cnt]) => {
+            const info = KNOWN_ELEMENT_MAP[el] || { n: el, m: 0 };
+            const subMass = info.m * cnt;
+            const pct = molarMass > 0 ? ((subMass / molarMass) * 100).toFixed(2) : 0;
+            return `
+              <tr class="border-b border-slate-800/80 hover:bg-slate-900/40 transition-colors">
+                <td class="py-2.5 px-3 text-cyan-300 font-bold font-formula">${el} <span class="text-[11px] text-slate-400 font-sans font-normal">(${info.n})</span></td>
+                <td class="py-2.5 px-3 text-center text-slate-200 font-mono font-bold">${cnt}</td>
+                <td class="py-2.5 px-3 text-center text-slate-200 font-mono">${info.m ? info.m.toFixed(2) : '-'} g/mol</td>
+                <td class="py-2.5 px-3 text-left font-mono text-emerald-400 font-bold">${pct}%</td>
+              </tr>
+            `;
+          }).join('');
+
+          container.innerHTML = `
+            <div class="space-y-4">
+              
+              <div class="flex items-center justify-between border-b border-emerald-500/20 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-neon-cyan"></span>
+                  <h4 class="text-sm sm:text-base font-black text-white">شیکاریی پێکهاتەی گەردی ئاوێتە</h4>
+                </div>
+                <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] font-mono border border-cyan-500/20 font-bold">
+                  Molecular Analysis
+                </span>
+              </div>
+
+              <!-- Main Molar Mass Box -->
+              <div class="p-4 sm:p-5 rounded-2xl bg-slate-950 border-2 border-cyan-500/50 text-center space-y-1 shadow-neon-cyan">
+                <span class="text-[11px] font-bold text-slate-400 block">پێکهاتەی ئاوێتە و بارستەی مۆڵی:</span>
+                <div class="text-xl sm:text-2xl font-black font-formula text-white py-1">
+                  ${formattedHtml}
+                </div>
+                <div class="text-lg sm:text-xl font-mono font-black text-emerald-400">
+                  بارستەی مۆڵی = ${molarMass.toFixed(2)} g/mol
+                </div>
+              </div>
+
+              <!-- Composition Table -->
+              <div class="space-y-2">
+                <span class="text-xs font-bold text-slate-300 block">ڕێژەی سەدی پێکهاتەی توخمەکان (Mass Percentage Composition):</span>
+                <div class="overflow-x-auto rounded-xl border border-slate-800 bg-slate-950/70">
+                  <table class="w-full text-xs text-right">
+                    <thead class="bg-slate-900/80 text-slate-400 border-b border-slate-800 font-bold">
+                      <tr>
+                        <th class="py-2.5 px-3">توخم</th>
+                        <th class="py-2.5 px-3 text-center">ژمارەی ئەتۆم</th>
+                        <th class="py-2.5 px-3 text-center">کێشی ئەتۆمی</th>
+                        <th class="py-2.5 px-3 text-left">ڕێژەی سەدی (%)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${breakdownRows}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Tip to balance -->
+              <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 flex items-center gap-2">
+                <span class="text-cyan-400 font-bold">ڕێنمایی بۆ هاوسەنگکردن:</span>
+                <span>ئەگەر دەتەوێت هاوکێشەی کارلێک هاوسەنگ بکەیت، تیشک و بەرهەمەکان بنووسە (بۆ نموونە: <span class="font-mono text-cyan-300">${raw} + ... -> ...</span>).</span>
+              </div>
+
+            </div>
+          `;
+        } catch (err) {
+          container.innerHTML = `
+            <div class="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/50 text-rose-300 text-xs sm:text-sm space-y-3">
+              <div class="flex items-center gap-2 font-bold text-white">
+                <svg class="w-5 h-5 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                <span>هەڵە لە خوێندنەوەی فۆرمولای کیمیایی</span>
+              </div>
+              <p class="leading-relaxed">${err.message}</p>
+              <div class="text-[11px] text-slate-300 bg-slate-950/80 p-3 rounded-xl border border-slate-800 space-y-1.5">
+                <strong class="text-cyan-300 block">ڕێنمایی مامۆستا شەوگار بۆ نووسینی دروست:</strong>
+                <div>• <strong>فۆرمولای یەک ئاوێتە:</strong> بەبێ نیشانەی جاران بنووسە، وەک <code class="font-mono text-cyan-300">Al2O3, H2O, KMnO4</code>.</div>
+                <div>• <strong>هاوکێشەی کارلێک:</strong> کارلێککەرەکان بە <code class="text-cyan-300">+</code> و پاشان تیشکی کارلێک <code class="text-cyan-300">-></code> دابنێ، وەک <code class="font-mono text-cyan-300">Al + O2 -> Al2O3</code>.</div>
+                <div>• <strong>لێکدانی بارستەی مۆڵی:</strong> هێمای جاران تەنها لە نێوان ژمارەکاندا بنووسە وەک <code class="font-mono text-cyan-300">3x3 - 9</code>.</div>
+              </div>
+            </div>
+          `;
+        }
+      }
+    }
+
+    // =========================================================================
+    // CHEMISTRY VIRTUAL KEYBOARD LOGIC (CAPITAL & SMALL LETTERS, NUMBERS & OPERATORS)
+    // =========================================================================
+    // =========================================================================
+    // CHEMISTRY VIRTUAL KEYBOARD: CAPITAL/SMALL LETTERS & BIG/SMALL NUMBERS
+    // =========================================================================
+    let isKeyboardVisible = false;
+    let isKeyboardUppercase = true;
+    let isKeyboardNumbersSmall = false; // toggle between big 123 and small ₁₂₃
+
+    const UPPER_LETTERS = ['Q','W','E','R','T','Y','U','I','O','P','A','S','D','F','G','H','J','K','L','Z','X','C','V','B','N','M'];
+    const LOWER_LETTERS = ['q','w','e','r','t','y','u','i','o','p','a','s','d','f','g','h','j','k','l','z','x','c','v','b','n','m'];
+
+    const BIG_NUMBERS = ['1','2','3','4','5','6','7','8','9','0'];
+    const SMALL_NUMBERS = ['₁','₂','₃','₄','₅','₆','₇','₈','₉','₀'];
+
+    const SUBSCRIPT_TO_NORMAL = {
+      '₀':'0', '₁':'1', '₂':'2', '₃':'3', '₄':'4',
+      '₅':'5', '₆':'6', '₇':'7', '₈':'8', '₉':'9'
+    };
+
+        // Helper: Normalize Unicode subscripts and clean states of matter/charges for mathematical balancing
+    function cleanFormulaForBalancing(str) {
+      if (!str) return '';
+      // Replace equilibrium arrow with standard reaction arrow
+      str = str.replace(/\s*(?:⇌|⇄|<=>|<->)\s*/g, ' -> ');
+      // Strip states of matter: (s), (l), (g), (aq)
+      str = str.replace(/\s*\((?:s|l|g|aq|solid|liquid|gas|aqeous)\)/gi, '');
+      // Strip precipitate/gas arrows
+      str = str.replace(/[↑↓]/g, '');
+      // Strip electron symbol e-
+      str = str.replace(/e\s*[⁻\-]/g, '');
+      // Strip heat symbol
+      str = str.replace(/Δ/g, '');
+      // Strip superscript charges: ⁺, ⁻, ²⁺, ³⁺, ²⁻, ³⁻
+      str = str.replace(/[⁺⁻⁰¹²³⁴⁵⁶⁷⁸⁹]*[⁺⁻]/g, '');
+      // Normalize subscripts
+      str = normalizeSubscripts(str);
+      return str.trim();
+    }
+
+    function normalizeSubscripts(str) {
+      if (!str) return '';
+      return str.replace(/[₀-₉]/g, ch => SUBSCRIPT_TO_NORMAL[ch] || ch);
+    }
+
+    function renderKeyboardLetters() {
+      const container = document.getElementById('keyboardLettersContainer');
+      const label = document.getElementById('keyboardLettersLabel');
+      const toggleBtn = document.getElementById('keyCaseToggleBtn');
+      if (!container) return;
+
+      const letters = isKeyboardUppercase ? UPPER_LETTERS : LOWER_LETTERS;
+      if (label) {
+        label.textContent = isKeyboardUppercase ? 'پیتە گەورەکان (Capital Letters - ABC):' : 'پیتە بچووکەکان (Small Letters - abc):';
+      }
+      if (toggleBtn) {
+        toggleBtn.textContent = isKeyboardUppercase ? '🔠 پیتە گەورەکان (ABC)' : '🔡 پیتە بچووکەکان (abc)';
+      }
+
+      // 3 QWERTY Rows: 10, 9, 7
+      const r1 = letters.slice(0, 10);
+      const r2 = letters.slice(10, 19);
+      const r3 = letters.slice(19, 26);
+
+      const renderRowHtml = (rowArr) => `
+        <div class="flex justify-center gap-1">
+          ${rowArr.map(char => `
+            <button 
+              type="button" 
+              onclick="insertKey('${char}')" 
+              class="flex-1 min-w-[24px] max-w-[36px] h-8 sm:h-9 rounded-lg bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-mono font-bold text-xs sm:text-sm active:scale-90 active:bg-cyan-500 active:text-slate-950 transition-all flex items-center justify-center shadow-sm">
+              ${char}
+            </button>
+          `).join('')}
+        </div>
+      `;
 
       container.innerHTML = `
-        <div class="space-y-3 sm:space-y-4">
-          
-          <div class="flex items-center justify-between border-b border-emerald-500/20 pb-2.5">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald"></span>
-              <h4 class="text-xs sm:text-sm font-bold text-white">${topicKu}</h4>
-            </div>
-            <span class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 text-[10px] font-mono border border-emerald-500/20">
-              ئەنجامی سەلمێنراو
-            </span>
+        <div class="space-y-1 w-full" dir="ltr">
+          ${renderRowHtml(r1)}
+          ${renderRowHtml(r2)}
+          ${renderRowHtml(r3)}
+        </div>
+      `;
+    }
+
+    function renderKeyboardNumbers() {
+      const container = document.getElementById('keyboardNumbersContainer');
+      const label = document.getElementById('keyboardNumbersLabel');
+      const toggleBtn = document.getElementById('keyNumberModeToggleBtn');
+      if (!container) return;
+
+      const numbers = isKeyboardNumbersSmall ? SMALL_NUMBERS : BIG_NUMBERS;
+      if (label) {
+        label.textContent = isKeyboardNumbersSmall ? 'ژمارە بچووکەکان / ژێرنووس (Small Subscripts - ₁₂₃):' : 'ژمارە گەورەکان (Normal Numbers - 123):';
+      }
+      if (toggleBtn) {
+        toggleBtn.textContent = isKeyboardNumbersSmall ? '🔢 ژمارەی بچووک (₁₂₃)' : '🔢 ژمارەی گەورە (123)';
+      }
+
+      container.innerHTML = numbers.map(num => `
+        <button 
+          type="button" 
+          onclick="insertKey('${num}')" 
+          class="py-2 rounded-lg bg-slate-900 border ${isKeyboardNumbersSmall ? 'border-cyan-500/50 text-cyan-300 font-formula text-sm' : 'border-slate-700 hover:border-emerald-400 text-white font-mono'} font-bold active:scale-90 transition-all">
+          ${num}
+        </button>
+      `).join('');
+    }
+
+    function toggleKeyboardCase() {
+      isKeyboardUppercase = !isKeyboardUppercase;
+      renderKeyboardLetters();
+    }
+
+    function toggleKeyboardNumberMode() {
+      isKeyboardNumbersSmall = !isKeyboardNumbersSmall;
+      renderKeyboardNumbers();
+    }
+
+    function showChemistryKeyboard() {
+      const kb = document.getElementById('chemistryVirtualKeyboard');
+      if (kb) {
+        kb.classList.remove('hidden');
+        isKeyboardVisible = true;
+        renderKeyboardLetters();
+        renderKeyboardNumbers();
+        const btnText = document.getElementById('keyboardToggleText');
+        if (btnText) btnText.textContent = '⌨️ شاردنەوەی تەختەکلیلی کیمیا';
+      }
+    }
+
+    function hideChemistryKeyboard() {
+      const kb = document.getElementById('chemistryVirtualKeyboard');
+      if (kb) {
+        kb.classList.add('hidden');
+        isKeyboardVisible = false;
+        const btnText = document.getElementById('keyboardToggleText');
+        if (btnText) btnText.textContent = '⌨️ کردنەوەی تەختەکلیلی کیمیا (Chemistry Keyboard)';
+      }
+    }
+
+    function toggleChemistryKeyboard() {
+      if (isKeyboardVisible) {
+        hideChemistryKeyboard();
+      } else {
+        showChemistryKeyboard();
+      }
+    }
+
+    function insertKey(textToInsert) {
+      const input = document.getElementById('solverTextInput');
+      if (!input) return;
+
+      const start = input.selectionStart || input.value.length;
+      const end = input.selectionEnd || input.value.length;
+      const val = input.value;
+
+      input.value = val.substring(0, start) + textToInsert + val.substring(end);
+      const newPos = start + textToInsert.length;
+      input.setSelectionRange(newPos, newPos);
+      input.focus();
+    }
+
+    function backspaceKey() {
+      const input = document.getElementById('solverTextInput');
+      if (!input) return;
+
+      const start = input.selectionStart || input.value.length;
+      const end = input.selectionEnd || input.value.length;
+      const val = input.value;
+
+      if (start === end && start > 0) {
+        input.value = val.substring(0, start - 1) + val.substring(end);
+        input.setSelectionRange(start - 1, start - 1);
+      } else if (start !== end) {
+        input.value = val.substring(0, start) + val.substring(end);
+        input.setSelectionRange(start, start);
+      }
+      input.focus();
+    }
+
+    function clearSolverInput() {
+      const input = document.getElementById('solverTextInput');
+      if (input) {
+        input.value = '';
+        input.focus();
+      }
+    }
+
+    // Toggle revealed video links panel upon pressing the main "Videos" button (USER REQUEST)
+    let isVideosPanelOpen = false;
+
+    function toggleVideosLinksPanel() {
+      const panel = document.getElementById('videoLinksDisplayPanel');
+      const btnText = document.getElementById('mainVideosButtonText');
+      if (!panel) return;
+
+      isVideosPanelOpen = !isVideosPanelOpen;
+      if (isVideosPanelOpen) {
+        panel.classList.remove('hidden');
+        if (btnText) btnText.textContent = 'Videos (ڤیدیۆکان) — داگرە بۆ شاردنەوەی بەستەرەکان ▲';
+        renderVideosPanelContent();
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        panel.classList.add('hidden');
+        if (btnText) btnText.textContent = 'Videos (ڤیدیۆکان) — داگرە بۆ پیشاندانی بەستەرەکان ▾';
+      }
+    }
+
+    function renderVideosPanelContent() {
+      const panel = document.getElementById('videoLinksDisplayPanel');
+      if (!panel) return;
+
+      const list = getStoredVideos();
+      if (list.length === 0) {
+        panel.innerHTML = '<p class="text-xs text-slate-400 py-3 text-center">هیچ بەستەرێک بەردەست نییە لە ئێستادا.</p>';
+        return;
+      }
+
+      panel.innerHTML = `
+        <div class="space-y-2 border-t border-slate-800 pt-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black text-cyan-300">سەرجەم بەستەرە ئامادەکراوەکانی وانە:</span>
+            <button 
+              type="button" 
+              onclick="openAllVideoUrlsAtOnce()" 
+              class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs transition-all shadow-sm flex items-center gap-1">
+              <span>کردنەوەی هەموویان پێکەوە ↗</span>
+            </button>
           </div>
 
           <div class="space-y-2">
-            <span class="text-[11px] font-bold text-slate-400 block">هەنگاوەکانی شیکارکردنی زانستی:</span>
-            <ul class="space-y-2">
-              ${stepsHtml}
-            </ul>
-          </div>
+            ${list.map((vid, idx) => {
+              const orderNum = idx + 1;
+              const ordinalKu = `ڤیدیۆی ${getKurdishOrdinal(orderNum)}`;
+              return `
+                <div class="p-3 rounded-2xl bg-slate-950 border border-cyan-500/30 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 hover:border-cyan-400 transition-all">
+                  <div class="space-y-0.5 min-w-0">
+                    <span class="text-xs font-bold text-white block truncate">
+                      <strong class="text-cyan-400 font-mono">${ordinalKu}:</strong> ${vid.title}
+                    </span>
+                    <span class="text-[11px] font-mono text-slate-400 block truncate ltr-dir text-left">${vid.url}</span>
+                  </div>
 
-          <div class="p-3 sm:p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-xs text-emerald-200 font-medium leading-relaxed flex items-start gap-2.5 shadow-sm">
-            <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            <div>
-              <strong class="text-white block mb-0.5">ئەنجامی کۆتایی شیکار:</strong>
-              <span>${finalResultKu}</span>
-            </div>
-          </div>
+                  <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+                    <button 
+                      type="button" 
+                      onclick="copyToClipboard('${vid.url}')" 
+                      class="px-2.5 py-1.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white text-xs font-bold transition-all flex items-center gap-1">
+                      <span>کۆپیکردن</span>
+                      <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                    </button>
 
+                    <a 
+                      href="${vid.url}" 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black flex items-center gap-1 transition-all shadow-sm">
+                      <span>کردنەوە ↗</span>
+                    </a>
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
         </div>
       `;
     }
 
     // =========================================================================
-    // 4. HOMEWORK SYSTEM
+    // 4. LESSON VIDEOS MANAGEMENT & DISPLAY (USER FEATURE REQUEST)
     // =========================================================================
+    const KURDISH_ORDINALS = [
+      'یەکەم', 'دووەم', 'سێیەم', 'چوارەم', 'پێنجەم', 
+      'شەشەم', 'حەوتەم', 'هەشتەم', 'نۆیەم', 'دەیەم'
+    ];
+
+    function getKurdishOrdinal(n) {
+      if (n >= 1 && n <= 10) return KURDISH_ORDINALS[n - 1];
+      return `${n}یەم`;
+    }
+
+    function getStoredVideos() {
+      const data = localStorage.getItem('chem11_videos');
+      if (data) {
+        try { return JSON.parse(data); } catch(e) {}
+      }
+      // Initial default starter videos by Teacher Shawgar
+      const initial = [
+        {
+          id: 'vid_1',
+          order: 1,
+          title: 'وانەی یەکەم: بنەماکانی خشتەی خولی و ڕیزبەندی ئەلیکترۆنی',
+          url: 'https://www.youtube.com/watch?v=0hX0q7Zgq6Y',
+          topic: 'خاسیەتە خولییەکان',
+          desc: 'ڕوونکردنەوەی تەواوی کۆمەڵە و خولەکانی خشتەی خولی لەلایەن مامۆستا شەوگار.'
+        },
+        {
+          id: 'vid_2',
+          order: 2,
+          title: 'وانەی دووەم: هاوسەنگکردنی هاوکێشە کیمیاییەکان بە شێوازی زانستی',
+          url: 'https://www.youtube.com/watch?v=2Juem0lcifE',
+          topic: 'بارستەی مۆڵی و ستۆکیۆمێتری',
+          desc: 'شیکارکردنی هەنگاو بە هەنگاوی یاسای پاراستنی بارستە و هاوسەنگکردن.'
+        },
+        {
+          id: 'vid_3',
+          order: 3,
+          title: 'وانەی سێیەم: ژمارەی ئۆکسان و کارلێکەکانی ئۆکسان و کەمبوونەوە',
+          url: 'https://www.youtube.com/watch?v=wXSTe1o_QkM',
+          topic: 'ژمارەی ئۆکسان',
+          desc: 'یاساکانی دۆزینەوەی باری ئۆکسانی توخمەکان لە ئاوێتە کیمیاییەکاندا.'
+        }
+      ];
+      saveStoredVideos(initial);
+      return initial;
+    }
+
+    function saveStoredVideos(list) {
+      localStorage.setItem('chem11_videos', JSON.stringify(list));
+    }
+
+    function getYouTubeEmbedUrl(url) {
+      if (!url) return '';
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        return `https://www.youtube.com/embed/${match[2]}?autoplay=1`;
+      }
+      return url;
+    }
+
+    function renderVideosList() {
+      const container = document.getElementById('videosListContainer');
+      const badge = document.getElementById('videoCountBadge');
+      if (!container) return;
+
+      const list = getStoredVideos();
+      if (badge) badge.textContent = `${list.length} ڤیدیۆ`;
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full rounded-2xl bg-slate-900/50 border border-slate-800 p-6 text-center space-y-1.5">
+            <svg class="w-8 h-8 text-slate-600 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <p class="text-xs text-slate-400 font-medium">تا ئێستا هیچ بەستەرێکی ڤیدیۆ بڵاونەکراوەتەوە.</p>
+            <p class="text-[11px] text-slate-500">مامۆستا شەوگار لە کۆنتڕۆڵ پەنێڵی پارێزراوەوە بەستەری وانەکان دادەنێت.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map((vid, idx) => {
+        const orderNum = idx + 1;
+        const ordinalKu = `ڤیدیۆی ${getKurdishOrdinal(orderNum)}`;
+
+        return `
+          <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-4 space-y-3 hover:border-cyan-500/40 transition-all flex flex-col justify-between shadow-sm group">
+            
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px] font-black">
+                  ${ordinalKu}
+                </span>
+                <span class="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-950 border border-slate-800">
+                  ${vid.topic || 'پۆلی ١١'}
+                </span>
+              </div>
+
+              <h3 class="text-xs sm:text-sm font-bold text-white leading-snug group-hover:text-cyan-300 transition-colors">
+                ${vid.title}
+              </h3>
+
+              ${vid.desc ? `<p class="text-xs text-slate-400 leading-relaxed">${vid.desc}</p>` : ''}
+
+              <!-- URL display pill -->
+              <div class="p-2 rounded-xl bg-slate-950 border border-slate-800 text-[11px] font-mono text-cyan-400/90 truncate flex items-center justify-between gap-2 ltr-dir">
+                <span class="truncate">${vid.url}</span>
+                <button type="button" onclick="copyToClipboard('${vid.url}')" class="text-slate-400 hover:text-white shrink-0 p-1" title="کۆپیکردنی بەستەر">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Actions: Direct Open Link and Watch in Modal -->
+            <div class="border-t border-slate-800/80 pt-2.5 grid grid-cols-2 gap-2">
+              <a 
+                href="${vid.url}" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="py-2 px-3 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all">
+                <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                <span>کردنەوەی بەستەر ↗</span>
+              </a>
+
+              <button 
+                type="button" 
+                onclick="openWatchVideoModal('${vid.id}')" 
+                class="py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 shadow-sm transition-all active:scale-95">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span>سەیرکردنی ڤیدیۆ</span>
+              </button>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Modal showing all video links itemized (First video link, second, third...)
+    function openAllVideoLinksModal() {
+      const modal = document.getElementById('allVideoLinksModal');
+      const listContainer = document.getElementById('allVideoLinksModalList');
+      if (!modal || !listContainer) return;
+
+      const list = getStoredVideos();
+
+      // Top Toolbar: Teacher Permissions Banner
+      let teacherToolbarHtml = '';
+      if (isTeacherLoggedIn) {
+        teacherToolbarHtml = `
+          <div class="p-3 rounded-2xl bg-emerald-950/40 border border-emerald-500/50 flex flex-col sm:flex-row items-center justify-between gap-2.5 shadow-sm">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-neon-emerald animate-pulse"></span>
+              <span class="text-xs font-black text-emerald-300">مامۆستا شەوگار (دەستەڵاتی تەواو: گۆڕینی بەستەر، سڕینەوە و زیادکردن)</span>
+            </div>
+            <button 
+              type="button" 
+              onclick="openAddNewVideoFromModal()" 
+              class="w-full sm:w-auto px-3.5 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs transition-all shadow-sm flex items-center justify-center gap-1.5 active:scale-95">
+              <svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+              <span>+ زیادکردنی بەستەری نوێ</span>
+            </button>
+          </div>
+        `;
+      } else {
+        teacherToolbarHtml = `
+          <div class="p-2.5 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-2">
+            <span class="text-[11px] text-slate-400">مامۆستایت و دەتەوێت بەستەر بگۆڕیت یان بسڕیتەوە؟</span>
+            <button 
+              type="button" 
+              onclick="openTeacherModal()" 
+              class="px-3 py-1 rounded-xl bg-slate-900 hover:bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 text-xs font-bold transition-all flex items-center gap-1">
+              <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <span>چوونەژوورەوەی مامۆستا 🔑</span>
+            </button>
+          </div>
+        `;
+      }
+
+      if (list.length === 0) {
+        listContainer.innerHTML = teacherToolbarHtml + '<p class="text-xs text-slate-400 py-3 text-center">هیچ بەستەرێکی ڤیدیۆ بەردەست نییە لە ئێستادا.</p>';
+      } else {
+        listContainer.innerHTML = teacherToolbarHtml + list.map((vid, idx) => {
+          const orderNum = idx + 1;
+          const ordinalKu = `ڤیدیۆی ${getKurdishOrdinal(orderNum)}`;
+
+          // Teacher permission buttons for each video
+          let teacherButtonsHtml = '';
+          if (isTeacherLoggedIn) {
+            teacherButtonsHtml = `
+              <div class="flex items-center gap-1.5 pt-1 border-t border-slate-800/80">
+                <button 
+                  type="button" 
+                  onclick="openEditVideoModal('${vid.id}')" 
+                  class="px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-[11px] font-bold transition-all flex items-center gap-1">
+                  <svg class="w-3 h-3 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                  <span>گۆڕینی بەستەر ✏️</span>
+                </button>
+
+                <button 
+                  type="button" 
+                  onclick="confirmDeleteVideo('${vid.id}')" 
+                  class="px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-[11px] font-bold transition-all flex items-center gap-1">
+                  <svg class="w-3 h-3 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                  <span>سڕینەوە 🗑️</span>
+                </button>
+              </div>
+            `;
+          }
+
+          return `
+            <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 hover:border-cyan-500/40 transition-all">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-cyan-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                  <span>${ordinalKu}: ${vid.title}</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">${vid.topic || ''}</span>
+              </div>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
+                <span class="text-xs text-slate-300 font-mono truncate ltr-dir text-left flex-grow">${vid.url}</span>
+                
+                <div class="flex items-center gap-1.5 shrink-0 self-end sm:self-auto">
+                  <button 
+                    type="button" 
+                    onclick="copyToClipboard('${vid.url}')" 
+                    class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1 transition-all">
+                    <span>کۆپیکردن</span>
+                    <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+                  </button>
+
+                  <a 
+                    href="${vid.url}" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold flex items-center gap-1 transition-all shadow-sm">
+                    <span>کردنەوە</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  </a>
+                </div>
+              </div>
+
+              ${teacherButtonsHtml}
+            </div>
+          `;
+        }).join('');
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeAllVideoLinksModal() {
+      const modal = document.getElementById('allVideoLinksModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function openAllVideoUrlsAtOnce() {
+      const list = getStoredVideos();
+      if (!list || list.length === 0) {
+        showToast('هیچ بەستەرێک نییە بۆ کردنەوە.');
+        return;
+      }
+      list.forEach(v => {
+        if (v.url) {
+          window.open(v.url, '_blank');
+        }
+      });
+      showToast(`سەرجەم ${list.length} بەستەرەکە لە پەڕەی نوێدا کرانەوە!`);
+    }
+
+    function openWatchVideoModal(videoId) {
+      const list = getStoredVideos();
+      const vid = list.find(v => v.id === videoId);
+      if (!vid) return;
+
+      const modal = document.getElementById('videoPlayerModal');
+      const titleEl = document.getElementById('videoPlayerTitle');
+      const iframe = document.getElementById('videoIframePlayer');
+      const directBtn = document.getElementById('videoDirectLinkBtn');
+
+      titleEl.textContent = vid.title;
+      iframe.src = getYouTubeEmbedUrl(vid.url);
+      directBtn.href = vid.url;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeWatchVideoModal() {
+      const modal = document.getElementById('videoPlayerModal');
+      const iframe = document.getElementById('videoIframePlayer');
+      if (iframe) iframe.src = '';
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleCreateVideo(e) {
+      e.preventDefault();
+      const title = document.getElementById('videoTitleInput').value.trim();
+      const url = document.getElementById('videoUrlInput').value.trim();
+      const topic = document.getElementById('videoTopicInput').value;
+      const desc = document.getElementById('videoDescInput').value.trim();
+
+      if (!title || !url) return;
+
+      const list = getStoredVideos();
+      const newVid = {
+        id: 'vid_' + Date.now(),
+        order: list.length + 1,
+        title,
+        url,
+        topic,
+        desc
+      };
+
+      list.push(newVid);
+      saveStoredVideos(list);
+
+      renderVideosList();
+      renderTeacherVideoList();
+      e.target.reset();
+
+      showToast('بەستەری ڤیدیۆ بە سەرکەوتوویی بۆ قوتابیان بڵاوکرایەوە!');
+      const vidSec = document.getElementById('videosSection');
+      if (vidSec) vidSec.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function deleteVideo(videoId) {
+      let list = getStoredVideos();
+      list = list.filter(v => v.id !== videoId);
+      list.forEach((v, idx) => { v.order = idx + 1; });
+      saveStoredVideos(list);
+
+      renderVideosList();
+      renderTeacherVideoList();
+      showToast('ڤیدیۆکە سڕایەوە.');
+    }
+
+    function renderTeacherVideoList() {
+      const container = document.getElementById('teacherVideosList');
+      if (!container) return;
+      const list = getStoredVideos();
+
+      if (list.length === 0) {
+        container.innerHTML = '<p class="text-xs text-slate-500 py-2">هیچ ڤیدیۆیەک دانەنراوە.</p>';
+        return;
+      }
+
+      container.innerHTML = list.map((vid, idx) => `
+        <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-xs hover:border-emerald-500/40 transition-all">
+          <div class="flex items-center justify-between">
+            <span class="text-cyan-400 font-bold block truncate">ڤیدیۆی ${idx + 1}: ${vid.title}</span>
+            <span class="text-[10px] text-slate-400 font-mono">${vid.topic || ''}</span>
+          </div>
+
+          <div class="p-2 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between gap-2">
+            <span class="text-slate-300 font-mono text-[11px] block truncate ltr-dir text-left flex-grow">${vid.url}</span>
+            <a href="${vid.url}" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:underline shrink-0 text-[11px] font-bold">تاقیکردنەوە ↗</a>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-1 border-t border-slate-800/80">
+            <button 
+              type="button" 
+              onclick="openEditVideoModal('${vid.id}')" 
+              class="px-3 py-1.5 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+              <svg class="w-3.5 h-3.5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+              <span>گۆڕینی بەستەر (Edit Link)</span>
+            </button>
+
+            <button 
+              type="button" 
+              onclick="confirmDeleteVideo('${vid.id}')" 
+              class="px-3 py-1.5 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 hover:bg-rose-500/30 text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm">
+              <svg class="w-3.5 h-3.5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              <span>سڕینەوە (Delete)</span>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Teacher Video Management: Open Edit Modal & Change Link
+    function openEditVideoModal(videoId) {
+      if (!isTeacherLoggedIn) {
+        showToast('تکایە سەرەتا بە تێپەڕەوشەی مامۆستا شەوگار بچۆ ژوورەوە!');
+        openTeacherModal();
+        return;
+      }
+
+      const list = getStoredVideos();
+      const vid = list.find(v => v.id === videoId);
+      if (!vid) return;
+
+      document.getElementById('editVideoId').value = vid.id;
+      document.getElementById('editVideoTitleInput').value = vid.title;
+      document.getElementById('editVideoUrlInput').value = vid.url;
+      document.getElementById('editVideoTopicInput').value = vid.topic || 'خاسیەتە خولییەکان';
+      document.getElementById('editVideoDescInput').value = vid.desc || '';
+
+      document.getElementById('editVideoModal').classList.remove('hidden');
+    }
+
+    function closeEditVideoModal() {
+      const modal = document.getElementById('editVideoModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleSaveEditedVideo(e) {
+      e.preventDefault();
+      const id = document.getElementById('editVideoId').value;
+      const title = document.getElementById('editVideoTitleInput').value.trim();
+      const url = document.getElementById('editVideoUrlInput').value.trim();
+      const topic = document.getElementById('editVideoTopicInput').value;
+      const desc = document.getElementById('editVideoDescInput').value.trim();
+
+      if (!title || !url) return;
+
+      const list = getStoredVideos();
+      const vid = list.find(v => v.id === id);
+      if (!vid) return;
+
+      vid.title = title;
+      vid.url = url;
+      vid.topic = topic;
+      vid.desc = desc;
+
+      saveStoredVideos(list);
+
+      renderVideosList();
+      renderTeacherVideoList();
+      if (!document.getElementById('allVideoLinksModal').classList.contains('hidden')) {
+        openAllVideoLinksModal();
+      }
+
+      closeEditVideoModal();
+      showToast('بەستەری ڤیدیۆکە بە سەرکەوتوویی نوێکرایەوە و گۆڕدرا! ✓');
+    }
+
+    function handleDeleteFromEditModal() {
+      const id = document.getElementById('editVideoId').value;
+      if (!id) return;
+      closeEditVideoModal();
+      confirmDeleteVideo(id);
+    }
+
+    function confirmDeleteVideo(videoId) {
+      if (!isTeacherLoggedIn) {
+        showToast('تکایە سەرەتا بە هەژماری مامۆستا شەوگار بچۆ ژوورەوە!');
+        openTeacherModal();
+        return;
+      }
+
+      const list = getStoredVideos();
+      const vid = list.find(v => v.id === videoId);
+      const title = vid ? vid.title : '';
+
+      if (confirm(`ئایا دڵنیایت لە سڕینەوەی ئەم ڤیدیۆیە لەلایەن مامۆستا شەوگار؟\n"${title}"`)) {
+        deleteVideo(videoId);
+        if (!document.getElementById('allVideoLinksModal').classList.contains('hidden')) {
+          openAllVideoLinksModal();
+        }
+      }
+    }
+
+    function openAddNewVideoFromModal() {
+      closeAllVideoLinksModal();
+      openTeacherModal();
+      if (isTeacherLoggedIn) {
+        switchTeacherTab('addVideo');
+        document.getElementById('teacherPanelSection').scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          document.getElementById('videoTitleInput').focus();
+        }, 200);
+      }
+    }
+
     function getStoredHomework() {
       const data = localStorage.getItem('chem11_homeworks');
       return data ? JSON.parse(data) : [];
@@ -1847,7 +3873,7 @@
         document.getElementById('teacherPanelSection').classList.remove('hidden');
         document.getElementById('teacherBtnText').textContent = 'مامۆستا شەوگار (کارایە)';
         document.getElementById('teacherHeaderBtn').classList.add('border-emerald-400', 'bg-emerald-950/40');
-        showToast('بەخێربێیت مامۆستا شەوگار! کۆنتڕۆڵ پەنێڵ کرایەوە.');
+        showToast('بەخێربێیت مامۆستا شەوگار! دەستەڵاتی تەواوی بەڕێوەبردنی ڤیدیۆکان و ئەرکەکان کرایەوە.'); renderTeacherVideoList(); if (!document.getElementById('allVideoLinksModal').classList.contains('hidden')) { openAllVideoLinksModal(); }
         document.getElementById('teacherPanelSection').scrollIntoView({ behavior: 'smooth' });
         renderTeacherSubmissions();
       } else {
@@ -1872,12 +3898,21 @@
       document.getElementById('teacherTabAddQuiz').classList.add('hidden');
       document.getElementById('teacherTabViewSubs').classList.add('hidden');
 
+      const videoTabBtn = document.getElementById('tabBtnAddVideo');
+      const videoTabEl = document.getElementById('teacherTabAddVideo');
+      if (videoTabBtn) videoTabBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:text-white transition-all shrink-0';
+      if (videoTabEl) videoTabEl.classList.add('hidden');
+
       if (tab === 'addHw') {
         document.getElementById('tabBtnAddHw').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
         document.getElementById('teacherTabAddHw').classList.remove('hidden');
       } else if (tab === 'addQuiz') {
         document.getElementById('tabBtnAddQuiz').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
         document.getElementById('teacherTabAddQuiz').classList.remove('hidden');
+      } else if (tab === 'addVideo') {
+        if (videoTabBtn) videoTabBtn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
+        if (videoTabEl) videoTabEl.classList.remove('hidden');
+        renderTeacherVideoList();
       } else if (tab === 'viewSubs') {
         document.getElementById('tabBtnViewSubs').className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 transition-all shrink-0';
         document.getElementById('teacherTabViewSubs').classList.remove('hidden');
