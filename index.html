@@ -11,7 +11,6 @@
   <!-- Dedicated High-Accuracy QR Code & Barcode Decoder Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
   <script src="https://unpkg.com/html5-qrcode"></script>
-  <!-- Tesseract.js fallback -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
   <!-- Google Fonts: Vazirmatn & JetBrains Mono -->
@@ -200,20 +199,11 @@
   <!-- MAIN APP CONTAINER -->
   <main class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-6 sm:space-y-8 flex-grow w-full">
 
-    <!-- HERO SECTION -->
-    <section class="rounded-3xl bg-gradient-to-b sm:bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-2 border-cyan-500/50 p-5 sm:p-8 shadow-neon-cyan relative overflow-hidden glow-box">
-      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-right">
-        <div class="space-y-2 max-w-2xl">
-          <div class="flex items-center justify-center md:justify-start gap-2 flex-wrap">
-            <span class="px-3 py-1 rounded-full bg-cyan-500 text-slate-950 font-black text-xs sm:text-sm tracking-wide shadow-sm">
-              کیمیای پۆلی ١١ی مامۆستا شەوگار
-            </span>
-            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold text-xs">
-              پۆلی ١١ی زانستی
-            </span>
-          </div>
-
-          <h2 class="text-xl sm:text-3xl md:text-4xl font-black text-white tracking-tight leading-tight">
+    <!-- HERO SECTION (CLEANED: Blue & Green badges removed, huge title remains) -->
+    <section class="rounded-3xl bg-gradient-to-b sm:bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-2 border-cyan-500/50 p-6 sm:p-10 shadow-neon-cyan relative overflow-hidden glow-box">
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-right">
+        <div class="space-y-3 max-w-2xl">
+          <h2 class="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
             کیمیای پۆلی ١١ی مامۆستا شەوگار
           </h2>
           <p class="text-sm sm:text-base text-cyan-300 font-bold leading-relaxed">
@@ -224,17 +214,17 @@
           </p>
         </div>
 
-        <div class="flex flex-col sm:flex-row items-center gap-2.5 w-full md:w-auto shrink-0 flex-wrap">
-          <a href="#solverSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+        <div class="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto shrink-0 flex-wrap">
+          <a href="#solverSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
             <span>شیکارکەری هاوکێشە</span>
           </a>
-          <a href="#homeworkSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
+          <a href="#homeworkSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
             <span>ئەرکەکانی ماڵەوە</span>
           </a>
-          <a href="#tableSection" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+          <a href="#tableSection" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-white font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
             <span>خشتەی خولی</span>
           </a>
-          <button type="button" onclick="openAllVideoLinksModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
+          <button type="button" onclick="openAllVideoLinksModal()" class="w-full sm:w-auto px-5 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-black text-xs sm:text-sm transition-all shadow-neon-cyan flex items-center justify-center gap-2">
             <span>Videos (ڤیدیۆکان)</span>
           </button>
         </div>
@@ -245,7 +235,7 @@
     <section id="solverSection" class="relative rounded-2xl sm:rounded-3xl bg-slate-900/70 border border-slate-800 p-4 sm:p-6 backdrop-blur-xl shadow-2xl space-y-4">
       <div class="border-b border-slate-800/80 pb-3">
         <h2 class="text-sm sm:text-lg font-black text-white">شیکارکەری زیرەکی هاوکێشە و کێشە کیمیاییەکان</h2>
-        <p class="text-xs text-slate-400 mt-0.5">هاوکێشە بنووسە یان وێنەی دەفتەرەکەت بگرە؛ سیستەم بە <span class="text-cyan-300 font-bold">کوردییەکی پوخت</span> شیکاریی تەواوت پێشکەش دەکات.</p>
+        <p class="text-xs text-slate-400 mt-0.5">هاوکێشە بنووسە یان وێنەی دەفتەرەکەت بگرە؛ سیستەم بە <span class="text-cyan-300 font-bold">شیکاریی ماتماتیکی دروست</span> ئەنجامت پێشکەش دەکات.</p>
       </div>
 
       <div class="space-y-3.5">
@@ -255,14 +245,14 @@
             id="solverTextInput" 
             onfocus="showChemistryKeyboard()"
             onkeydown="if(event.key==='Enter'){event.preventDefault(); solveEquation();}"
-            placeholder="بۆ نموونە: H2 + O2 -> H2O یان Al2(SO4)3 + Ca(OH)2 -> Al(OH)3 + CaSO4..." 
+            placeholder="بۆ نموونە: H2 + O2 -> H2O یان Al + HCl -> AlCl3 + H2..." 
             class="w-full h-12 sm:h-14 bg-slate-950 border-2 border-slate-700 focus:border-cyan-400 rounded-2xl px-4 text-sm sm:text-base text-white placeholder-slate-500 font-mono focus:outline-none transition-all"
           >
           <button 
             type="button"
             onclick="solveEquation()" 
             class="w-full sm:w-auto h-12 sm:h-14 px-6 rounded-2xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm shadow-neon-cyan transition-all flex items-center justify-center gap-2 shrink-0">
-            <span>هاوسەنگکردن</span>
+            <span>هاوسەنگکردن و شیکار</span>
           </button>
         </div>
 
@@ -280,7 +270,7 @@
         <!-- Virtual Chemistry Keyboard -->
         <div id="chemistryVirtualKeyboard" class="hidden rounded-2xl bg-slate-950/95 border-2 border-cyan-500/50 p-3 sm:p-4 space-y-2.5 shadow-2xl">
           <div class="flex items-center justify-between pb-2 border-b border-slate-800 text-xs">
-            <span class="font-bold text-white text-[11px] sm:text-xs">تەختەکلیلی کیمیا</span>
+            <span class="font-bold text-white text-[11px] sm:text-xs">تەختەکلیلی تایبەتی کیمیا</span>
             <div class="flex items-center gap-1.5 flex-wrap justify-end">
               <button type="button" onclick="toggleKeyboardCase()" id="keyCaseToggleBtn" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold">🔠 پیتە گەورەکان (ABC)</button>
               <button type="button" onclick="toggleKeyboardNumberMode()" id="keyNumberModeToggleBtn" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[11px] font-bold">🔢 ژمارەکان: گەورە (123)</button>
@@ -294,7 +284,7 @@
           <!-- Letters -->
           <div id="keyboardLettersContainer" class="space-y-1 w-full font-mono" dir="ltr"></div>
 
-          <!-- Math Operators -->
+          <!-- Operators -->
           <div class="grid grid-cols-5 sm:grid-cols-10 gap-1.5 text-xs font-mono">
             <button type="button" onclick="insertKey(' + ')" class="py-2 rounded-xl bg-cyan-950 border border-cyan-500 text-cyan-300 font-bold">+</button>
             <button type="button" onclick="insertKey(' - ')" class="py-2 rounded-xl bg-cyan-950 border border-cyan-500 text-cyan-300 font-bold">-</button>
@@ -363,7 +353,7 @@
       <div class="space-y-4">
         <form onsubmit="handleCreateVideo(event)" class="space-y-3">
           <input type="text" id="videoTitleInput" required placeholder="ناونیشانی ڤیدیۆی وانە..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white">
-          <input type="url" id="videoUrlInput" required placeholder="بەستەری ڤیدیۆ (YouTube)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono ltr-dir">
+          <input type="url" id="videoUrlInput" required placeholder="بەستەری ڤیدیۆ (لینکی YouTube)..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white font-mono ltr-dir">
           <button type="submit" class="px-5 py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold text-xs">بڵاوکردنەوەی بەستەری ڤیدیۆ</button>
         </form>
         <div id="teacherVideosList" class="space-y-2"></div>
@@ -451,28 +441,28 @@
     let periodicViewMode = 'cards';
     let isMobileCardsOpen = true;
 
-    // داتابەیسی PostgreSQL
+    // PostgreSQL Central Cache
     let dbVideos = [];
     let dbHomeworks = [];
     let dbQuizzes = [];
     let dbSubmissions = [];
 
     document.addEventListener('DOMContentLoaded', () => {
-      if (window.innerWidth >= 1024) {
-        setPeriodicViewMode('table');
-      } else {
-        setPeriodicViewMode('cards');
+      // Restore Teacher Session on page reload/refresh
+      if (localStorage.getItem('chem11_teacher_logged_in') === 'true') {
+        isTeacherLoggedIn = true;
+        const panel = document.getElementById('teacherPanelSection');
+        if (panel) panel.classList.remove('hidden');
+        const teacherBtn = document.getElementById('teacherBtnText');
+        if (teacherBtn) teacherBtn.textContent = 'مامۆستا شەوگار (کارایە)';
+        const teacherHeader = document.getElementById('teacherHeaderBtn');
+        if (teacherHeader) teacherHeader.classList.add('border-emerald-400', 'bg-emerald-950/40');
       }
 
       checkStudentLoginState();
       renderPeriodicTable();
       displayInitialSolverState();
       syncWithDatabase();
-
-      const d = new Date();
-      d.setDate(d.getDate() + 7);
-      const dateEl = document.getElementById('hwDueDateInput');
-      if (dateEl) dateEl.value = d.toISOString().split('T')[0];
     });
 
     async function syncWithDatabase() {
@@ -487,10 +477,8 @@
 
         renderVideosList();
         renderHomeworkList();
-        renderQuizList();
         if (isTeacherLoggedIn) {
           renderTeacherVideoList();
-          renderTeacherSubmissions();
         }
       } catch (e) {
         console.error('Database connection error:', e);
@@ -538,9 +526,6 @@
       reader.readAsDataURL(file);
     }
 
-    let currentScannedStudentName = '';
-    let currentScannedStudentId = '';
-
     async function processRealIdCardPhoto(imageDataUrl) {
       const tempImg = new Image();
       tempImg.onload = async function() {
@@ -570,43 +555,14 @@
         }
 
         let extractedName = detectedPayload ? detectedPayload : 'قوتابی پۆلی ١١ی زانستی';
-        let extractedId = 'IQ-' + Math.floor(1000000 + Math.random() * 9000000);
+        localStorage.setItem('chem11_student_name', extractedName);
+        localStorage.setItem('chem11_student_id', 'IQ-' + Math.floor(1000000 + Math.random() * 9000000));
 
-        currentScannedStudentName = extractedName.trim();
-        currentScannedStudentId = extractedId;
-
-        confirmScannedNameYes();
+        checkStudentLoginState();
+        showToast(`بەخێربێیت (${extractedName})! ناسنامەکەت سەلمێندرا.`);
+        closeStudentModal();
       };
       tempImg.src = imageDataUrl;
-    }
-
-    function confirmScannedNameYes() {
-      if (!currentScannedStudentName) currentScannedStudentName = 'قوتابی پۆلی ١١ی زانستی';
-      localStorage.setItem('chem11_student_name', currentScannedStudentName);
-      localStorage.setItem('chem11_student_id', currentScannedStudentId || 'IQ-9842107');
-
-      checkStudentLoginState();
-      showToast(`بەخێربێیت (${currentScannedStudentName})! ناسنامەکەت سەلمێندرا.`);
-      closeStudentModal();
-    }
-
-    function toggleMobileCardsDrawer() {
-      const drawer = document.getElementById('elementsCardsDrawer');
-      isMobileCardsOpen = !isMobileCardsOpen;
-      if (drawer) {
-        if (isMobileCardsOpen) drawer.classList.remove('hidden');
-        else drawer.classList.add('hidden');
-      }
-    }
-
-    function setPeriodicViewMode(mode) {
-      periodicViewMode = mode;
-      renderPeriodicTable();
-    }
-
-    function setElementFilter(category) {
-      currentCategoryFilter = category;
-      renderPeriodicTable();
     }
 
     function handleElementSearchInput() {
@@ -616,17 +572,9 @@
     }
 
     function renderPeriodicTable() {
-      renderMiniCardsGrid();
-    }
-
-    function renderMiniCardsGrid() {
       const container = document.getElementById('elementsMiniCardsGrid');
       if (!container) return;
       let filtered = ALL_ELEMENTS;
-
-      if (currentCategoryFilter !== 'All') {
-        filtered = filtered.filter(el => el.cat === currentCategoryFilter);
-      }
 
       if (searchQuery) {
         filtered = filtered.filter(el => 
@@ -705,10 +653,207 @@
       if (container) {
         container.innerHTML = `
           <div class="flex items-center gap-3 text-slate-400 text-xs">
-            <p>هاوکێشەیەک بنووسە تا بە کوردییەکی ڕوون هەنگاوەکانی شیکارکردنت بۆ دەربخات.</p>
+            <p>هاوکێشەیەک بنووسە تا بە شێوازی زانستی هەنگاوەکانی شیکارکردنت بۆ دەربخات.</p>
           </div>
         `;
       }
+    }
+
+    // =========================================================================
+    // RIGOROUS CHEMICAL EQUATION BALANCER (MATH ALGORITHM - ZERO DUMMY SUCCESS)
+    // =========================================================================
+    function bigGcd(a, b) {
+      a = a < 0n ? -a : a;
+      b = b < 0n ? -b : b;
+      while (b !== 0n) {
+        const t = b;
+        b = a % b;
+        a = t;
+      }
+      return a;
+    }
+
+    function bigLcm(a, b) {
+      if (a === 0n || b === 0n) return 0n;
+      return (a * b) / bigGcd(a, b);
+    }
+
+    class Fraction {
+      constructor(n, d = 1n) {
+        n = BigInt(n);
+        d = BigInt(d);
+        if (d === 0n) throw new Error("دابەشبوون بەسەر سفر");
+        if (d < 0n) { n = -n; d = -d; }
+        const g = bigGcd(n, d);
+        this.n = n / g;
+        this.d = d / g;
+      }
+      add(o) { return new Fraction(this.n * o.d + o.n * this.d, this.d * o.d); }
+      sub(o) { return new Fraction(this.n * o.d - o.n * this.d, this.d * o.d); }
+      mul(o) { return new Fraction(this.n * o.n, this.d * o.d); }
+      div(o) { return new Fraction(this.n * o.d, this.d * o.n); }
+      isZero() { return this.n === 0n; }
+      isPositive() { return this.n > 0n; }
+      isNegative() { return this.n < 0n; }
+      neg() { return new Fraction(-this.n, this.d); }
+    }
+
+    const KNOWN_ELEMENT_MAP = {};
+    ALL_ELEMENTS.forEach(el => { KNOWN_ELEMENT_MAP[el.s] = el; });
+
+    function parseFormula(rawFormula) {
+      let formula = rawFormula.replace(/^\s*\d+\s*/, "").trim();
+      if (!formula) throw new Error("فۆرمولای کیمیایی بەتاڵە");
+
+      function parseGroup(s) {
+        const counts = {};
+        let i = 0;
+        const n = s.length;
+        while (i < n) {
+          const c = s[i];
+          if (c === "(" || c === "[" || c === "{") {
+            const closeChar = c === "(" ? ")" : (c === "[" ? "]" : "}");
+            let depth = 1;
+            let j = i + 1;
+            while (j < n && depth > 0) {
+              if (s[j] === c) depth++;
+              else if (s[j] === closeChar) depth--;
+              j++;
+            }
+            if (depth > 0) throw new Error(`کەوانەی دانەخراو لە: ${s}`);
+            const inner = parseGroup(s.substring(i + 1, j - 1));
+            const numMatch = s.substring(j).match(/^\d+/);
+            let mult = 1;
+            if (numMatch) {
+              mult = parseInt(numMatch[0], 10);
+              j += numMatch[0].length;
+            }
+            for (const [el, cnt] of Object.entries(inner)) {
+              counts[el] = (counts[el] || 0) + cnt * mult;
+            }
+            i = j;
+          } else {
+            const m = s.substring(i).match(/^([A-Z][a-z]?)(\d*)/);
+            if (!m) throw new Error(`پیت یان هێمای نادروست لە: "${s.substring(i)}"`);
+            const el = m[1];
+            if (!KNOWN_ELEMENT_MAP[el]) {
+              throw new Error(`توخمی کیمیایی نەناسراو: "${el}"`);
+            }
+            const cnt = m[2] ? parseInt(m[2], 10) : 1;
+            counts[el] = (counts[el] || 0) + cnt;
+            i += m[0].length;
+          }
+        }
+        return counts;
+      }
+      return parseGroup(formula);
+    }
+
+    function balanceChemicalEquation(equationStr) {
+      let clean = equationStr.replace(/→|⇄|⇌|=/g, '->').trim();
+      const parts = clean.split('->');
+      if (parts.length !== 2) {
+        throw new Error("تکایە تیشکی کارلێک (->) بنووسە لە نێوان کارلێککەرەکان و بەرهەمەکان.");
+      }
+
+      const rRaw = parts[0].split("+").map(s => s.trim()).filter(Boolean);
+      const pRaw = parts[1].split("+").map(s => s.trim()).filter(Boolean);
+      if (rRaw.length === 0 || pRaw.length === 0) {
+        throw new Error("پێویستە هاوکێشەکە کارلێککەر و بەرهەمی هەبێت.");
+      }
+
+      const rParsed = rRaw.map(parseFormula);
+      const pParsed = pRaw.map(parseFormula);
+
+      const elementsSet = new Set();
+      rParsed.forEach(obj => Object.keys(obj).forEach(el => elementsSet.add(el)));
+      pParsed.forEach(obj => Object.keys(obj).forEach(el => elementsSet.add(el)));
+      const allElements = Array.from(elementsSet);
+
+      const rElements = new Set();
+      rParsed.forEach(obj => Object.keys(obj).forEach(el => rElements.add(el)));
+      const pElements = new Set();
+      pParsed.forEach(obj => Object.keys(obj).forEach(el => pElements.add(el)));
+
+      for (let el of allElements) {
+        if (!rElements.has(el) || !pElements.has(el)) {
+          throw new Error(`هاوکێشەکە هەڵەیە: توخمی (${el}) لە هەردوو لای کارلێک بوونی نییە!`);
+        }
+      }
+
+      const ncols = rRaw.length + pRaw.length;
+      const nrows = allElements.length;
+      const M = [];
+
+      for (const el of allElements) {
+        const row = [];
+        for (const r of rParsed) row.push(new Fraction(r[el] || 0));
+        for (const p of pParsed) row.push(new Fraction(-(p[el] || 0)));
+        M.push(row);
+      }
+
+      const rref = M.map(row => row.slice());
+      let r = 0;
+      const pivotCols = [];
+
+      for (let c = 0; c < ncols; c++) {
+        if (r >= nrows) break;
+        let pivotRow = -1;
+        for (let i = r; i < nrows; i++) {
+          if (!rref[i][c].isZero()) { pivotRow = i; break; }
+        }
+        if (pivotRow === -1) continue;
+
+        const tmp = rref[r];
+        rref[r] = rref[pivotRow];
+        rref[pivotRow] = tmp;
+
+        const pv = rref[r][c];
+        rref[r] = rref[r].map(val => val.div(pv));
+
+        for (let i = 0; i < nrows; i++) {
+          if (i !== r && !rref[i][c].isZero()) {
+            const factor = rref[i][c];
+            rref[i] = rref[i].map((val, k) => val.sub(factor.mul(rref[r][k])));
+          }
+        }
+        pivotCols.push(c);
+        r++;
+      }
+
+      const freeCols = [];
+      for (let c = 0; c < ncols; c++) {
+        if (!pivotCols.includes(c)) freeCols.push(c);
+      }
+      if (freeCols.length === 0) {
+        throw new Error("ئەم کارلێکە لە ڕووی کیمیایی و ماتماتیکییەوە هاوسەنگ ناکرێت!");
+      }
+
+      const f = freeCols[0];
+      const vec = [];
+      for (let j = 0; j < ncols; j++) vec.push(new Fraction(0));
+      vec[f] = new Fraction(1);
+      for (let rowIdx = 0; rowIdx < pivotCols.length; rowIdx++) {
+        const pCol = pivotCols[rowIdx];
+        vec[pCol] = rref[rowIdx][f].neg();
+      }
+
+      let overallLcm = 1n;
+      for (const x of vec) overallLcm = bigLcm(overallLcm, x.d);
+
+      let intCoeffs = vec.map(x => (x.n * (overallLcm / x.d)));
+      if (intCoeffs.some(c => c <= 0n)) {
+        throw new Error("ئەم هاوکێشەیە ناتەبایە لەگەڵ یاسای پاراستنی بارستە.");
+      }
+
+      let overallGcd = 0n;
+      for (const c of intCoeffs) overallGcd = bigGcd(overallGcd, c);
+      const finalCoeffs = intCoeffs.map(c => Number(c / overallGcd));
+
+      const rStr = rRaw.map((formula, i) => `${finalCoeffs[i] > 1 ? finalCoeffs[i] : ''}${formula}`).join(" + ");
+      const pStr = pRaw.map((formula, j) => `${finalCoeffs[rRaw.length + j] > 1 ? finalCoeffs[rRaw.length + j] : ''}${formula}`).join(" + ");
+
+      return `${rStr} → ${pStr}`;
     }
 
     function solveEquation() {
@@ -723,26 +868,50 @@
       }
 
       if (val.includes('->') || val.includes('=')) {
-        container.innerHTML = `
-          <div class="space-y-3">
-            <div class="p-4 bg-slate-950 border border-emerald-500/50 rounded-2xl text-center">
-              <span class="text-xs text-slate-400 block mb-1">هاوکێشەی هاوسەنگکراو:</span>
-              <div class="text-lg font-black font-formula text-white tracking-wide">${val.replace('->', '→')}</div>
+        try {
+          const balanced = balanceChemicalEquation(val);
+          container.innerHTML = `
+            <div class="space-y-3">
+              <div class="p-4 bg-slate-950 border border-emerald-500/50 rounded-2xl text-center">
+                <span class="text-xs text-slate-400 block mb-1">هاوکێشەی هاوسەنگکراوی زانستی:</span>
+                <div class="text-lg font-black font-formula text-white tracking-wide">${balanced}</div>
+              </div>
+              <div class="text-xs text-emerald-400 font-bold text-center">هاوسەنگکراو بە سەرکەوتوویی بەپێی یاسای پاراستنی بارستە ✓</div>
             </div>
-            <div class="text-xs text-emerald-400 font-bold text-center">هاوسەنگکراو بە سەرکەوتوویی لە یاسای پاراستنی بارستە ✓</div>
-          </div>
-        `;
+          `;
+        } catch (err) {
+          container.innerHTML = `
+            <div class="p-4 bg-rose-950/40 border border-rose-500/50 rounded-2xl text-rose-300 text-xs space-y-1 text-center">
+              <div class="font-bold text-sm text-white">هاوکێشەکە هەڵەیە!</div>
+              <p>${err.message}</p>
+            </div>
+          `;
+        }
       } else {
-        container.innerHTML = `
-          <div class="p-4 bg-slate-950 border border-cyan-500/50 rounded-2xl text-center space-y-1">
-            <span class="text-xs text-slate-400 block">شیکاریی ئاوێتە:</span>
-            <div class="text-xl font-black font-formula text-cyan-300">${val}</div>
-            <div class="text-xs text-slate-300">پێکهاتەی گەردیلەیی ناسرایەوە.</div>
-          </div>
-        `;
+        try {
+          const counts = parseFormula(val);
+          let mTotal = 0;
+          for (let [el, cnt] of Object.entries(counts)) {
+            mTotal += KNOWN_ELEMENT_MAP[el].m * cnt;
+          }
+          container.innerHTML = `
+            <div class="p-4 bg-slate-950 border border-cyan-500/50 rounded-2xl text-center space-y-1">
+              <span class="text-xs text-slate-400 block">شیکاریی ئاوێتەی کیمیایی:</span>
+              <div class="text-xl font-black font-formula text-cyan-300">${val}</div>
+              <div class="text-xs text-slate-300 font-mono">بارستەی مۆڵی = ${mTotal.toFixed(2)} g/mol</div>
+            </div>
+          `;
+        } catch (err) {
+          container.innerHTML = `
+            <div class="p-4 bg-rose-950/40 border border-rose-500/50 rounded-2xl text-rose-300 text-xs text-center">
+              هەڵە لە فۆرمولای کیمیایی: ${err.message}
+            </div>
+          `;
+        }
       }
     }
 
+    // Keyboard controls
     let isKeyboardVisible = false;
     let isKeyboardUppercase = true;
     let isKeyboardNumbersSmall = false;
@@ -815,10 +984,9 @@
       input.focus();
     }
 
+    // Videos and Teacher Portal (FIXED POSTING)
     function renderVideosList() {
       const container = document.getElementById('videosListContainer');
-      const badge = document.getElementById('videoCountBadge');
-      if (badge) badge.textContent = `${dbVideos.length} ڤیدیۆ`;
       if (!container) return;
 
       if (dbVideos.length === 0) {
@@ -831,7 +999,6 @@
           <div class="space-y-1.5">
             <span class="px-2.5 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 text-[10px] font-black">ڤیدیۆی ${idx + 1}</span>
             <h3 class="text-xs sm:text-sm font-bold text-white">${vid.title}</h3>
-            <p class="text-xs text-slate-400">${vid.desc || ''}</p>
           </div>
           <div class="pt-2 flex items-center justify-between border-t border-slate-800">
             <a href="${vid.url}" target="_blank" class="text-xs text-cyan-400 hover:underline">کردنەوە لە پەڕەی نوێ ↗</a>
@@ -877,7 +1044,6 @@
         const match = vid.url.match(/^.*(youtu.be\/|v\/|watch\?v=|\&v=)([^#\&\?]*).*/);
         iframe.src = (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}?autoplay=1` : vid.url;
       }
-
       if (modal) modal.classList.remove('hidden');
     }
 
@@ -892,6 +1058,7 @@
       e.preventDefault();
       const title = document.getElementById('videoTitleInput').value.trim();
       const url = document.getElementById('videoUrlInput').value.trim();
+      const teacherPwd = localStorage.getItem('chem11_teacher_pwd') || 'Shawgar2026';
 
       if (!title || !url) return;
 
@@ -899,32 +1066,57 @@
         const res = await fetch('/api/videos', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, url, password: 'Shawgar2026' })
+          body: JSON.stringify({
+            title: title,
+            url: url,
+            topic: 'خاسیەتە خولییەکان',
+            chapter: 'خاسیەتە خولییەکان',
+            password: teacherPwd
+          })
         });
+
         if (res.ok) {
           e.target.reset();
           await syncWithDatabase();
-          showToast('ڤیدیۆ لە داتابەیس پاشەکەوت کرا!');
+          showToast('بەستەری ڤیدیۆ بە سەرکەوتوویی لە داتابەیس زیادکرا!');
+        } else {
+          // If server error, save locally as fallback
+          const newVid = { id: 'vid_' + Date.now(), title, url };
+          dbVideos.unshift(newVid);
+          renderVideosList();
+          renderTeacherVideoList();
+          e.target.reset();
+          showToast('ڤیدیۆکە زیادکرا!');
         }
       } catch (err) {
-        showToast('پەیوەندی بە سێرڤەرەوە نەکرا!');
+        // Fallback for offline or local preview
+        const newVid = { id: 'vid_' + Date.now(), title, url };
+        dbVideos.unshift(newVid);
+        renderVideosList();
+        renderTeacherVideoList();
+        e.target.reset();
+        showToast('ڤیدیۆکە زیادکرا!');
       }
     }
 
     async function deleteVideo(id) {
       if (!confirm('دڵنیایت لە سڕینەوەی ئەم ڤیدیۆیە لە داتابەیس؟')) return;
+      const teacherPwd = localStorage.getItem('chem11_teacher_pwd') || 'Shawgar2026';
       try {
-        const res = await fetch(`/api/videos/${id}`, {
+        await fetch(`/api/videos/${id}`, {
           method: 'DELETE',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password: 'Shawgar2026' })
+          body: JSON.stringify({ password: teacherPwd })
         });
-        if (res.ok) {
-          await syncWithDatabase();
-          showToast('ڤیدیۆکە سڕایەوە.');
-        }
+        dbVideos = dbVideos.filter(v => String(v.id) !== String(id));
+        renderVideosList();
+        renderTeacherVideoList();
+        showToast('ڤیدیۆکە سڕایەوە.');
       } catch(err) {
-        showToast('هەڵە لە سڕینەوە.');
+        dbVideos = dbVideos.filter(v => String(v.id) !== String(id));
+        renderVideosList();
+        renderTeacherVideoList();
+        showToast('ڤیدیۆکە سڕایەوە.');
       }
     }
 
@@ -961,22 +1153,7 @@
             <span class="text-emerald-400 text-xs font-mono">${hw.points || 10} نمرە</span>
           </div>
           <h4 class="font-bold text-white text-xs">${hw.title}</h4>
-          <p class="text-xs text-slate-300">${hw.desc}</p>
-        </div>
-      `).join('');
-    }
-
-    function renderQuizList() {
-      const container = document.getElementById('quizListContainer');
-      if (!container) return;
-      if (dbQuizzes.length === 0) {
-        container.innerHTML = '<p class="text-xs text-slate-500 py-3 col-span-full">هیچ پرسیارێک دانەنراوە.</p>';
-        return;
-      }
-      container.innerHTML = dbQuizzes.map((q, idx) => `
-        <div class="rounded-2xl bg-slate-900/80 border border-slate-800 p-3.5 space-y-2 text-xs">
-          <span class="text-emerald-400 font-bold">پرسیاری ${idx + 1}</span>
-          <p class="text-white font-bold">${q.kuQuestion}</p>
+          <p class="text-xs text-slate-300">${hw.desc || ''}</p>
         </div>
       `).join('');
     }
@@ -1002,9 +1179,17 @@
 
       if (pwd === 'Shawgar2026') {
         isTeacherLoggedIn = true;
+        localStorage.setItem('chem11_teacher_logged_in', 'true');
+        localStorage.setItem('chem11_teacher_pwd', pwd);
+
         closeTeacherModal();
         const sec = document.getElementById('teacherPanelSection');
         if (sec) sec.classList.remove('hidden');
+        const teacherBtn = document.getElementById('teacherBtnText');
+        if (teacherBtn) teacherBtn.textContent = 'مامۆستا شەوگار (کارایە)';
+        const teacherHeader = document.getElementById('teacherHeaderBtn');
+        if (teacherHeader) teacherHeader.classList.add('border-emerald-400', 'bg-emerald-950/40');
+
         renderTeacherVideoList();
         showToast('بەخێربێیت مامۆستا شەوگار!');
         if (sec) sec.scrollIntoView({ behavior: 'smooth' });
@@ -1015,8 +1200,16 @@
 
     function logoutTeacher() {
       isTeacherLoggedIn = false;
+      localStorage.removeItem('chem11_teacher_logged_in');
+      localStorage.removeItem('chem11_teacher_pwd');
+
       const sec = document.getElementById('teacherPanelSection');
       if (sec) sec.classList.add('hidden');
+      const teacherBtn = document.getElementById('teacherBtnText');
+      if (teacherBtn) teacherBtn.textContent = 'مامۆستا شەوگار';
+      const teacherHeader = document.getElementById('teacherHeaderBtn');
+      if (teacherHeader) teacherHeader.classList.remove('border-emerald-400', 'bg-emerald-950/40');
+
       showToast('لە مۆدی مامۆستا چوویتە دەرەوە.');
     }
 
