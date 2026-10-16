@@ -1,21 +1,24 @@
 const express = require('express');
 const { Pool } = require('pg');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const TEACHER_PASSWORD = process.env.TEACHER_PASSWORD || 'Shawgar2026';
 
-// بەستنەوەی داتابەیسی PostgreSQL لەسەر Railway
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname)));
+
+// ڕێکخستنی زیرەکی پەیوەندیی داتابەیسی PostgreSQL لەسەر Railway
+const isProduction = Boolean(process.env.DATABASE_URL);
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: isProduction ? { rejectUnauthorized: false } : false
 });
-
-app.use(express.json());
-app.use(express.static(path.join(__dirname)));
 
 // دروستکردنی خشتەکان بە شێوەی ئۆتۆماتیکی لەناو PostgreSQL
 const initDB = async () => {
@@ -61,7 +64,7 @@ const initDB = async () => {
       );
     `);
 
-    // ئەگەر خشتەی ڤیدیۆکان بەتاڵ بوو، با ٣ ڤیدیۆ سەرەتاییەکەی مامۆستا شەوگار زیاد بکات
+    // ئەگەر خشتەی ڤیدیۆکان بەتاڵ بوو، ٣ ڤیدیۆ سەرەتاییەکەی مامۆستا شەوگار زیاد دەکات
     const { rowCount } = await pool.query('SELECT 1 FROM videos LIMIT 1');
     if (rowCount === 0) {
       await pool.query(`
@@ -72,15 +75,15 @@ const initDB = async () => {
       `);
     }
 
-    console.log('PostgreSQL Database connected and all tables are ready!');
+    console.log('✅ PostgreSQL Database connected and all tables are ready!');
   } catch (err) {
-    console.error('Database initialization error:', err);
+    console.error('❌ Database initialization error:', err);
   }
 };
 
 initDB();
 
-// ١. هێنانی هەموو زانیارییەکان بەیەکەوە بۆ هەموو قوتابییەکان
+// ١. هێنانی هەموو زانیارییەکان بەیەکەوە
 app.get('/api/data', async (req, res) => {
   try {
     const videosRes = await pool.query('SELECT * FROM videos ORDER BY id ASC');
@@ -131,30 +134,50 @@ app.get('/api/data', async (req, res) => {
   }
 });
 
-// ٢. زیادکردنی ڤیدیۆ (تەنها مامۆستا)
+// ٢. هێنانەوەی ڕاستەوخۆی لیستی ڤیدیۆکان
+app.get('/api/videos', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM videos ORDER BY id ASC');
+    res.json(result.rows.map((r, i) => ({
+      id: String(r.id),
+      order: i + 1,
+      title: r.title,
+      url: r.url,
+      topic: r.topic,
+      desc: r.description || ''
+    })));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// ٣. زیادکردنی ڤیدیۆ (تەنها مامۆستا)
 app.post('/api/videos', async (req, res) => {
   const { title, url, topic, desc, password } = req.body;
-  if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized: وشەی تێپەڕ هەڵەیە' });
+  
   try {
     const result = await pool.query(
       'INSERT INTO videos (title, url, topic, description) VALUES ($1, $2, $3, $4) RETURNING *',
       [title, url, topic || 'خاسیەتە خولییەکان', desc || '']
     );
-    res.json(result.rows[0]);
+    res.status(201).json(result.rows[0]);
   } catch (err) {
+    console.error('Video insert error:', err);
     res.status(500).json({ error: err.message });
   }
 });
 
-// ٣. گۆڕینی بەستەر و دەستکاریکردنی ڤیدیۆ (تەنها مامۆستا)
+// ٤. گۆڕینی بەستەر و دەستکاریکردنی ڤیدیۆ (تەنها مامۆستا)
 app.put('/api/videos/:id', async (req, res) => {
   const { id } = req.params;
   const { title, url, topic, desc, password } = req.body;
   if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  
   try {
     await pool.query(
       'UPDATE videos SET title = $1, url = $2, topic = $3, description = $4 WHERE id = $5',
-      [title, url, topic || 'خاسیەتە خولییەکان', desc || '', id]
+      [title, url, topic || 'خاسیەتە خولییەکان', desc || '', parseInt(id, 10)]
     );
     res.json({ success: true });
   } catch (err) {
@@ -162,23 +185,25 @@ app.put('/api/videos/:id', async (req, res) => {
   }
 });
 
-// ٤. سڕینەوەی ڤیدیۆ (تەنها مامۆستا)
+// ٥. سڕینەوەی ڤیدیۆ (تەنها مامۆستا)
 app.delete('/api/videos/:id', async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
   if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  
   try {
-    await pool.query('DELETE FROM videos WHERE id = $1', [id]);
+    await pool.query('DELETE FROM videos WHERE id = $1', [parseInt(id, 10)]);
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// ٥. زیادکردنی ئەرکی ماڵەوە (تەنها مامۆستا)
+// ٦. زیادکردنی ئەرکی ماڵەوە (تەنها مامۆستا)
 app.post('/api/homeworks', async (req, res) => {
   const { title, topic, desc, dueDate, points, type, password } = req.body;
   if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  
   try {
     await pool.query(
       'INSERT INTO homeworks (title, topic, description, due_date, points, hw_type) VALUES ($1, $2, $3, $4, $5, $6)',
@@ -190,10 +215,11 @@ app.post('/api/homeworks', async (req, res) => {
   }
 });
 
-// ٦. زیادکردنی پرسیاری تاقیکردنەوە (تەنها مامۆستا)
+// ٧. زیادکردنی پرسیاری تاقیکردنەوە (تەنها مامۆستا)
 app.post('/api/quizzes', async (req, res) => {
   const { kuQuestion, enQuestion, topic, options, correct, explanation, password } = req.body;
   if (password !== TEACHER_PASSWORD) return res.status(403).json({ error: 'Unauthorized' });
+  
   try {
     await pool.query(
       'INSERT INTO quizzes (ku_question, en_question, topic, options, correct, explanation) VALUES ($1, $2, $3, $4, $5, $6)',
@@ -205,7 +231,7 @@ app.post('/api/quizzes', async (req, res) => {
   }
 });
 
-// ٧. ناردنی وەڵامی ئەرک لەلایەن قوتابییانەوە بۆ مامۆستا
+// ٨. ناردنی وەڵامی ئەرک لەلایەن قوتابیانەوە
 app.post('/api/submissions', async (req, res) => {
   const { hwId, hwTitle, studentName, studentId, answer, submittedAt } = req.body;
   try {
@@ -217,6 +243,11 @@ app.post('/api/submissions', async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// گەڕاندنەوەی لاپەڕەی سەرەکی
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
