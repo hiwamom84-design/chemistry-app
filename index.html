@@ -428,7 +428,6 @@
         </button>
         
 
-
         <!-- Video Lectures Button (All 36 Videos) -->
         <button type="button" onclick="openAllVideoLinksModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-sky-950/60 border border-sky-500/40 hover:border-sky-400 text-xs text-sky-300 hover:text-white transition-all shadow-sm group">
           <svg class="w-4 h-4 text-sky-400 group-hover:scale-110 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
@@ -1212,7 +1211,6 @@
             placeholder="••••••••" 
             class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white font-mono text-sm focus:outline-none focus:border-amber-400 ltr-dir"
           >
-          <span class="text-[10px] text-slate-500 mt-1 block font-mono">تێپەڕەوشە: Shawgar2026</span>
         </div>
 
         <div class="flex items-center justify-end gap-2 pt-2">
@@ -1608,14 +1606,14 @@
       } catch(e) {}
       
       const badge = document.getElementById('currentThemeBadge');
+      const names = {
+        'cosmic': 'کۆسمۆس',
+        'ocean': 'ئۆقیانووس',
+        'violet': 'مۆر',
+        'emerald': 'زەمروت',
+        'oled': 'ئۆبسیدیان'
+      };
       if (badge) {
-        const names = {
-          'cosmic': 'کۆسمۆس',
-          'ocean': 'ئۆقیانووس',
-          'violet': 'مۆر',
-          'emerald': 'زەمروت',
-          'oled': 'ئۆبسیدیان'
-        };
         badge.textContent = names[themeName] || themeName;
       }
       playCutePop(650, 0.08);
@@ -1975,7 +1973,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       initTheme();
       checkStudentLoginState();
-            renderPeriodicTable3D();
+      renderPeriodicTable3D();
       renderHomeworkList();
       renderQuizList();
       displayInitialSolverState();
@@ -3416,7 +3414,7 @@
           localStorage.setItem('chem11_student_id', studentId);
         } catch(err) {}
         initTheme();
-      checkStudentLoginState();
+        checkStudentLoginState();
         closeStudentModal();
         showToast(`ناسنامەکەت سەلمێندرا: (${studentName})`);
       };
