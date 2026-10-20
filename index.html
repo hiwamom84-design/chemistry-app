@@ -50,16 +50,75 @@
     }
     body {
       font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
-      background-color: #0b101e;
       color: #f1f5f9;
       overflow-x: hidden;
+      transition: background-color 0.4s ease, background-image 0.4s ease;
+      min-height: 100vh;
+    }
+
+    /* === MULTI-PALETTE THEMES === */
+    /* 1. Cosmic Aurora (Default) */
+    body.theme-cosmic {
+      background-color: #060913;
       background-image: 
-        radial-gradient(at 15% 15%, rgba(99, 102, 241, 0.18) 0px, transparent 45%),
-        radial-gradient(at 85% 15%, rgba(6, 182, 212, 0.16) 0px, transparent 45%),
-        radial-gradient(at 50% 85%, rgba(244, 63, 94, 0.12) 0px, transparent 50%),
-        radial-gradient(at 85% 85%, rgba(16, 185, 129, 0.12) 0px, transparent 45%);
+        radial-gradient(at 12% 15%, rgba(6, 182, 212, 0.25) 0px, transparent 45%),
+        radial-gradient(at 88% 12%, rgba(139, 92, 246, 0.25) 0px, transparent 48%),
+        radial-gradient(at 50% 85%, rgba(244, 63, 94, 0.18) 0px, transparent 52%),
+        radial-gradient(at 85% 85%, rgba(16, 185, 129, 0.18) 0px, transparent 48%),
+        radial-gradient(circle at 50% 30%, rgba(30, 58, 138, 0.2) 0px, transparent 65%);
       background-attachment: fixed;
     }
+
+    /* 2. Deep Ocean Sapphire */
+    body.theme-ocean {
+      background-color: #030b18;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(14, 165, 233, 0.32) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(6, 182, 212, 0.28) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(37, 99, 235, 0.25) 0px, transparent 55%),
+        radial-gradient(at 80% 85%, rgba(20, 184, 166, 0.22) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* 3. Cyber Neon Violet */
+    body.theme-violet {
+      background-color: #090314;
+      background-image: 
+        radial-gradient(at 15% 20%, rgba(168, 85, 247, 0.35) 0px, transparent 50%),
+        radial-gradient(at 85% 15%, rgba(236, 72, 153, 0.28) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(99, 102, 241, 0.28) 0px, transparent 55%),
+        radial-gradient(at 85% 85%, rgba(192, 132, 252, 0.2) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* 4. Emerald Laboratory */
+    body.theme-emerald {
+      background-color: #02120b;
+      background-image: 
+        radial-gradient(at 15% 15%, rgba(16, 185, 129, 0.35) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(20, 184, 166, 0.3) 0px, transparent 50%),
+        radial-gradient(at 50% 80%, rgba(5, 150, 105, 0.25) 0px, transparent 55%),
+        radial-gradient(at 80% 85%, rgba(52, 211, 153, 0.22) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* 5. Pure OLED Obsidian */
+    body.theme-oled {
+      background-color: #000000;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(15, 23, 42, 0.8) 0px, transparent 75%),
+        radial-gradient(circle at 80% 80%, rgba(30, 41, 59, 0.45) 0px, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    /* Equalizer wave animation */
+    @keyframes eqBar1 { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+    @keyframes eqBar2 { 0%, 100% { height: 14px; } 50% { height: 6px; } }
+    @keyframes eqBar3 { 0%, 100% { height: 8px; } 50% { height: 16px; } }
+    .eq-bar-1 { animation: eqBar1 0.75s ease-in-out infinite; }
+    .eq-bar-2 { animation: eqBar2 0.65s ease-in-out infinite; }
+    .eq-bar-3 { animation: eqBar3 0.85s ease-in-out infinite; }
+    .eq-paused .eq-bar-1, .eq-paused .eq-bar-2, .eq-paused .eq-bar-3 { animation: none !important; height: 3px !important; }
     .font-formula {
       font-family: 'JetBrains Mono', monospace;
       direction: ltr;
@@ -264,7 +323,18 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white pb-20 md:pb-8">
+<body class="min-h-screen flex flex-col selection:bg-brand-500 selection:text-white pb-20 md:pb-8 theme-cosmic">
+  <!-- FLOATING WELCOME AUDIO NOTICE BAR (CLICK TO ACTIVATE SOUND IF AUTOPLAY IS BLOCKED) -->
+  <div id="audioWelcomeBanner" onclick="unlockAudioImmediately()" class="cursor-pointer bg-gradient-to-r from-cyan-950/90 via-violet-950/90 to-blue-950/90 border-b border-cyan-500/40 text-cyan-200 py-2 px-4 text-xs font-bold flex items-center justify-between backdrop-blur-xl transition-all shadow-glow-cyan/20 z-30">
+    <div class="max-w-7xl mx-auto w-full flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span class="text-white">دەنگ و مۆسیقای هێمن بۆ تەرکیز ئامادەیە — لێرە کلیک بکە بۆ بیستن</span>
+      </div>
+      <span class="px-2 py-0.5 rounded-lg bg-cyan-500 text-slate-950 font-black text-[10px] shadow-sm">کاراکردن</span>
+    </div>
+  </div>
+
 
   <!-- TOP APP HEADER -->
   <header class="sticky top-0 z-40 bg-slate-900/85 backdrop-blur-xl border-b border-slate-800 shadow-card-dark">
@@ -289,6 +359,73 @@
 
       <!-- Header Controls -->
       <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+
+        <!-- Theme / Background Color Switcher Dropdown Trigger -->
+        <div class="relative">
+          <button type="button" onclick="toggleThemeDropdown(event)" id="themeDropdownBtn" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 text-xs text-slate-200 hover:text-white transition-all shadow-sm active:scale-95" title="گۆڕینی ڕەنگی پاشبنەما">
+            <span class="w-3 h-3 rounded-full bg-gradient-to-tr from-cyan-400 via-purple-500 to-emerald-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+            <span class="font-bold text-[11px] sm:text-xs hidden md:inline">ڕەنگی پاشبنەما</span>
+            <svg class="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          
+          <!-- Dropdown Menu -->
+          <div id="themeDropdownMenu" class="hidden absolute left-0 mt-2 w-60 rounded-2xl bg-slate-900/95 border border-slate-700 shadow-2xl p-2.5 z-50 backdrop-blur-2xl space-y-1.5">
+            <div class="px-2 pb-1.5 text-[10px] font-bold text-slate-400 border-b border-slate-800 flex items-center justify-between">
+              <span>هەڵبژاردنی ڕەنگی پاشبنەما:</span>
+              <span id="currentThemeBadge" class="text-cyan-400 font-mono">Cosmic</span>
+            </div>
+            
+            <button type="button" onclick="setThemeBackground('cosmic')" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/80 text-xs text-white text-right transition-all group">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-cyan-400 to-indigo-600 border border-white/20 shadow-glow-cyan/50"></span>
+                <span class="font-bold">کۆسمۆس</span>
+              </div>
+              <span class="text-[9px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">دیاریبکە</span>
+            </button>
+
+            <button type="button" onclick="setThemeBackground('ocean')" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/80 text-xs text-white text-right transition-all group">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-sky-400 to-blue-700 border border-white/20 shadow-[0_0_8px_rgba(14,165,233,0.5)]"></span>
+                <span class="font-bold">ئۆقیانووس</span>
+              </div>
+              <span class="text-[9px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">دیاریبکە</span>
+            </button>
+
+            <button type="button" onclick="setThemeBackground('violet')" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/80 text-xs text-white text-right transition-all group">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-fuchsia-400 to-purple-800 border border-white/20 shadow-[0_0_8px_rgba(168,85,247,0.5)]"></span>
+                <span class="font-bold">مۆر</span>
+              </div>
+              <span class="text-[9px] text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity">دیاریبکە</span>
+            </button>
+
+            <button type="button" onclick="setThemeBackground('emerald')" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/80 text-xs text-white text-right transition-all group">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-800 border border-white/20 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                <span class="font-bold">زەمروت</span>
+              </div>
+              <span class="text-[9px] text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity">دیاریبکە</span>
+            </button>
+
+            <button type="button" onclick="setThemeBackground('oled')" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-800/80 text-xs text-white text-right transition-all group">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-black border border-slate-600 shadow-sm"></span>
+                <span class="font-bold">ئۆبسیدیان</span>
+              </div>
+              <span class="text-[9px] text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">دیاریبکە</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Ambient Sound & Chill Music Controller -->
+        <button type="button" onclick="toggleBackgroundMusic()" id="musicToggleBtn" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-violet-950/70 border border-violet-500/40 hover:border-violet-400 text-xs text-violet-300 hover:text-white transition-all shadow-glow-violet/30 active:scale-95 group" title="مۆسیقای هێمن و کاریگەرییە دەنگییەکان">
+          <span id="equalizerVisualizer" class="flex items-end gap-0.5 h-3.5 shrink-0 eq-paused">
+            <span class="w-1 h-2 bg-violet-400 rounded-full eq-bar-1"></span>
+            <span class="w-1 h-3.5 bg-cyan-400 rounded-full eq-bar-2"></span>
+            <span class="w-1 h-2.5 bg-indigo-400 rounded-full eq-bar-3"></span>
+          </span>
+          <span id="musicBtnLabel" class="font-bold text-[11px] sm:text-xs">دەنگ</span>
+        </button>
         
 
 
@@ -338,7 +475,7 @@
           <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
             <a href="#tableSection" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs sm:text-sm transition-all shadow-glow-cyan flex items-center gap-2 active:scale-95">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-              <span>خشتەی خولیی ٣D ✨</span>
+              <span>خشتەی خولیی ٣D</span>
             </a>
             
             <a href="#solverSection" class="px-5 py-3 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-cyan-300 font-bold text-xs sm:text-sm transition-all shadow-sm flex items-center gap-2 active:scale-95">
@@ -397,7 +534,7 @@
               <span>تەخت (2D)</span>
             </button>
             <button type="button" onclick="set3DViewPreset('roller')" id="btnPresetRoller" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5" title="خشتەی خولیی بە شێوازی ڕۆلەری بازنەیی ٣D">
-              <span>ڕۆلەر (Roller) 🎡</span>
+              <span>ڕۆلەر (Roller)</span>
             </button>
           </div>
 
@@ -449,7 +586,7 @@
             <span>سوڕاندنی ڕاست ▶</span>
           </button>
           <button type="button" onclick="toggleAutoRoll()" id="autoRollBtn" class="px-3.5 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm">
-            <span id="autoRollIcon">🔄</span>
+            <span id="autoRollIcon">↻</span>
             <span id="autoRollText">خولانەوەی خۆکار</span>
           </button>
         </div>
@@ -537,13 +674,13 @@
                   onclick="toggleKeyboardCase()" 
                   id="keyCaseToggleBtn" 
                   class="px-3 py-1 rounded-xl bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold hover:bg-cyan-900/60 transition-all">
-                  🔠 ABC
+                  ABC
                 </button>
                 <button 
                   type="button" 
                   onclick="hideChemistryKeyboard()" 
                   class="px-3 py-1 rounded-xl bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-[11px] font-bold">
-                  داخستن ✕
+                  داخستن
                 </button>
               </div>
             </div>
@@ -660,7 +797,7 @@
               type="button" 
               class="w-full py-3.5 px-4 rounded-2xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 text-slate-200 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 transition-all shadow-sm active:scale-95">
               <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <span>گرتنی وێنەی کێشە بە کامێرا</span>
+              <span>گرتنی وێنەی هاوکێشە بە کامێرا</span>
             </button>
 
             <button 
@@ -1447,7 +1584,53 @@
     let currentRotateY = -5;
 
     // =========================================================================
-    // CALM & CHILL STUDY SOUNDSCAPE (ZERO RUSH - DEEP FOCUS & RELAXING)
+    // THEME MANAGEMENT (BACKGROUND COLORS)
+    // =========================================================================
+    function toggleThemeDropdown(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('themeDropdownMenu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    window.addEventListener('click', (e) => {
+      const menu = document.getElementById('themeDropdownMenu');
+      const btn = document.getElementById('themeDropdownBtn');
+      if (menu && !menu.contains(e.target) && btn && !btn.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+
+    function setThemeBackground(themeName) {
+      document.body.classList.remove('theme-cosmic', 'theme-ocean', 'theme-violet', 'theme-emerald', 'theme-oled');
+      document.body.classList.add(`theme-${themeName}`);
+      try {
+        localStorage.setItem('chem11_selected_theme', themeName);
+      } catch(e) {}
+      
+      const badge = document.getElementById('currentThemeBadge');
+      if (badge) {
+        const names = {
+          'cosmic': 'کۆسمۆس',
+          'ocean': 'ئۆقیانووس',
+          'violet': 'مۆر',
+          'emerald': 'زەمروت',
+          'oled': 'ئۆبسیدیان'
+        };
+        badge.textContent = names[themeName] || themeName;
+      }
+      playCutePop(650, 0.08);
+      showToast('ڕەنگی پاشبنەما گۆڕدرا بۆ: ' + (names[themeName] || themeName));
+      const menu = document.getElementById('themeDropdownMenu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('chem11_selected_theme') || 'cosmic';
+      setThemeBackground(saved);
+    }
+
+    // =========================================================================
+    // CALM & CHILL STUDY SOUNDSCAPE & INTERACTIVE SOUND EFFECTS
     // =========================================================================
     let bgAudioCtx = null;
     let bgMusicMasterGain = null;
@@ -1493,16 +1676,9 @@
       }
     ];
 
-    // Gentle celestial bell / chime pentatonic frequencies that float softly
+    // Gentle celestial bell / chime pentatonic frequencies
     const CHILL_MELODIC_BELLS = [
-      261.63, // C4
-      293.66, // D4
-      329.63, // E4
-      392.00, // G4
-      440.00, // A4
-      523.25, // C5
-      587.33, // D5
-      659.25  // E5
+      261.63, 293.66, 329.63, 392.00, 440.00, 523.25, 587.33, 659.25
     ];
 
     function initBackgroundMusicContext() {
@@ -1511,13 +1687,13 @@
         if (!AudioContextClass) return false;
         bgAudioCtx = new AudioContextClass();
 
-        // Warm, cozy tape filter: 850Hz lowpass for silky smooth chill sound
+        // Warm tape filter: 880Hz lowpass for silky smooth chill sound
         bgMusicFilter = bgAudioCtx.createBiquadFilter();
         bgMusicFilter.type = 'lowpass';
-        bgMusicFilter.frequency.setValueAtTime(850, bgAudioCtx.currentTime);
+        bgMusicFilter.frequency.setValueAtTime(880, bgAudioCtx.currentTime);
         bgMusicFilter.Q.setValueAtTime(0.9, bgAudioCtx.currentTime);
 
-        // Master Gain (peaceful, gentle background volume)
+        // Master Gain
         bgMusicMasterGain = bgAudioCtx.createGain();
         bgMusicMasterGain.gain.setValueAtTime(0.0001, bgAudioCtx.currentTime);
 
@@ -1527,7 +1703,6 @@
       return true;
     }
 
-    // 1. WARM AMBIENT PAD CHORD (SLOW SWELL & PEACEFUL FADE)
     function playChillAmbientChord(freqs, duration = 4.8) {
       if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
       const now = bgAudioCtx.currentTime;
@@ -1537,7 +1712,6 @@
         const osc2 = bgAudioCtx.createOscillator();
         const noteGain = bgAudioCtx.createGain();
 
-        // Dual sine + gentle triangle for vintage warm analog pad
         osc1.type = 'sine';
         osc1.frequency.setValueAtTime(freq, now);
         osc1.detune.setValueAtTime((idx - 2) * 4, now);
@@ -1546,8 +1720,7 @@
         osc2.frequency.setValueAtTime(freq, now);
         osc2.detune.setValueAtTime((idx - 2) * -3, now);
 
-        const vol = idx === 0 ? 0.07 : 0.05;
-        // Slow peaceful breathing envelope: 0.8s attack, smooth sustain, gentle 2.2s release
+        const vol = idx === 0 ? 0.08 : 0.055;
         noteGain.gain.setValueAtTime(0.0001, now);
         noteGain.gain.linearRampToValueAtTime(vol, now + 0.8);
         noteGain.gain.setValueAtTime(vol * 0.9, now + duration - 2.0);
@@ -1564,7 +1737,6 @@
       });
     }
 
-    // 2. WARM, CALM SUB BASS (GROUNDING, ZERO IMPACT)
     function playChillSubBass(freq, duration = 4.2) {
       if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
       const now = bgAudioCtx.currentTime;
@@ -1576,7 +1748,7 @@
       osc.frequency.setValueAtTime(freq, now);
 
       gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.linearRampToValueAtTime(0.12, now + 0.6);
+      gain.gain.linearRampToValueAtTime(0.14, now + 0.6);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
       osc.connect(gain);
@@ -1586,7 +1758,6 @@
       osc.stop(now + duration + 0.1);
     }
 
-    // 3. GENTLE CELESTIAL BELL / CHIME (PEACEFUL DROPLETS)
     function playChillCelestialBell(freq, duration = 2.4) {
       if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
       const now = bgAudioCtx.currentTime;
@@ -1597,9 +1768,8 @@
       osc.type = 'sine';
       osc.frequency.setValueAtTime(freq, now);
 
-      // Soft gentle bell chime: immediate soft entry and long sparkling decay
       gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.linearRampToValueAtTime(0.055, now + 0.05);
+      gain.gain.linearRampToValueAtTime(0.07, now + 0.05);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
       osc.connect(gain);
@@ -1609,14 +1779,16 @@
       osc.stop(now + duration + 0.1);
     }
 
-    // Peaceful welcome chime when toggled
     function playWelcomeChime() {
-      if (isAudioMuted || !initBackgroundMusicContext()) return;
-      const notes = [261.63, 329.63, 392.00, 523.25];
+      if (!initBackgroundMusicContext()) return;
+      if (bgAudioCtx.state === 'suspended') {
+        bgAudioCtx.resume();
+      }
+      const notes = [261.63, 329.63, 392.00, 523.25, 659.25];
       const now = bgAudioCtx.currentTime;
 
       notes.forEach((freq, idx) => {
-        const noteTime = now + (idx * 0.12);
+        const noteTime = now + (idx * 0.11);
         const osc = bgAudioCtx.createOscillator();
         const gain = bgAudioCtx.createGain();
 
@@ -1624,7 +1796,7 @@
         osc.frequency.setValueAtTime(freq, noteTime);
 
         gain.gain.setValueAtTime(0.0001, noteTime);
-        gain.gain.linearRampToValueAtTime(0.12, noteTime + 0.05);
+        gain.gain.linearRampToValueAtTime(0.15, noteTime + 0.05);
         gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 1.8);
 
         osc.connect(gain);
@@ -1635,36 +1807,28 @@
       });
     }
 
-    // CHILL PROGRESSION LOOP: Every 4.6 seconds, plays a gentle soothing chord swell
     function stepChillSoundscape() {
       if (!isBgMusicPlaying || isAudioMuted || !bgAudioCtx || bgAudioCtx.state !== 'running') return;
-
       const chord = CHILL_PROGRESSIONS[chillStep % CHILL_PROGRESSIONS.length];
       playChillAmbientChord(chord.notes, 4.6);
       playChillSubBass(chord.bassFreq, 4.2);
-
       chillStep++;
     }
 
-    // CELESTIAL BELLS: Spaced out every ~2.3 seconds with random peaceful pentatonic choice
     function stepChillBells() {
       if (!isBgMusicPlaying || isAudioMuted || !bgAudioCtx || bgAudioCtx.state !== 'running') return;
-
-      if (Math.random() < 0.75) {
+      if (Math.random() < 0.8) {
         const randomNote = CHILL_MELODIC_BELLS[Math.floor(Math.random() * CHILL_MELODIC_BELLS.length)];
         playChillCelestialBell(randomNote, 2.5);
       }
     }
 
     function startBackgroundMusic() {
-      if (isAudioMuted) return;
       if (!initBackgroundMusicContext()) return;
 
       if (bgAudioCtx.state === 'suspended') {
         bgAudioCtx.resume().then(() => {
-          if (!isAudioMuted && bgAudioCtx.state === 'running') {
-            beginLofiBeatLoop();
-          }
+          beginLofiBeatLoop();
         }).catch(() => {});
         return;
       }
@@ -1677,24 +1841,26 @@
     function beginLofiBeatLoop() {
       if (isBgMusicPlaying) return;
       isBgMusicPlaying = true;
+      isAudioMuted = false;
+      isSoundEnabled = true;
 
       if (bgAudioCtx && bgMusicMasterGain) {
         const now = bgAudioCtx.currentTime;
         bgMusicMasterGain.gain.cancelScheduledValues(now);
         bgMusicMasterGain.gain.setValueAtTime(0.0001, now);
-        bgMusicMasterGain.gain.linearRampToValueAtTime(0.28, now + 1.0);
+        bgMusicMasterGain.gain.linearRampToValueAtTime(0.35, now + 1.0);
       }
 
       stepChillSoundscape();
       stepChillBells();
 
       if (chillIntervalId) clearInterval(chillIntervalId);
-      // Slow, peaceful 4.6-second chord swell rhythm (calm, zero rush)
       chillIntervalId = setInterval(stepChillSoundscape, 4600);
 
       if (chillMelodyIntervalId) clearInterval(chillMelodyIntervalId);
-      // Delicate floating bells every 2.3 seconds
       chillMelodyIntervalId = setInterval(stepChillBells, 2300);
+
+      updateAudioUI();
     }
 
     function stopBackgroundMusic() {
@@ -1713,19 +1879,68 @@
         bgMusicMasterGain.gain.cancelScheduledValues(now);
         bgMusicMasterGain.gain.linearRampToValueAtTime(0.0001, now + 0.6);
       }
+
+      updateAudioUI();
     }
 
-    // Sound button was removed as requested by user
-    function toggleAllAudio() {
-      isAudioMuted = !isAudioMuted;
-      isSoundEnabled = !isAudioMuted;
-      if (isAudioMuted) {
+    function toggleBackgroundMusic() {
+      if (isBgMusicPlaying) {
         stopBackgroundMusic();
-        showToast('دەنگ بێدەنگ کرا 🔇');
+        showToast('مۆسیقا و دەنگەکان وەستێنران');
+      } else {
+        startBackgroundMusic();
+        playWelcomeChime();
+        showToast('مۆسیقای هێمن و کاریگەرییە دەنگییەکان کارا کران');
       }
     }
 
-    // Cute Web Audio Pop Synthesizer for buttons & element clicks (audible volume ~0.14)
+    function updateAudioUI() {
+      const eq = document.getElementById('equalizerVisualizer');
+      const label = document.getElementById('musicBtnLabel');
+      const btn = document.getElementById('musicToggleBtn');
+      const banner = document.getElementById('audioWelcomeBanner');
+
+      if (isBgMusicPlaying) {
+        if (eq) eq.classList.remove('eq-paused');
+        if (label) label.textContent = 'مۆسیقا: کارایە';
+        if (btn) {
+          btn.className = 'flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-violet-600 text-white border border-violet-400 text-xs transition-all shadow-glow-violet active:scale-95 group';
+        }
+        if (banner) {
+          banner.style.display = 'none';
+        }
+      } else {
+        if (eq) eq.classList.add('eq-paused');
+        if (label) label.textContent = 'دەنگ: بێدەنگ';
+        if (btn) {
+          btn.className = 'flex items-center gap-1.5 px-3 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 text-xs transition-all shadow-sm active:scale-95 group';
+        }
+      }
+    }
+
+    function unlockAudioImmediately() {
+      startBackgroundMusic();
+      playWelcomeChime();
+      const banner = document.getElementById('audioWelcomeBanner');
+      if (banner) banner.style.display = 'none';
+      showToast('دەنگ و مۆسیقا بە سەرکەوتوویی کارا کران');
+    }
+
+    // Auto-unlock audio on user's first click or touch on the screen
+    function handleFirstUserInteractionForAudio() {
+      if (!isBgMusicPlaying) {
+        startBackgroundMusic();
+        playWelcomeChime();
+      }
+      document.removeEventListener('click', handleFirstUserInteractionForAudio);
+      document.removeEventListener('touchstart', handleFirstUserInteractionForAudio);
+      document.removeEventListener('keydown', handleFirstUserInteractionForAudio);
+    }
+    document.addEventListener('click', handleFirstUserInteractionForAudio, { passive: true });
+    document.addEventListener('touchstart', handleFirstUserInteractionForAudio, { passive: true });
+    document.addEventListener('keydown', handleFirstUserInteractionForAudio, { passive: true });
+
+    // Interactive SFX Generator
     let audioCtx = null;
     function playCutePop(freq = 520, duration = 0.08) {
       if (isAudioMuted || !isSoundEnabled) return;
@@ -1744,9 +1959,9 @@
 
         osc.type = 'sine';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(freq * 1.4, audioCtx.currentTime + duration);
+        osc.frequency.exponentialRampToValueAtTime(freq * 1.35, audioCtx.currentTime + duration);
 
-        gain.gain.setValueAtTime(0.14, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
 
         osc.connect(gain);
@@ -1758,6 +1973,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
       checkStudentLoginState();
             renderPeriodicTable3D();
       renderHomeworkList();
@@ -1862,7 +2078,7 @@
           autoRollAnimId = requestAnimationFrame(autoRollStep);
         }
         autoRollAnimId = requestAnimationFrame(autoRollStep);
-        showToast('خولانەوەی خۆکاری ڕۆلەر کارا کرا 🎡');
+        showToast('خولانەوەی خۆکاری ڕۆلەر کارا کرا');
       } else {
         if (autoRollAnimId) cancelAnimationFrame(autoRollAnimId);
         autoRollAnimId = null;
@@ -2729,7 +2945,7 @@
       if (!container) return;
 
       const letters = isKeyboardUppercase ? UPPER_LETTERS : LOWER_LETTERS;
-      if (toggleBtn) toggleBtn.textContent = isKeyboardUppercase ? '🔠 ABC' : '🔡 abc';
+      if (toggleBtn) toggleBtn.textContent = isKeyboardUppercase ? 'ABC' : 'abc';
 
       const r1 = letters.slice(0, 10);
       const r2 = letters.slice(10, 19);
@@ -3181,6 +3397,7 @@
         localStorage.setItem('chem11_student_id', studentId);
       } catch(err) {}
 
+      initTheme();
       checkStudentLoginState();
       closeStudentModal();
       showToast(`بەخێربێیت (${name})!`);
@@ -3198,7 +3415,8 @@
           localStorage.setItem('chem11_student_name', studentName);
           localStorage.setItem('chem11_student_id', studentId);
         } catch(err) {}
-        checkStudentLoginState();
+        initTheme();
+      checkStudentLoginState();
         closeStudentModal();
         showToast(`ناسنامەکەت سەلمێندرا: (${studentName})`);
       };
@@ -3210,6 +3428,7 @@
         localStorage.removeItem('chem11_student_name');
         localStorage.removeItem('chem11_student_id');
       } catch(err) {}
+      initTheme();
       checkStudentLoginState();
       closeStudentModal();
       showToast('لە هەژمار دەرچوویت.');
