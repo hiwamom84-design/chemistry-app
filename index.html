@@ -93,7 +93,7 @@
       position: relative;
     }
 
-    /* 3D View Presets */
+    /* 3D View Presets: 3D, Deep, 2D, and 3D Roller */
     .ptable-3d-grid.view-isometric {
       transform: rotateX(22deg) rotateY(-5deg) scale(0.96);
     }
@@ -102,6 +102,37 @@
     }
     .ptable-3d-grid.view-flat {
       transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    }
+
+    /* 3D CYLINDRICAL ROLLER CAROUSEL */
+    .ptable-3d-grid.view-roller {
+      display: block !important;
+      position: relative !important;
+      width: 100% !important;
+      max-width: 680px !important;
+      height: 640px !important;
+      min-width: 0 !important;
+      margin: 16px auto !important;
+      transform-style: preserve-3d !important;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .ptable-3d-grid.view-roller .element-card-3d {
+      position: absolute !important;
+      width: 58px !important;
+      height: 68px !important;
+      left: calc(50% - 29px) !important;
+      top: calc(20px + (var(--row) - 1) * 58px) !important;
+      transform: rotateY(calc((var(--col) - 1) * 20deg)) translateZ(350px) !important;
+      backface-visibility: hidden !important;
+      -webkit-backface-visibility: hidden !important;
+    }
+    .ptable-3d-grid.view-roller .element-card-3d:hover {
+      transform: rotateY(calc((var(--col) - 1) * 20deg)) translateZ(395px) scale(1.18) !important;
+      z-index: 100 !important;
+      box-shadow: 0 0 25px var(--cat-glow), 0 0 10px #ffffff !important;
+    }
+    .ptable-3d-grid.view-roller .ptable-row-label {
+      display: none !important;
     }
 
     /* 3D Tactile Element Cube */
@@ -259,11 +290,7 @@
       <!-- Header Controls -->
       <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
         
-        <!-- Sound & Lofi Study Beats Toggle Button -->
-        <button type="button" onclick="toggleAllAudio()" id="soundToggleBtn" class="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-800/80 border border-cyan-500/50 hover:border-cyan-400 text-cyan-300 text-xs transition-all shadow-glow-cyan/20" title="مۆسیقای خوێندن (Lofi Study Beats)">
-          <span id="soundIcon" class="text-sm animate-pulse">🔊</span>
-          <span id="soundLabel" class="font-bold text-[11px] text-cyan-300 hidden sm:inline">Lofi Beat 🎵</span>
-        </button>
+
 
         <!-- Video Lectures Button (All 36 Videos) -->
         <button type="button" onclick="openAllVideoLinksModal()" class="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-sky-950/60 border border-sky-500/40 hover:border-sky-400 text-xs text-sky-300 hover:text-white transition-all shadow-sm group">
@@ -357,8 +384,8 @@
         <!-- 3D Controls Bar -->
         <div class="flex flex-wrap items-center gap-2">
           
-          <!-- View Preset Buttons -->
-          <div class="flex items-center bg-slate-900 border border-slate-700/80 rounded-2xl p-1 shadow-card-dark">
+          <!-- View Preset Buttons: 3D, Deep, 2D, and Roller -->
+          <div class="flex items-center bg-slate-900 border border-slate-700/80 rounded-2xl p-1 shadow-card-dark flex-wrap sm:flex-nowrap">
             <button type="button" onclick="set3DViewPreset('isometric')" id="btnPresetIsometric" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"/></svg>
               <span>3D سوڕاو</span>
@@ -368,6 +395,9 @@
             </button>
             <button type="button" onclick="set3DViewPreset('flat')" id="btnPresetFlat" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5">
               <span>تەخت (2D)</span>
+            </button>
+            <button type="button" onclick="set3DViewPreset('roller')" id="btnPresetRoller" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5" title="خشتەی خولیی بە شێوازی ڕۆلەری بازنەیی ٣D">
+              <span>ڕۆلەر (Roller) 🎡</span>
             </button>
           </div>
 
@@ -402,6 +432,27 @@
         <button onclick="setElementCategoryFilter('Halogen')" id="catTabHalogen" class="cat-filter-btn px-4 py-2 rounded-2xl font-medium bg-slate-900 border border-rose-500/40 text-rose-300 hover:bg-rose-950/60 shrink-0 transition-all">هاڵۆجین</button>
         <button onclick="setElementCategoryFilter('Lanthanide')" id="catTabLanthanide" class="cat-filter-btn px-4 py-2 rounded-2xl font-medium bg-slate-900 border border-fuchsia-500/40 text-fuchsia-300 hover:bg-fuchsia-950/60 shrink-0 transition-all">لانتانید</button>
         <button onclick="setElementCategoryFilter('Actinide')" id="catTabActinide" class="cat-filter-btn px-4 py-2 rounded-2xl font-medium bg-slate-900 border border-red-500/40 text-red-300 hover:bg-red-950/60 shrink-0 transition-all">ئەکتینید</button>
+      </div>
+
+      <!-- 3D Roller Toolbar (Shown when Roller view is active) -->
+      <div id="rollerControlsToolbar" class="hidden flex items-center justify-between flex-wrap gap-2 px-4 py-2.5 rounded-2xl bg-slate-900/90 border border-cyan-500/40 text-xs shadow-glow-cyan/20 backdrop-blur-xl">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span class="font-bold text-white text-[11px] sm:text-xs">کۆنتڕۆڵی ڕۆلەری ٣D:</span>
+          <span id="rollerAngleBadge" class="px-2.5 py-0.5 rounded-md bg-slate-950 text-cyan-300 font-mono text-[10px] font-bold border border-slate-700">گۆشە: 0°</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="rollPeriodicTable(-40)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all active:scale-95 flex items-center gap-1 shadow-sm">
+            <span>◀ سوڕاندنی چەپ</span>
+          </button>
+          <button type="button" onclick="rollPeriodicTable(40)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all active:scale-95 flex items-center gap-1 shadow-sm">
+            <span>سوڕاندنی ڕاست ▶</span>
+          </button>
+          <button type="button" onclick="toggleAutoRoll()" id="autoRollBtn" class="px-3.5 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm">
+            <span id="autoRollIcon">🔄</span>
+            <span id="autoRollText">خولانەوەی خۆکار</span>
+          </button>
+        </div>
       </div>
 
       <!-- 3D Periodic Stage Box -->
@@ -1396,66 +1447,63 @@
     let currentRotateY = -5;
 
     // =========================================================================
-    // LO-FI STUDY BEATS & CHILL CHEMISTRY AUDIO ENGINE
+    // CALM & CHILL STUDY SOUNDSCAPE (ZERO RUSH - DEEP FOCUS & RELAXING)
     // =========================================================================
     let bgAudioCtx = null;
     let bgMusicMasterGain = null;
     let bgMusicFilter = null;
     let isBgMusicPlaying = false;
-    let lofiBeatIntervalId = null;
-    let lofiBeatStep = 0;
+    let chillIntervalId = null;
+    let chillMelodyIntervalId = null;
+    let chillStep = 0;
     let isAudioMuted = false;
     let isSoundEnabled = true;
-    let lofiNoiseBuffer = null;
 
-    // Cozy Jazz Chords (Dm9 -> G13 -> Cmaj9 -> Am9)
-    const LOFI_PROGRESSIONS = [
+    // Peaceful, lush, heart-calming chord progressions (in key of Dm / F / C)
+    const CHILL_PROGRESSIONS = [
       {
         name: 'Dm9',
         bassFreq: 73.42, // D2
-        rhodesFreqs: [146.83, 174.61, 220.00, 261.63, 329.63] // D3, F3, A3, C4, E4
+        notes: [146.83, 174.61, 220.00, 261.63, 329.63] // D3, F3, A3, C4, E4
       },
       {
-        name: 'G13',
-        bassFreq: 98.00, // G2
-        rhodesFreqs: [146.83, 174.61, 246.94, 329.63, 392.00] // D3, F3, B3, E4, G4
+        name: 'Bbmaj9',
+        bassFreq: 58.27, // Bb1
+        notes: [116.54, 174.61, 233.08, 261.63, 349.23] // Bb2, F3, Bb3, C4, F4
       },
       {
-        name: 'Cmaj9',
-        bassFreq: 65.41, // C2
-        rhodesFreqs: [130.81, 164.81, 196.00, 246.94, 293.66] // C3, E3, G3, B3, D4
+        name: 'Fmaj9',
+        bassFreq: 87.31, // F2
+        notes: [130.81, 174.61, 220.00, 261.63, 329.63] // C3, F3, A3, C4, E4
       },
       {
         name: 'Am9',
-        bassFreq: 110.00, // A2
-        rhodesFreqs: [130.81, 164.81, 196.00, 261.63, 329.63] // C3, E3, G3, C4, E4
+        bassFreq: 55.00, // A1
+        notes: [110.00, 164.81, 196.00, 261.63, 329.63] // A2, E3, G3, C4, E4
+      },
+      {
+        name: 'Gm9',
+        bassFreq: 49.00, // G1
+        notes: [98.00, 146.83, 174.61, 220.00, 293.66] // G2, D3, F3, A3, D4
+      },
+      {
+        name: 'C9sus4',
+        bassFreq: 65.41, // C2
+        notes: [130.81, 174.61, 196.00, 261.63, 293.66] // C3, F3, G3, C4, D4
       }
     ];
 
-    // Melodic late-night study riffs (Pentatonic: D, F, G, A, C, E, G5)
-    const LOFI_STUDY_MELODIES = [
-      [null, 329.63, null, 261.63, null, null, 220.00, 261.63, null, 329.63, null, 392.00, 329.63, null, 261.63, null],
-      [392.00, null, 329.63, null, null, 246.94, null, 220.00, null, 246.94, 293.66, null, 246.94, null, null, null],
-      [null, 293.66, null, 246.94, null, 196.00, null, 246.94, 293.66, null, 329.63, null, 293.66, 246.94, null, null],
-      [261.63, null, 220.00, null, 196.00, null, 220.00, 261.63, null, 329.63, null, 440.00, null, 329.63, null, null]
+    // Gentle celestial bell / chime pentatonic frequencies that float softly
+    const CHILL_MELODIC_BELLS = [
+      261.63, // C4
+      293.66, // D4
+      329.63, // E4
+      392.00, // G4
+      440.00, // A4
+      523.25, // C5
+      587.33, // D5
+      659.25  // E5
     ];
-
-    function createLofiNoiseBuffer(ctx) {
-      if (lofiNoiseBuffer) return lofiNoiseBuffer;
-      const bufferSize = ctx.sampleRate * 2;
-      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const output = buffer.getChannelData(0);
-      let b0 = 0, b1 = 0, b2 = 0;
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1;
-        b0 = 0.99886 * b0 + white * 0.0555179;
-        b1 = 0.99332 * b1 + white * 0.0750759;
-        b2 = 0.96900 * b2 + white * 0.1538520;
-        output[i] = (b0 + b1 + b2 + white * 0.5362) * 0.09;
-      }
-      lofiNoiseBuffer = buffer;
-      return lofiNoiseBuffer;
-    }
 
     function initBackgroundMusicContext() {
       if (!bgAudioCtx) {
@@ -1463,13 +1511,13 @@
         if (!AudioContextClass) return false;
         bgAudioCtx = new AudioContextClass();
 
-        // Warm Analog Tape Filter: 1900Hz lowpass for warm, cozy lo-fi character
+        // Warm, cozy tape filter: 850Hz lowpass for silky smooth chill sound
         bgMusicFilter = bgAudioCtx.createBiquadFilter();
         bgMusicFilter.type = 'lowpass';
-        bgMusicFilter.frequency.setValueAtTime(1900, bgAudioCtx.currentTime);
-        bgMusicFilter.Q.setValueAtTime(1.1, bgAudioCtx.currentTime);
+        bgMusicFilter.frequency.setValueAtTime(850, bgAudioCtx.currentTime);
+        bgMusicFilter.Q.setValueAtTime(0.9, bgAudioCtx.currentTime);
 
-        // Master Gain
+        // Master Gain (peaceful, gentle background volume)
         bgMusicMasterGain = bgAudioCtx.createGain();
         bgMusicMasterGain.gain.setValueAtTime(0.0001, bgAudioCtx.currentTime);
 
@@ -1479,93 +1527,8 @@
       return true;
     }
 
-    // 1. LO-FI DRUM: WARM BOOM-BAP KICK
-    function playLofiKick(now) {
-      if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
-
-      const osc = bgAudioCtx.createOscillator();
-      const gain = bgAudioCtx.createGain();
-
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(135, now);
-      osc.frequency.exponentialRampToValueAtTime(42, now + 0.09);
-
-      gain.gain.setValueAtTime(0.35, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
-
-      osc.connect(gain);
-      gain.connect(bgMusicFilter);
-
-      osc.start(now);
-      osc.stop(now + 0.24);
-    }
-
-    // 2. LO-FI DRUM: WARM CRACKLE SNARE / RIMSHOT
-    function playLofiSnare(now) {
-      if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
-
-      // Snare tonal body
-      const osc = bgAudioCtx.createOscillator();
-      const oscGain = bgAudioCtx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(190, now);
-      osc.frequency.exponentialRampToValueAtTime(80, now + 0.07);
-      oscGain.gain.setValueAtTime(0.18, now);
-      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-      osc.connect(oscGain);
-      oscGain.connect(bgMusicFilter);
-      osc.start(now);
-      osc.stop(now + 0.13);
-
-      // Snare noise snap
-      const noise = createLofiNoiseBuffer(bgAudioCtx);
-      const noiseSrc = bgAudioCtx.createBufferSource();
-      noiseSrc.buffer = noise;
-
-      const noiseFilter = bgAudioCtx.createBiquadFilter();
-      noiseFilter.type = 'bandpass';
-      noiseFilter.frequency.setValueAtTime(1600, now);
-      noiseFilter.Q.setValueAtTime(1.5, now);
-
-      const noiseGain = bgAudioCtx.createGain();
-      noiseGain.gain.setValueAtTime(0.19, now);
-      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-
-      noiseSrc.connect(noiseFilter);
-      noiseFilter.connect(noiseGain);
-      noiseGain.connect(bgMusicFilter);
-
-      noiseSrc.start(now);
-      noiseSrc.stop(now + 0.17);
-    }
-
-    // 3. LO-FI DRUM: SWING CLOSED HI-HAT
-    function playLofiHiHat(now, isSoft = false) {
-      if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
-
-      const noise = createLofiNoiseBuffer(bgAudioCtx);
-      const noiseSrc = bgAudioCtx.createBufferSource();
-      noiseSrc.buffer = noise;
-
-      const filter = bgAudioCtx.createBiquadFilter();
-      filter.type = 'highpass';
-      filter.frequency.setValueAtTime(6800, now);
-
-      const gain = bgAudioCtx.createGain();
-      const vol = isSoft ? 0.045 : 0.085;
-      gain.gain.setValueAtTime(vol, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + (isSoft ? 0.03 : 0.05));
-
-      noiseSrc.connect(filter);
-      filter.connect(gain);
-      gain.connect(bgMusicFilter);
-
-      noiseSrc.start(now);
-      noiseSrc.stop(now + 0.06);
-    }
-
-    // 4. WARM RHODES / ELECTRIC PIANO STUDY CHORD
-    function playLofiRhodesChord(freqs, duration = 3.0) {
+    // 1. WARM AMBIENT PAD CHORD (SLOW SWELL & PEACEFUL FADE)
+    function playChillAmbientChord(freqs, duration = 4.8) {
       if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
       const now = bgAudioCtx.currentTime;
 
@@ -1574,19 +1537,20 @@
         const osc2 = bgAudioCtx.createOscillator();
         const noteGain = bgAudioCtx.createGain();
 
-        // Dual sine + gentle triangle for vintage Rhodes chorus texture
+        // Dual sine + gentle triangle for vintage warm analog pad
         osc1.type = 'sine';
         osc1.frequency.setValueAtTime(freq, now);
-        osc1.detune.setValueAtTime((idx - 2) * 5, now);
+        osc1.detune.setValueAtTime((idx - 2) * 4, now);
 
         osc2.type = 'triangle';
         osc2.frequency.setValueAtTime(freq, now);
-        osc2.detune.setValueAtTime((idx - 2) * -4, now);
+        osc2.detune.setValueAtTime((idx - 2) * -3, now);
 
-        const vol = idx === 0 ? 0.11 : 0.08;
+        const vol = idx === 0 ? 0.07 : 0.05;
+        // Slow peaceful breathing envelope: 0.8s attack, smooth sustain, gentle 2.2s release
         noteGain.gain.setValueAtTime(0.0001, now);
-        noteGain.gain.linearRampToValueAtTime(vol, now + 0.08);
-        noteGain.gain.setValueAtTime(vol * 0.9, now + duration - 0.6);
+        noteGain.gain.linearRampToValueAtTime(vol, now + 0.8);
+        noteGain.gain.setValueAtTime(vol * 0.9, now + duration - 2.0);
         noteGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
         osc1.connect(noteGain);
@@ -1595,35 +1559,13 @@
 
         osc1.start(now);
         osc2.start(now);
-        osc1.stop(now + duration + 0.05);
-        osc2.stop(now + duration + 0.05);
+        osc1.stop(now + duration + 0.1);
+        osc2.stop(now + duration + 0.1);
       });
     }
 
-    // 5. DEEP CHILL GROOVE BASS
-    function playLofiBass(freq, duration = 0.8) {
-      if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
-      const now = bgAudioCtx.currentTime;
-
-      const osc = bgAudioCtx.createOscillator();
-      const gain = bgAudioCtx.createGain();
-
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, now);
-
-      gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.linearRampToValueAtTime(0.24, now + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
-
-      osc.connect(gain);
-      gain.connect(bgMusicFilter);
-
-      osc.start(now);
-      osc.stop(now + duration + 0.05);
-    }
-
-    // 6. RELAXING MELODY NOTE (ELECTRIC PIANO SOLO)
-    function playLofiMelodyNote(freq, duration = 0.9) {
+    // 2. WARM, CALM SUB BASS (GROUNDING, ZERO IMPACT)
+    function playChillSubBass(freq, duration = 4.2) {
       if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
       const now = bgAudioCtx.currentTime;
 
@@ -1634,24 +1576,47 @@
       osc.frequency.setValueAtTime(freq, now);
 
       gain.gain.setValueAtTime(0.0001, now);
-      gain.gain.linearRampToValueAtTime(0.14, now + 0.03);
+      gain.gain.linearRampToValueAtTime(0.12, now + 0.6);
       gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
 
       osc.connect(gain);
       gain.connect(bgMusicFilter);
 
       osc.start(now);
-      osc.stop(now + duration + 0.05);
+      osc.stop(now + duration + 0.1);
     }
 
-    // Instant pleasant welcome chime when toggled
+    // 3. GENTLE CELESTIAL BELL / CHIME (PEACEFUL DROPLETS)
+    function playChillCelestialBell(freq, duration = 2.4) {
+      if (!bgAudioCtx || !isBgMusicPlaying || isAudioMuted) return;
+      const now = bgAudioCtx.currentTime;
+
+      const osc = bgAudioCtx.createOscillator();
+      const gain = bgAudioCtx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, now);
+
+      // Soft gentle bell chime: immediate soft entry and long sparkling decay
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.linearRampToValueAtTime(0.055, now + 0.05);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+      osc.connect(gain);
+      gain.connect(bgMusicFilter);
+
+      osc.start(now);
+      osc.stop(now + duration + 0.1);
+    }
+
+    // Peaceful welcome chime when toggled
     function playWelcomeChime() {
       if (isAudioMuted || !initBackgroundMusicContext()) return;
-      const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
+      const notes = [261.63, 329.63, 392.00, 523.25];
       const now = bgAudioCtx.currentTime;
 
       notes.forEach((freq, idx) => {
-        const noteTime = now + (idx * 0.08);
+        const noteTime = now + (idx * 0.12);
         const osc = bgAudioCtx.createOscillator();
         const gain = bgAudioCtx.createGain();
 
@@ -1659,61 +1624,36 @@
         osc.frequency.setValueAtTime(freq, noteTime);
 
         gain.gain.setValueAtTime(0.0001, noteTime);
-        gain.gain.linearRampToValueAtTime(0.20, noteTime + 0.03);
-        gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 1.2);
+        gain.gain.linearRampToValueAtTime(0.12, noteTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.0001, noteTime + 1.8);
 
         osc.connect(gain);
         gain.connect(bgMusicFilter);
 
         osc.start(noteTime);
-        osc.stop(noteTime + 1.3);
+        osc.stop(noteTime + 1.9);
       });
     }
 
-    // 16-step continuous Lofi Study Beat Sequencer (195ms per step = 77 BPM relaxed study tempo)
-    function stepLofiStudyBeat() {
+    // CHILL PROGRESSION LOOP: Every 4.6 seconds, plays a gentle soothing chord swell
+    function stepChillSoundscape() {
       if (!isBgMusicPlaying || isAudioMuted || !bgAudioCtx || bgAudioCtx.state !== 'running') return;
 
-      const now = bgAudioCtx.currentTime;
-      const stepInBar = lofiBeatStep % 16;
-      const chordIndex = Math.floor(lofiBeatStep / 16) % LOFI_PROGRESSIONS.length;
-      const chord = LOFI_PROGRESSIONS[chordIndex];
-      const melodyBar = LOFI_STUDY_MELODIES[chordIndex];
+      const chord = CHILL_PROGRESSIONS[chillStep % CHILL_PROGRESSIONS.length];
+      playChillAmbientChord(chord.notes, 4.6);
+      playChillSubBass(chord.bassFreq, 4.2);
 
-      // Step 0: Warm Rhodes chord & Bass on bar downbeat
-      if (stepInBar === 0) {
-        playLofiRhodesChord(chord.rhodesFreqs, 3.1);
-        playLofiBass(chord.bassFreq, 0.9);
-      } else if (stepInBar === 8) {
-        playLofiBass(chord.bassFreq * 1.5, 0.8);
-      } else if (stepInBar === 14) {
-        playLofiBass(chord.bassFreq, 0.6);
+      chillStep++;
+    }
+
+    // CELESTIAL BELLS: Spaced out every ~2.3 seconds with random peaceful pentatonic choice
+    function stepChillBells() {
+      if (!isBgMusicPlaying || isAudioMuted || !bgAudioCtx || bgAudioCtx.state !== 'running') return;
+
+      if (Math.random() < 0.75) {
+        const randomNote = CHILL_MELODIC_BELLS[Math.floor(Math.random() * CHILL_MELODIC_BELLS.length)];
+        playChillCelestialBell(randomNote, 2.5);
       }
-
-      // LOFI DRUM PATTERN:
-      // Kick on step 0, step 6, step 10 (Boom-Bap groove)
-      if (stepInBar === 0 || stepInBar === 6 || stepInBar === 10) {
-        playLofiKick(now);
-      }
-
-      // Snare on step 4 and step 12 (Backbeats 2 & 4)
-      if (stepInBar === 4 || stepInBar === 12) {
-        playLofiSnare(now);
-      }
-
-      // Hi-Hats on steady 8th notes (0, 2, 4, 6, 8, 10, 12, 14) with dynamic swing
-      if (stepInBar % 2 === 0) {
-        const isOffbeat = (stepInBar % 4 !== 0);
-        playLofiHiHat(now, isOffbeat);
-      }
-
-      // Calming study melody solo
-      const melodyFreq = melodyBar[stepInBar];
-      if (melodyFreq) {
-        playLofiMelodyNote(melodyFreq, 0.85);
-      }
-
-      lofiBeatStep++;
     }
 
     function startBackgroundMusic() {
@@ -1742,119 +1682,46 @@
         const now = bgAudioCtx.currentTime;
         bgMusicMasterGain.gain.cancelScheduledValues(now);
         bgMusicMasterGain.gain.setValueAtTime(0.0001, now);
-        bgMusicMasterGain.gain.linearRampToValueAtTime(0.30, now + 0.6);
+        bgMusicMasterGain.gain.linearRampToValueAtTime(0.28, now + 1.0);
       }
 
-      stepLofiStudyBeat();
-      if (lofiBeatIntervalId) clearInterval(lofiBeatIntervalId);
-      // 195ms step = 77 BPM relaxed lofi study groove
-      lofiBeatIntervalId = setInterval(stepLofiStudyBeat, 195);
+      stepChillSoundscape();
+      stepChillBells();
+
+      if (chillIntervalId) clearInterval(chillIntervalId);
+      // Slow, peaceful 4.6-second chord swell rhythm (calm, zero rush)
+      chillIntervalId = setInterval(stepChillSoundscape, 4600);
+
+      if (chillMelodyIntervalId) clearInterval(chillMelodyIntervalId);
+      // Delicate floating bells every 2.3 seconds
+      chillMelodyIntervalId = setInterval(stepChillBells, 2300);
     }
 
     function stopBackgroundMusic() {
       isBgMusicPlaying = false;
-      if (lofiBeatIntervalId) {
-        clearInterval(lofiBeatIntervalId);
-        lofiBeatIntervalId = null;
+      if (chillIntervalId) {
+        clearInterval(chillIntervalId);
+        chillIntervalId = null;
+      }
+      if (chillMelodyIntervalId) {
+        clearInterval(chillMelodyIntervalId);
+        chillMelodyIntervalId = null;
       }
 
       if (bgAudioCtx && bgMusicMasterGain) {
         const now = bgAudioCtx.currentTime;
         bgMusicMasterGain.gain.cancelScheduledValues(now);
-        bgMusicMasterGain.gain.linearRampToValueAtTime(0.0001, now + 0.4);
+        bgMusicMasterGain.gain.linearRampToValueAtTime(0.0001, now + 0.6);
       }
     }
 
-    // Unified audio toggle button for SFX & Lofi Beats
+    // Sound button was removed as requested by user
     function toggleAllAudio() {
       isAudioMuted = !isAudioMuted;
       isSoundEnabled = !isAudioMuted;
-
-      const icon = document.getElementById('soundIcon');
-      const label = document.getElementById('soundLabel');
-      const btn = document.getElementById('soundToggleBtn');
-
       if (isAudioMuted) {
         stopBackgroundMusic();
-        if (icon) icon.textContent = '🔇';
-        if (label) label.textContent = 'بێدەنگ';
-        if (btn) {
-          btn.className = 'flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-500 text-xs transition-all shadow-sm';
-        }
-        try { localStorage.setItem('chem11_audio_muted', 'true'); } catch(e) {}
-        showToast('دەنگ و مۆسیقا بێدەنگ کرا 🔇');
-      } else {
-        if (icon) icon.textContent = '🔊';
-        if (label) label.textContent = 'Lofi Beat 🎵';
-        if (btn) {
-          btn.className = 'flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-800/80 border border-cyan-400 text-cyan-300 text-xs transition-all shadow-glow-cyan/30';
-        }
-        try { localStorage.setItem('chem11_audio_muted', 'false'); } catch(e) {}
-
-        if (initBackgroundMusicContext()) {
-          if (bgAudioCtx.state === 'suspended') {
-            bgAudioCtx.resume().then(() => {
-              playWelcomeChime();
-              beginLofiBeatLoop();
-            });
-          } else {
-            playWelcomeChime();
-            beginLofiBeatLoop();
-          }
-        }
-        if (audioCtx && audioCtx.state === 'suspended') {
-          audioCtx.resume();
-        }
-        showToast('مۆسیقای هێمنی خوێندن (Lofi Beat) کارا کرا 🎧');
-      }
-    }
-
-    // Auto-start music on first user interaction
-    function setupAutoplayMusic() {
-      try {
-        if (localStorage.getItem('chem11_audio_muted') === 'true') {
-          isAudioMuted = true;
-          isSoundEnabled = false;
-          const icon = document.getElementById('soundIcon');
-          const label = document.getElementById('soundLabel');
-          const btn = document.getElementById('soundToggleBtn');
-          if (icon) icon.textContent = '🔇';
-          if (label) label.textContent = 'بێدەنگ';
-          if (btn) btn.className = 'flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 sm:py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-500 text-xs transition-all shadow-sm';
-          return;
-        }
-      } catch(e) {}
-
-      // Browser Autoplay Policy: Audio starts on first user gesture
-      const autoStartGesture = () => {
-        if (!isAudioMuted) {
-          if (initBackgroundMusicContext() && bgAudioCtx.state === 'suspended') {
-            bgAudioCtx.resume().then(() => {
-              playWelcomeChime();
-              beginLofiBeatLoop();
-            }).catch(() => {});
-          } else {
-            startBackgroundMusic();
-          }
-          if (audioCtx && audioCtx.state === 'suspended') {
-            audioCtx.resume().catch(() => {});
-          }
-        }
-        if (bgAudioCtx && bgAudioCtx.state === 'running') {
-          window.removeEventListener('pointerdown', autoStartGesture);
-          window.removeEventListener('click', autoStartGesture);
-          window.removeEventListener('keydown', autoStartGesture);
-          window.removeEventListener('touchstart', autoStartGesture);
-        }
-      };
-
-      window.addEventListener('pointerdown', autoStartGesture, { passive: true });
-      window.addEventListener('click', autoStartGesture, { passive: true });
-      window.addEventListener('keydown', autoStartGesture, { passive: true });
-      window.addEventListener('touchstart', autoStartGesture, { passive: true });
-
-      if (!isAudioMuted) {
-        startBackgroundMusic();
+        showToast('دەنگ بێدەنگ کرا 🔇');
       }
     }
 
@@ -1892,8 +1759,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       checkStudentLoginState();
-      setupAutoplayMusic();
-      renderPeriodicTable3D();
+            renderPeriodicTable3D();
       renderHomeworkList();
       renderQuizList();
       displayInitialSolverState();
@@ -1903,38 +1769,130 @@
     // =========================================================================
     // 3D PERIODIC TABLE (RICH COOL COLORS - NO NUMBERS ON TOP OF LETTERS!)
     // =========================================================================
+    let currentViewPreset = 'isometric';
+    let rollerAngle = 0;
+    let isAutoRolling = false;
+    let autoRollAnimId = null;
+
     function set3DViewPreset(preset) {
+      currentViewPreset = preset;
       const grid = document.getElementById('fullPeriodicGrid');
       const btnIso = document.getElementById('btnPresetIsometric');
       const btnPer = document.getElementById('btnPresetPerspective');
       const btnFla = document.getElementById('btnPresetFlat');
+      const btnRol = document.getElementById('btnPresetRoller');
+      const rollerToolbar = document.getElementById('rollerControlsToolbar');
 
-      [btnIso, btnPer, btnFla].forEach(b => {
+      [btnIso, btnPer, btnFla, btnRol].forEach(b => {
         if (b) {
           b.className = 'px-3 py-1.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center gap-1.5';
         }
       });
 
+      if (autoRollAnimId) {
+        cancelAnimationFrame(autoRollAnimId);
+        autoRollAnimId = null;
+        isAutoRolling = false;
+        updateAutoRollButtonUI();
+      }
+
       grid.className = 'ptable-3d-grid';
       if (preset === 'isometric') {
         grid.classList.add('view-isometric');
         currentRotateX = 22; currentRotateY = -5;
+        grid.style.transform = '';
         btnIso.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm';
+        if (rollerToolbar) rollerToolbar.classList.add('hidden');
       } else if (preset === 'perspective') {
         grid.classList.add('view-perspective');
         currentRotateX = 26; currentRotateY = 0;
+        grid.style.transform = '';
         btnPer.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm';
-      } else {
+        if (rollerToolbar) rollerToolbar.classList.add('hidden');
+      } else if (preset === 'flat') {
         grid.classList.add('view-flat');
         currentRotateX = 0; currentRotateY = 0;
+        grid.style.transform = '';
         btnFla.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm';
+        if (rollerToolbar) rollerToolbar.classList.add('hidden');
+      } else if (preset === 'roller') {
+        grid.classList.add('view-roller');
+        currentRotateX = 8;
+        grid.style.transform = `rotateX(${currentRotateX}deg) rotateY(${rollerAngle}deg)`;
+        btnRol.className = 'px-3 py-1.5 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white transition-all flex items-center gap-1.5 shadow-sm';
+        if (rollerToolbar) rollerToolbar.classList.remove('hidden');
+        updateRollerBadge();
       }
-      grid.style.transform = '';
       playCutePop(440);
     }
 
+    function rollPeriodicTable(delta) {
+      rollerAngle += delta;
+      updateRollerTransform();
+      updateRollerBadge();
+      playCutePop(420, 0.04);
+    }
+
+    function updateRollerTransform() {
+      const grid = document.getElementById('fullPeriodicGrid');
+      if (grid && currentViewPreset === 'roller') {
+        grid.style.transform = `rotateX(${currentRotateX}deg) rotateY(${rollerAngle}deg)`;
+      }
+    }
+
+    function updateRollerBadge() {
+      const badge = document.getElementById('rollerAngleBadge');
+      if (badge) {
+        let norm = Math.round(((rollerAngle % 360) + 360) % 360);
+        let currentGroup = Math.round(norm / 20) + 1;
+        if (currentGroup > 18) currentGroup = 1;
+        badge.textContent = `گۆشە: ${norm}° • کۆمەڵەی ${currentGroup}`;
+      }
+    }
+
+    function toggleAutoRoll() {
+      isAutoRolling = !isAutoRolling;
+      updateAutoRollButtonUI();
+      if (isAutoRolling) {
+        function autoRollStep() {
+          if (!isAutoRolling || currentViewPreset !== 'roller') return;
+          rollerAngle += 0.25;
+          updateRollerTransform();
+          updateRollerBadge();
+          autoRollAnimId = requestAnimationFrame(autoRollStep);
+        }
+        autoRollAnimId = requestAnimationFrame(autoRollStep);
+        showToast('خولانەوەی خۆکاری ڕۆلەر کارا کرا 🎡');
+      } else {
+        if (autoRollAnimId) cancelAnimationFrame(autoRollAnimId);
+        autoRollAnimId = null;
+        showToast('خولانەوەی خۆکار وەستێنرا.');
+      }
+    }
+
+    function updateAutoRollButtonUI() {
+      const text = document.getElementById('autoRollText');
+      const icon = document.getElementById('autoRollIcon');
+      const btn = document.getElementById('autoRollBtn');
+      if (text) text.textContent = isAutoRolling ? 'وەستاندنی خولانەوە' : 'خولانەوەی خۆکار';
+      if (icon) icon.className = isAutoRolling ? 'animate-spin inline-block' : 'inline-block';
+      if (btn) {
+        if (isAutoRolling) {
+          btn.className = 'px-3.5 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs transition-all flex items-center gap-1.5 shadow-glow-cyan/50';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-xl bg-cyan-950/80 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 font-bold text-xs transition-all flex items-center gap-1.5 shadow-sm';
+        }
+      }
+    }
+
     function reset3DAngles() {
-      set3DViewPreset('isometric');
+      if (currentViewPreset === 'roller') {
+        rollerAngle = 0;
+        updateRollerTransform();
+        updateRollerBadge();
+      } else {
+        set3DViewPreset('isometric');
+      }
     }
 
     function initPeriodic3DDragControls() {
@@ -1943,30 +1901,60 @@
       let isDragging = false;
       let startX, startY;
 
-      stage.addEventListener('mousedown', (e) => {
-        if (e.target.closest('.element-card-3d')) return;
+      const onStart = (clientX, clientY) => {
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-      });
+        startX = clientX;
+        startY = clientY;
+      };
 
-      window.addEventListener('mousemove', (e) => {
+      const onMove = (clientX, clientY) => {
         if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
+        const dx = clientX - startX;
+        const dy = clientY - startY;
 
-        currentRotateY += dx * 0.15;
-        currentRotateX -= dy * 0.15;
-        currentRotateX = Math.max(-10, Math.min(60, currentRotateX));
+        if (currentViewPreset === 'roller') {
+          rollerAngle += dx * 0.35;
+          currentRotateX -= dy * 0.1;
+          currentRotateX = Math.max(-25, Math.min(35, currentRotateX));
+          grid.style.transform = `rotateX(${currentRotateX}deg) rotateY(${rollerAngle}deg)`;
+          updateRollerBadge();
+        } else {
+          currentRotateY += dx * 0.15;
+          currentRotateX -= dy * 0.15;
+          currentRotateX = Math.max(-10, Math.min(60, currentRotateX));
+          grid.className = 'ptable-3d-grid';
+          if (currentViewPreset === 'isometric') grid.classList.add('view-isometric');
+          else if (currentViewPreset === 'perspective') grid.classList.add('view-perspective');
+          else if (currentViewPreset === 'flat') grid.classList.add('view-flat');
+          grid.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) scale(0.96)`;
+        }
 
-        grid.className = 'ptable-3d-grid';
-        grid.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg) scale(0.96)`;
+        startX = clientX;
+        startY = clientY;
+      };
 
-        startX = e.clientX;
-        startY = e.clientY;
+      const onEnd = () => { isDragging = false; };
+
+      stage.addEventListener('mousedown', (e) => {
+        if (e.target.closest('.element-card-3d') || e.target.closest('button')) return;
+        onStart(e.clientX, e.clientY);
       });
+      window.addEventListener('mousemove', (e) => { onMove(e.clientX, e.clientY); });
+      window.addEventListener('mouseup', onEnd);
 
-      window.addEventListener('mouseup', () => { isDragging = false; });
+      // Touch events for mobile/tablet
+      stage.addEventListener('touchstart', (e) => {
+        if (e.target.closest('.element-card-3d') || e.target.closest('button')) return;
+        if (e.touches.length === 1) {
+          onStart(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1) {
+          onMove(e.touches[0].clientX, e.touches[0].clientY);
+        }
+      }, { passive: true });
+      window.addEventListener('touchend', onEnd);
     }
 
     function setElementCategoryFilter(cat) {
@@ -2050,7 +2038,7 @@
           <div 
             onclick="openElementModal3D(${el.z})"
             onmouseenter="playCutePop(380 + ${el.z} * 4, 0.04)"
-            style="grid-column: ${gridCol}; grid-row: ${gridRow};"
+            style="grid-column: ${gridCol}; grid-row: ${gridRow}; --col: ${gridCol}; --row: ${gridRow};"
             dir="ltr"
             class="element-card-3d ${meta.class} p-1.5 flex flex-col justify-between text-center select-none ${opacityClass}">
             
@@ -2072,16 +2060,16 @@
 
       // Lanthanide & Actinide Placeholder Markers
       html += `
-        <div style="grid-column: 3; grid-row: 6;" dir="ltr" class="element-card-3d cat-lanthanide rounded-xl p-1 flex items-center justify-center text-center opacity-85">
+        <div style="grid-column: 3; grid-row: 6; --col: 3; --row: 6;" dir="ltr" class="element-card-3d cat-lanthanide rounded-xl p-1 flex items-center justify-center text-center opacity-85">
           <span class="text-[9px] font-bold text-white">57-71<br>La-Lu</span>
         </div>
-        <div style="grid-column: 3; grid-row: 7;" dir="ltr" class="element-card-3d cat-actinide rounded-xl p-1 flex items-center justify-center text-center opacity-85">
+        <div style="grid-column: 3; grid-row: 7; --col: 3; --row: 7;" dir="ltr" class="element-card-3d cat-actinide rounded-xl p-1 flex items-center justify-center text-center opacity-85">
           <span class="text-[9px] font-bold text-white">89-103<br>Ac-Lr</span>
         </div>
-        <div style="grid-column: 1 / span 2; grid-row: 9;" dir="rtl" class="flex items-center justify-end px-2 text-[11px] font-bold text-fuchsia-400">
+        <div style="grid-column: 1 / span 2; grid-row: 9;" dir="rtl" class="ptable-row-label flex items-center justify-end px-2 text-[11px] font-bold text-fuchsia-400">
           لانتانیدەکان:
         </div>
-        <div style="grid-column: 1 / span 2; grid-row: 10;" dir="rtl" class="flex items-center justify-end px-2 text-[11px] font-bold text-red-400">
+        <div style="grid-column: 1 / span 2; grid-row: 10;" dir="rtl" class="ptable-row-label flex items-center justify-end px-2 text-[11px] font-bold text-red-400">
           ئەکتینیدەکان:
         </div>
       `;
