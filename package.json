@@ -1,15 +1,1 @@
-{
-  "name": "chemistry-app",
-  "version": "1.0.0",
-  "description": "Chemistry 11 by Shogar",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
-  },
-  "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^4.19.2",
-    "pg": "^8.11.5"
-  }
-}
+{"name":"chemistry-app","version":"1.0.0","scripts":{"start":"npx -y serve -s . -l $PORT"}}
