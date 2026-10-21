@@ -128,8 +128,8 @@
     .element-card-3d * { color: #ffffff !important; }
 
     .ai-pill-btn {
-      background: linear-gradient(90deg, #2563eb 0%, #7c3aed 100%);
-      box-shadow: 0 0 20px -2px rgba(124, 58, 237, 0.4);
+      background: linear-gradient(90deg, #0284c7 0%, #4f46e5 100%);
+      box-shadow: 0 4px 14px -2px rgba(2, 132, 199, 0.35);
     }
     .sci-fi-viewport {
       background: radial-gradient(circle at 50% 45%, #0b152d 0%, #030712 100%);
@@ -164,15 +164,15 @@
       </div>
 
       <!-- Navigation & Action Utilities -->
-      <div class="flex items-center gap-1.5 sm:gap-2.5 flex-wrap justify-end">
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-end">
         
-        <!-- Student Login Button / Indicator -->
+        <!-- Student Login Button -->
         <button 
           type="button" 
           onclick="openStudentLoginModal()" 
           id="studentLoginHeaderBtn" 
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 font-bold text-xs hover:bg-emerald-500 hover:text-white transition shadow-sm">
-          <span>👤</span>
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 font-bold text-xs hover:bg-emerald-600 hover:text-white transition shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           <span id="studentLoginBtnText">چوونەژوورەوەی قوتابی</span>
         </button>
 
@@ -180,8 +180,8 @@
         <button 
           type="button" 
           onclick="openTeacherAuthModal()" 
-          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 font-bold text-xs hover:bg-indigo-600 hover:text-white transition shadow-sm">
-          <span>🔑</span>
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-700 font-bold text-xs hover:bg-indigo-600 hover:text-white transition shadow-sm">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
           <span>پەنێڵی مامۆستا</span>
         </button>
 
@@ -189,14 +189,16 @@
         <a 
           href="#homeworkSection" 
           class="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-xl theme-subcard border text-xs font-bold theme-text-title hover:border-cyan-500 transition shadow-sm">
-          <span>📚 ئەرکەکان</span>
+          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>ئەرکەکان</span>
         </a>
 
         <!-- Quick Jump to Quizzes -->
         <a 
           href="#quizSection" 
           class="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-xl theme-subcard border text-xs font-bold theme-text-title hover:border-cyan-500 transition shadow-sm">
-          <span>📝 تاقیکردنەوەکان</span>
+          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          <span>تاقیکردنەوەکان</span>
         </a>
 
         <!-- 3-Track Study Music -->
@@ -206,7 +208,7 @@
             onclick="toggleStudyMusic()" 
             id="musicPlayBtn" 
             class="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 flex items-center gap-1 shadow-sm active:scale-95 transition">
-            <span id="musicPlayIcon">▶</span>
+            <svg id="musicPlayIconSvg" class="w-3.5 h-3.5 text-cyan-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <span id="musicStatusText" class="hidden sm:inline">مۆسیقا</span>
           </button>
           <select 
@@ -223,8 +225,8 @@
         <button 
           type="button" 
           onclick="openAiModal()" 
-          class="ai-pill-btn flex items-center gap-1 px-3 py-1.5 rounded-full text-white font-black text-xs transition active:scale-95 shadow-md">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          class="ai-pill-btn flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-white font-bold text-xs transition active:scale-95 shadow-md">
+          <svg class="w-3.5 h-3.5 text-cyan-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           <span>زیرەکی دەستکرد</span>
         </button>
 
@@ -235,12 +237,12 @@
             onclick="toggleThemeDropdown(event)" 
             id="themeDropdownBtn" 
             class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl theme-subcard border text-xs font-bold transition shadow-sm active:scale-95">
-            <span id="themeDotPreview" class="w-3 h-3 rounded-full bg-slate-100 border border-slate-300"></span>
+            <span id="themeDotPreview" class="w-2.5 h-2.5 rounded-full bg-slate-200 border border-slate-300"></span>
             <span id="currentThemeBadge" class="font-bold text-[11px]">سپی</span>
           </button>
           
           <div id="themeDropdownMenu" class="hidden absolute left-0 mt-2 w-40 rounded-2xl theme-card border shadow-2xl p-2 z-50 space-y-1">
-            <button type="button" onclick="setTheme('white')" class="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-slate-100 text-xs font-bold text-right transition">سپی</button>
+            <button type="button" onclick="setTheme('white')" class="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-slate-100 text-xs font-bold text-right transition">سپی (بنەڕەتی)</button>
             <button type="button" onclick="setTheme('dark')" class="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-slate-700/30 text-xs font-bold text-right transition">تاریک</button>
             <button type="button" onclick="setTheme('blue')" class="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-sky-700/30 text-xs font-bold text-right transition">شین</button>
             <button type="button" onclick="setTheme('violet')" class="w-full flex items-center gap-2 p-2 rounded-xl hover:bg-purple-700/30 text-xs font-bold text-right transition">مۆر</button>
@@ -266,12 +268,13 @@
       <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
         <div class="space-y-4 max-w-2xl text-center lg:text-right">
           <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-50 border border-cyan-200 text-xs font-bold text-cyan-800">
+            <span class="w-2 h-2 rounded-full bg-cyan-600 animate-pulse"></span>
             <span>پڕۆگرامی فەرمی وەزارەتی پەروەردە</span>
           </div>
 
           <h2 class="text-2xl sm:text-4xl font-black theme-text-title tracking-tight leading-tight">
             کیمیای پۆلی ١٠ و ١١ی زانستی<br>
-            <span class="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 bg-clip-text text-transparent">مامۆستا شەوگار یەحیا</span>
+            <span class="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">مامۆستا شەوگار یەحیا</span>
           </h2>
 
           <p class="text-sm theme-text-body font-medium leading-relaxed">
@@ -287,15 +290,15 @@
 
         <div class="grid grid-cols-3 gap-3 w-full lg:w-96 shrink-0">
           <div class="p-4 rounded-2xl theme-subcard border text-center space-y-1">
-            <span class="text-2xl sm:text-3xl font-black font-mono text-cyan-500">٥٩</span>
+            <span class="text-2xl sm:text-3xl font-black font-mono text-cyan-600">٥٩</span>
             <span class="text-[11px] theme-text-body font-bold block">وانەی پۆلی ١٠</span>
           </div>
           <div class="p-4 rounded-2xl theme-subcard border text-center space-y-1">
-            <span class="text-2xl sm:text-3xl font-black font-mono text-indigo-500">٣٦</span>
+            <span class="text-2xl sm:text-3xl font-black font-mono text-indigo-600">٣٦</span>
             <span class="text-[11px] theme-text-body font-bold block">وانەی پۆلی ١١</span>
           </div>
           <div class="p-4 rounded-2xl theme-subcard border text-center space-y-1">
-            <span class="text-2xl sm:text-3xl font-black font-mono text-emerald-500">١١٨</span>
+            <span class="text-2xl sm:text-3xl font-black font-mono text-emerald-600">١١٨</span>
             <span class="text-[11px] theme-text-body font-bold block">توخمی تەواو</span>
           </div>
         </div>
@@ -307,7 +310,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b pb-4">
         <div>
           <h2 class="text-lg sm:text-xl font-black theme-text-title flex items-center gap-2">
-            <span>🧪</span>
+            <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
             <span>تاقیگەی شلەی سەر ئاگر و مۆدێلی گەردیلەیی ٣D</span>
           </h2>
           <p class="text-xs theme-text-body pt-1">بوتڵی شووشەیی شلە بە شەپۆل و دەرچوونی گاز، تاقیکردنەوەی گڕ، و گەڕانی گەردیلەیی شێوە تۆپ و بەستەر</p>
@@ -364,7 +367,7 @@
           </div>
         </div>
 
-        <!-- Fire Cup Reagents Station -->
+        <!-- Fire Cup Reagents Station (Flame Tests) -->
         <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-white space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
             <div class="flex items-center gap-2">
@@ -424,6 +427,19 @@
               <span class="text-[10px] text-slate-400">دووکەڵ</span>
             </button>
           </div>
+
+          <!-- All 118 Selector Dropdown -->
+          <div class="pt-2 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+            <span class="text-slate-400">یان هەڵبژاردنی هەر یەکێک لە تەواوی ١١٨ توخمەکە:</span>
+            <div class="flex items-center gap-2 w-full sm:w-auto">
+              <select id="allElementsFireSelect" class="bg-slate-800 border border-slate-700 rounded-xl px-3 py-1.5 text-xs text-white font-mono outline-none flex-grow sm:flex-grow-0">
+                <!-- Populated dynamically -->
+              </select>
+              <button type="button" onclick="dropSelectedDropdownElement()" class="px-4 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-bold transition">
+                تێکردن بۆ ناو شووشەکە
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -434,7 +450,7 @@
             <canvas id="moleculeCanvas" width="620" height="420" class="w-full h-full block cursor-grab active:cursor-grabbing"></canvas>
             
             <div class="absolute top-4 right-4 px-3.5 py-1.5 rounded-xl bg-slate-900/85 border border-cyan-500/40 text-cyan-400 text-xs font-mono font-bold">
-              <span id="moleculeTitleDisplay">گلوکۆز / ئاو (H₂O)</span>
+              <span id="moleculeTitleDisplay">ئاو (H₂O)</span>
             </div>
 
             <div class="absolute top-4 left-4 flex gap-2">
@@ -510,7 +526,7 @@
     <section id="solverSection" class="theme-card border rounded-3xl p-5 sm:p-7 space-y-4 shadow-sm">
       <div class="flex items-center justify-between border-b pb-3">
         <h2 class="text-base sm:text-xl font-black theme-text-title flex items-center gap-2">
-          <span>⚖️</span>
+          <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
           <span>شیکارکەر و هاوسەنگکەری هاوکێشە</span>
         </h2>
       </div>
@@ -554,7 +570,7 @@
           onclick="toggleChemistryKeyboard()" 
           id="toggleKeyboardBtn" 
           class="px-4 py-2 rounded-2xl theme-subcard border text-xs font-bold transition-all flex items-center gap-2 active:scale-95 shadow-sm">
-          <span>⌨️</span>
+          <svg class="w-4 h-4 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
           <span>تەختەکلیلی کیمیا: ژمارەی بچووک و بارگەکان</span>
         </button>
       </div>
@@ -586,7 +602,7 @@
           <button type="button" onclick="insertKey('³⁺')" class="py-1.5 rounded-xl theme-card border text-emerald-600 font-bold">³⁺</button>
           <button type="button" onclick="insertKey('²⁻')" class="py-1.5 rounded-xl theme-card border text-emerald-600 font-bold">²⁻</button>
           <button type="button" onclick="insertKey('³⁻')" class="py-1.5 rounded-xl theme-card border text-emerald-600 font-bold">³⁻</button>
-          <button type="button" onclick="insertKey(' -> ')" class="py-1.5 rounded-xl bg-cyan-600 text-white font-bold">-></button>
+          <button type="button" onclick="insertKey(' -> ')" class="py-1.5 rounded-xl bg-cyan-600 text-white font-bold">→</button>
           <button type="button" onclick="insertKey(' ⇌ ')" class="py-1.5 rounded-xl theme-card border text-cyan-600 font-bold">⇌</button>
           <button type="button" onclick="insertKey(' + ')" class="py-1.5 rounded-xl theme-card border font-bold">+</button>
           <button type="button" onclick="insertKey('(aq)')" class="py-1.5 rounded-xl theme-card border font-bold text-[10px]">(aq)</button>
@@ -607,7 +623,7 @@
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4">
         <div>
           <h2 class="text-lg sm:text-xl font-black theme-text-title flex items-center gap-2">
-            <span>🎥</span>
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             <span>وانە ڤیدیۆییەکانی مامۆستا شەوگار یەحیا</span>
           </h2>
           <p class="text-xs theme-text-body pt-1">شیکارکردنی هەموو وانەکان بە دوو هەڵبژاردەی سەیرکردن لە یوتیوب یان ڕاستەوخۆ لێرە</p>
@@ -649,7 +665,10 @@
     <section id="homeworkSection" class="theme-card border rounded-3xl p-5 sm:p-7 space-y-4 shadow-sm">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
-          <h2 class="text-base sm:text-xl font-black theme-text-title">ئەرکەکانی ماڵەوە</h2>
+          <h2 class="text-base sm:text-xl font-black theme-text-title flex items-center gap-2">
+            <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>ئەرکەکانی ماڵەوە</span>
+          </h2>
           <p class="text-xs theme-text-body pt-0.5">ئەرکەکان ئەنجام بدە و دوگمەکە دابگرە بۆ تۆمارکردن</p>
         </div>
         <span id="homeworkCompletedBadge" class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold border border-emerald-300">
@@ -664,7 +683,10 @@
     <section id="quizSection" class="theme-card border rounded-3xl p-5 sm:p-7 space-y-4 shadow-sm">
       <div class="flex items-center justify-between border-b pb-3">
         <div>
-          <h2 class="text-base sm:text-xl font-black theme-text-title">تاقیکردنەوەی کیمیا</h2>
+          <h2 class="text-base sm:text-xl font-black theme-text-title flex items-center gap-2">
+            <svg class="w-5 h-5 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            <span>تاقیکردنەوەی کیمیا</span>
+          </h2>
           <p class="text-xs theme-text-body pt-0.5">توانستی زانستی خۆت تاقیبکەرەوە</p>
         </div>
         <span id="quizScoreText" class="px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 text-xs font-mono font-bold">
@@ -693,7 +715,7 @@
         <p class="text-xs font-black theme-text-title">پلاتفۆرمی فەرمیی کیمیای پۆلی ١٠ و ١١ی زانستی</p>
         <p class="text-[11px] theme-text-body">مامۆستا شەوگار یەحیا</p>
       </div>
-      <div class="text-xs text-slate-400 font-bold">
+      <div class="text-xs text-slate-400 font-bold font-mono">
         وەشانی فێرکاریی ٢٠٢٦
       </div>
     </div>
@@ -713,10 +735,10 @@
             <span id="modalElPeriodGroup" class="text-xs text-cyan-600 font-mono">خولی 5 • کۆمەڵەی 6</span>
           </div>
         </div>
-        <button onclick="closeElementModal3D()" class="p-2 opacity-60 hover:opacity-100 theme-text-title">✕</button>
+        <button onclick="closeElementModal3D()" class="p-2 opacity-60 hover:opacity-100 theme-text-title font-bold text-sm">✕</button>
       </div>
 
-      <div class="w-full h-64 rounded-2xl border theme-subcard overflow-hidden flex items-center justify-center relative">
+      <div class="w-full h-64 rounded-2xl border theme-subcard overflow-hidden flex items-center justify-center relative bg-slate-950">
         <canvas id="atomCanvas" width="480" height="250" class="w-full h-full block"></canvas>
       </div>
 
@@ -737,7 +759,7 @@
       </div>
 
       <button type="button" id="dropModalElementBtn" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white font-bold text-xs shadow-md active:scale-95 transition">
-        تێکردن بۆ ناو شووشەی سەر ئاگر 🔥
+        تێکردن بۆ ناو شووشەی سەر ئاگر
       </button>
     </div>
   </div>
@@ -747,10 +769,10 @@
     <div class="theme-card border rounded-3xl max-w-md w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b pb-3">
         <h3 class="text-base font-black theme-text-title flex items-center gap-2">
-          <span>👤</span>
+          <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
           <span>چوونەژوورەوەی قوتابی</span>
         </h3>
-        <button onclick="closeStudentLoginModal()" class="p-1.5 opacity-60 hover:opacity-100 theme-text-title">✕</button>
+        <button onclick="closeStudentLoginModal()" class="p-1.5 opacity-60 hover:opacity-100 theme-text-title font-bold">✕</button>
       </div>
 
       <div class="space-y-3 text-xs">
@@ -784,10 +806,10 @@
     <div class="theme-card border rounded-3xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
       <div class="flex items-center justify-between border-b pb-3">
         <h3 class="text-base font-black theme-text-title flex items-center gap-2">
-          <span>🔑</span>
+          <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           <span>چوونەژوورەوەی مامۆستا شەوگار</span>
         </h3>
-        <button onclick="closeTeacherAuthModal()" class="p-1.5 opacity-60 hover:opacity-100 theme-text-title">✕</button>
+        <button onclick="closeTeacherAuthModal()" class="p-1.5 opacity-60 hover:opacity-100 theme-text-title font-bold">✕</button>
       </div>
 
       <div class="space-y-2 text-xs">
@@ -881,7 +903,7 @@
     <div class="theme-card border rounded-3xl max-w-4xl w-full p-4 sm:p-6 space-y-4 shadow-2xl overflow-hidden">
       <div class="flex items-center justify-between border-b pb-3">
         <h3 id="videoModalTitle" class="text-sm sm:text-base font-black theme-text-title truncate">وانەی کیمیا</h3>
-        <button onclick="closeVideoModal()" class="p-2 opacity-60 hover:opacity-100 theme-text-title">✕</button>
+        <button onclick="closeVideoModal()" class="p-2 opacity-60 hover:opacity-100 theme-text-title font-bold">✕</button>
       </div>
       <div class="aspect-video w-full rounded-2xl bg-black overflow-hidden relative shadow-inner">
         <iframe id="videoModalIframe" class="w-full h-full" src="" title="وانەی کیمیا" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -889,28 +911,35 @@
     </div>
   </div>
 
-  <!-- MODAL 6: AI ASSISTANT -->
+  <!-- MODAL 6: AI ASSISTANT (With Homework Photo Scanner) -->
   <div id="aiAssistantModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-md flex items-center justify-center p-4">
     <div class="theme-card border rounded-3xl max-w-xl w-full p-5 sm:p-6 space-y-4 shadow-2xl flex flex-col max-h-[85vh]">
       <div class="flex items-center justify-between border-b pb-3">
         <div class="flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-400 via-blue-500 to-purple-600 flex items-center justify-center text-white">⚡</div>
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
           <div>
             <h3 class="text-sm sm:text-base font-black theme-text-title">زیرەکی دەستکردی کیمیا</h3>
             <span class="text-[10px] text-cyan-600 font-bold">مامۆستای تایبەتی تۆ</span>
           </div>
         </div>
-        <button onclick="closeAiModal()" class="p-2 opacity-60 hover:opacity-100 theme-text-title">✕</button>
+        <button onclick="closeAiModal()" class="p-2 opacity-60 hover:opacity-100 theme-text-title font-bold">✕</button>
       </div>
 
       <div id="aiChatBox" class="flex-grow overflow-y-auto space-y-3 p-3 rounded-2xl theme-subcard border text-xs leading-relaxed max-h-72">
-        <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-800">
-          سڵاو لە تۆی قوتابی ئازیز! دەتوانیت پرسیاری کیمیام لێ بکەیت تا بە کوردی وەڵامت بدەمەوە.
+        <div class="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-900">
+          سڵاو لە تۆی قوتابی ئازیز! دەتوانیت پرسیاری کیمیام لێ بکەیت یان وێنەی دەفتەر و کتێبەکەت دابنێیت تا بە کوردی وەڵامت بدەمەوە.
         </div>
       </div>
 
       <div class="space-y-2">
         <div class="flex items-center gap-2">
+          <!-- File scan button -->
+          <label class="cursor-pointer p-2.5 rounded-xl theme-subcard border hover:border-cyan-500 transition text-cyan-600">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <input type="file" accept="image/*" class="hidden" onchange="handleAiImageUpload(event)">
+          </label>
           <input 
             type="text" 
             id="aiInputText" 
@@ -1086,18 +1115,18 @@
     function toggleStudyMusic() {
       initAudio();
       if (audioCtx.state === 'suspended') audioCtx.resume();
-      const playIcon = document.getElementById('musicPlayIcon');
       const statusText = document.getElementById('musicStatusText');
+      const iconSvg = document.getElementById('musicPlayIconSvg');
 
       if (!isMusicPlaying) {
         startTrack(currentTrack);
         isMusicPlaying = true;
-        if (playIcon) playIcon.textContent = '⏸';
+        if (iconSvg) iconSvg.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
         if (statusText) statusText.textContent = 'کارایە';
       } else {
         stopMusicNodes();
         isMusicPlaying = false;
-        if (playIcon) playIcon.textContent = '▶';
+        if (iconSvg) iconSvg.innerHTML = '<path d="M8 5v14l11-7z"/>';
         if (statusText) statusText.textContent = 'مۆسیقا';
       }
     }
@@ -1155,7 +1184,6 @@
 
     /* 5. ALL 118 ELEMENTS & BOHR SHELL CALCULATOR */
     function getBohrShells(z) {
-      // Standard maximum shell capacity: 2n^2 -> [2, 8, 18, 32, ...]
       let remaining = z;
       const shells = [];
       const maxCapacities = [2, 8, 18, 32, 32, 18, 8];
@@ -1163,7 +1191,6 @@
       for (let i = 0; i < maxCapacities.length; i++) {
         if (remaining <= 0) break;
         let count = Math.min(remaining, maxCapacities[i]);
-        // Chemical valence adjustment for realistic outer look
         if (remaining > count && i >= 3 && remaining - count < 4) {
           count -= 2;
         }
@@ -1331,6 +1358,14 @@
         </div>
       `;
       grid.innerHTML = html;
+
+      // Populate drop-down list for fire reaction
+      const dropSelect = document.getElementById('allElementsFireSelect');
+      if (dropSelect) {
+        dropSelect.innerHTML = ALL_118_ELEMENTS.map(e => `
+          <option value="${e.s}">${e.z}. ${e.s} - ${e.n_ku}</option>
+        `).join('');
+      }
     }
 
     function handleElementSearchInput() {
@@ -1413,7 +1448,7 @@
 
       shells.forEach((electronCount, sIdx) => {
         const rx = 30 + (sIdx + 1) * step;
-        const ry = rx * 0.48; // 3D Elliptical tilt
+        const ry = rx * 0.48;
         const tilt = (sIdx % 2 === 0 ? 1 : -1) * (0.2 + sIdx * 0.12);
 
         atomCtx.save();
@@ -1508,14 +1543,12 @@
       C6H6: {
         name: 'ئەڵقەی بەنزین (C₆H₆) • پلانی ڕێک',
         atoms: [
-          // 6 Carbons
           { elem: 'C', x: 60, y: 0, z: 0, r: 22, color: '#1e293b' },
           { elem: 'C', x: 30, y: 52, z: 0, r: 22, color: '#1e293b' },
           { elem: 'C', x: -30, y: 52, z: 0, r: 22, color: '#1e293b' },
           { elem: 'C', x: -60, y: 0, z: 0, r: 22, color: '#1e293b' },
           { elem: 'C', x: -30, y: -52, z: 0, r: 22, color: '#1e293b' },
           { elem: 'C', x: 30, y: -52, z: 0, r: 22, color: '#1e293b' },
-          // 6 Hydrogens
           { elem: 'H', x: 95, y: 0, z: 0, r: 13, color: '#f8fafc' },
           { elem: 'H', x: 48, y: 82, z: 0, r: 13, color: '#f8fafc' },
           { elem: 'H', x: -48, y: 82, z: 0, r: 13, color: '#f8fafc' },
@@ -1592,7 +1625,6 @@
       if (!molCanvas) return;
       molCtx = molCanvas.getContext('2d');
 
-      // Mouse/touch dragging
       molCanvas.onmousedown = (e) => {
         molIsDragging = true;
         molLastMouse = { x: e.clientX, y: e.clientY };
@@ -1640,12 +1672,9 @@
       const cosX = Math.cos(molRotation.x), sinX = Math.sin(molRotation.x);
       const cosY = Math.cos(molRotation.y), sinY = Math.sin(molRotation.y);
 
-      // Project atoms
       const projected = mol.atoms.map(a => {
-        // Y rotation
         let x1 = a.x * cosY + a.z * sinY;
         let z1 = -a.x * sinY + a.z * cosY;
-        // X rotation
         let y2 = a.y * cosX - z1 * sinX;
         let z2 = a.y * sinX + z1 * cosX;
 
@@ -1659,7 +1688,7 @@
         };
       });
 
-      // Draw Bonds (Cylinders)
+      // Draw Bonds
       mol.bonds.forEach(b => {
         const p1 = projected[b.a];
         const p2 = projected[b.b];
@@ -1672,10 +1701,10 @@
         molCtx.stroke();
       });
 
-      // Sort by Z for realistic depth
+      // Sort by Z
       const sorted = [...projected].sort((a, b) => a.z2D - b.z2D);
 
-      // Draw 3D Shaded Atoms (Specular light highlight)
+      // Draw 3D Shaded Atoms
       sorted.forEach(p => {
         molCtx.save();
         const grad = molCtx.createRadialGradient(
@@ -1807,6 +1836,16 @@
       document.getElementById('labSection').scrollIntoView({ behavior: 'smooth' });
     }
 
+    function dropSelectedDropdownElement() {
+      const sel = document.getElementById('allElementsFireSelect');
+      if (!sel) return;
+      const symbol = sel.value;
+      const el = ALL_118_ELEMENTS.find(e => e.s === symbol);
+      if (el) {
+        dropElementOnFire(el.s, el.n_ku, '#38bdf8');
+      }
+    }
+
     function resetFlask() {
       flaskTemp = 25;
       isStirrerOn = false;
@@ -1838,10 +1877,9 @@
       else if (!isBurnerOn && flaskTemp > 25) flaskTemp -= 0.05;
       document.getElementById('flaskTempDisplay').textContent = `${Math.round(flaskTemp)} °C`;
 
-      // 1. Realistic Bunsen Burner Flame
+      // 1. Bunsen Burner Flame
       if (isBurnerOn) {
         flaskCtx.save();
-        // Outer Flame
         const outerGrad = flaskCtx.createRadialGradient(cx, cy + 185, 4, cx, cy + 175, 28);
         outerGrad.addColorStop(0, '#ffffff');
         outerGrad.addColorStop(0.35, flameColor);
@@ -1852,12 +1890,11 @@
         flaskCtx.ellipse(cx + Math.sin(waveOffset * 3) * 2, cy + 175, 18 + Math.random() * 4, 32 + Math.random() * 6, 0, 0, Math.PI * 2);
         flaskCtx.fill();
 
-        // Inner Cone (Cyan)
-        const innerGrad = flaskCtx.createRadialGradient(cx, cy + 185, 2, cx, cy + 182, 12);
-        innerGrad.addColorStop(0, '#ffffff');
-        innerGrad.addColorStop(0.5, '#06b6d4');
-        innerGrad.addColorStop(1, 'transparent');
-        flaskCtx.fillStyle = innerGrad;
+        const innerCone = flaskCtx.createRadialGradient(cx, cy + 185, 2, cx, cy + 182, 12);
+        innerCone.addColorStop(0, '#ffffff');
+        innerCone.addColorStop(0.5, '#06b6d4');
+        innerCone.addColorStop(1, 'transparent');
+        flaskCtx.fillStyle = innerCone;
         flaskCtx.beginPath();
         flaskCtx.ellipse(cx, cy + 182, 7, 16, 0, 0, Math.PI * 2);
         flaskCtx.fill();
@@ -1874,7 +1911,7 @@
       flaskCtx.moveTo(cx + 45, cy + 188); flaskCtx.lineTo(cx + 65, cy + 205);
       flaskCtx.stroke();
 
-      // 2. Volumetric Fluid Body
+      // 2. Liquid Body
       flaskCtx.save();
       flaskCtx.beginPath();
       flaskCtx.moveTo(cx - 36, cy - 80);
@@ -1901,7 +1938,7 @@
         let py = liquidLevelY + Math.sin((i * 0.4) + waveOffset) * 3.5;
         if (isStirrerOn) {
           const dist = Math.abs(px - cx);
-          py += Math.max(0, 24 - dist * 0.3); // Vortex depression
+          py += Math.max(0, 24 - dist * 0.3);
         }
         flaskCtx.lineTo(px, py);
       }
@@ -1962,7 +1999,7 @@
         }
       });
 
-      // Glass Reflections & Measurement Markings (50ml - 200ml)
+      // Glass Reflections & Measurement Markings
       flaskCtx.save();
       flaskCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
       flaskCtx.fillStyle = 'rgba(255, 255, 255, 0.6)';
@@ -2149,7 +2186,7 @@
       document.getElementById('videoModalPlayer').classList.add('hidden');
     }
 
-    /* 11. DYNAMIC HOMEWORK SYSTEM (Teacher editable) */
+    /* 11. DYNAMIC HOMEWORK SYSTEM */
     let homeworkList = [
       { id: 1, title: 'ئەرکی ١ (پۆلی ١٠)', desc: 'هاوکێشەی کارلێکی نێوان هایدرۆکسیدی سۆدیۆم و ترشی هایدرۆکلۆریک بنووسە.', done: false },
       { id: 2, title: 'ئەرکی ٢ (پۆلی ١١)', desc: 'بارستەی مۆڵی بۆ گەردی گلوکۆز بدۆزەرەوە ئەگەر C=12, H=1, O=16 بێت.', done: false },
@@ -2207,7 +2244,7 @@
       setTeacherTab('submissions');
     }
 
-    /* 12. ANTI-CHEAT QUIZ (Teacher editable) */
+    /* 12. ANTI-CHEAT QUIZ */
     let quizQuestions = [
       { q: 'کام لەمانە گازێکی خانەدانە لە خشتەی خولیدا؟', opts: ['هایدرۆجین', 'هیلیۆم', 'لیتیۆم', 'سۆدیۆم'], ans: 1 },
       { q: 'کێشی گەردیلەیی ئۆکسجین لە خشتەی خولیدا نزیکەی چەندە؟', opts: ['١.٠٠٨', '١٢.٠١١', '١٥.٩٩٩', '٣٥.٤٥'], ans: 2 },
@@ -2293,6 +2330,28 @@
     function openAiModal() { document.getElementById('aiAssistantModal').classList.remove('hidden'); }
     function closeAiModal() { document.getElementById('aiAssistantModal').classList.add('hidden'); }
 
+    function handleAiImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const chatBox = document.getElementById('aiChatBox');
+      chatBox.innerHTML += `
+        <div class="p-3 rounded-2xl bg-cyan-600 text-white self-end text-left space-y-1">
+          <span class="font-bold text-[10px] opacity-75 block text-right">قوتابی:</span>
+          <p class="text-right">وێنەی لاپەڕەی دەفتەر/کتێبم نارد [${file.name}]، تکایە ڕوونکردنەوە و شیکاری بکە.</p>
+        </div>
+      `;
+      chatBox.scrollTop = chatBox.scrollHeight;
+      setTimeout(() => {
+        chatBox.innerHTML += `
+          <div class="p-3 rounded-2xl theme-card border text-right theme-text-body space-y-1">
+            <span class="font-bold text-[10px] text-cyan-600 block">زیرەکی دەستکرد:</span>
+            <div class="whitespace-pre-wrap">وێنەکەت بە سەرکەوتوویی پشکنرا! هاوکێشە و خاڵە سەرەکییەکان شیکار کران. دەتوانیت هەر پرسیارێکی زیاترت هەیە بە نووسین بپرسیت.</div>
+          </div>
+        `;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000);
+    }
+
     async function sendAiMessage() {
       const input = document.getElementById('aiInputText');
       const text = input.value.trim();
@@ -2327,7 +2386,7 @@
           body: JSON.stringify({ contents: [{ parts }] })
         });
         const data = await res.json();
-        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'وەڵام بەردەست نییە.';
+        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'ببورە، کێشەیەک ڕوویدا لە وەرگرتنی وەڵام.';
 
         const el = document.getElementById(loadingId);
         if (el) {
@@ -2349,7 +2408,6 @@
 
     /* INITIALIZATION */
     window.onload = function() {
-      // Check stored student session
       try {
         const stored = localStorage.getItem('chemistry_student');
         if (stored) currentStudent = JSON.parse(stored);
