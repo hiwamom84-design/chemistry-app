@@ -75,9 +75,26 @@
       --accent-cyan: #60a5fa;
       --accent-glow: rgba(96, 165, 250, 0.28);
     }
+    body[data-theme="pink"] {
+      --bg-base: #fff1f5;
+      --bg-surface: #ffffff;
+      --card-bg: #ffffff;
+      --card-border: #fbcfe8;
+      --subcard-bg: #fdf2f8;
+      --subcard-border: #f9a8d4;
+      --text-title: #831843;
+      --text-body: #9d174d;
+      --text-muted: #be185d;
+      --header-bg: rgba(255, 241, 245, 0.95);
+      --roller-bg: radial-gradient(circle at center, rgba(244, 114, 182, 0.25) 0%, #4c0519 100%);
+      --roller-border: rgba(244, 114, 182, 0.5);
+      --hero-mesh: radial-gradient(at 0% 0%, rgba(244, 114, 182, 0.28) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(251, 113, 133, 0.22) 0px, transparent 55%);
+      --accent-cyan: #ec4899;
+      --accent-glow: rgba(236, 72, 153, 0.3);
+    }
 
     body {
-      background-color: var(--bg-base);
+      background-color: var(--bg-base) !important;
       color: var(--text-title);
       transition: background-color 0.25s ease, color 0.25s ease;
       min-height: 100vh;
@@ -85,6 +102,57 @@
       padding: 0;
       background-image: var(--hero-mesh);
       background-attachment: fixed;
+    }
+
+    body[data-theme="pink"] {
+      color-scheme: light;
+    }
+    body[data-theme="pink"] .bg-white {
+      background-color: #ffffff !important;
+      border-color: #fbcfe8 !important;
+    }
+    body[data-theme="pink"] .bg-slate-50 {
+      background-color: #fdf2f8 !important;
+      border-color: #fbcfe8 !important;
+      color: #9d174d !important;
+    }
+    body[data-theme="pink"] .bg-slate-100 {
+      background-color: #fce7f3 !important;
+      border-color: #fbcfe8 !important;
+      color: #831843 !important;
+    }
+    body[data-theme="pink"] .border-slate-100,
+    body[data-theme="pink"] .border-slate-200 {
+      border-color: #fbcfe8 !important;
+    }
+    body[data-theme="pink"] .text-slate-900,
+    body[data-theme="pink"] .text-slate-800 {
+      color: #831843 !important;
+    }
+    body[data-theme="pink"] .text-slate-700,
+    body[data-theme="pink"] .text-slate-600 {
+      color: #9d174d !important;
+    }
+    body[data-theme="pink"] .text-slate-500 {
+      color: #be185d !important;
+    }
+    body[data-theme="pink"] .app-card {
+      background-color: #ffffff !important;
+      border-color: #fbcfe8 !important;
+      box-shadow: 0 4px 20px -2px rgba(236, 72, 153, 0.08) !important;
+    }
+    body[data-theme="pink"] .periodic-centerpiece {
+      background-color: #ffffff !important;
+      border-color: #f472b6 !important;
+      box-shadow: 0 8px 36px -4px rgba(244, 114, 182, 0.25) !important;
+    }
+    body[data-theme="pink"] header {
+      background-color: rgba(255, 241, 245, 0.95) !important;
+      border-color: #fbcfe8 !important;
+    }
+    body[data-theme="pink"] footer {
+      background-color: #ffffff !important;
+      border-color: #fbcfe8 !important;
     }
 
     body[data-theme="dark"], body[data-theme="blue"] {
@@ -536,24 +604,25 @@
           <span>ئەرکەکان</span>
         </a>
 
-        <!-- 5-Track Music Player -->
+        <!-- Simple Clean Music Button -->
         <div class="flex items-center rounded-xl bg-slate-900 text-white text-xs font-bold overflow-hidden shadow-sm border border-slate-800">
-          <button type="button" id="ambientMusicBtn" onclick="toggleAmbientMusic()" class="px-2.5 py-1.5 hover:bg-slate-800 flex items-center gap-1.5 transition">
+          <button type="button" id="ambientMusicBtn" onclick="toggleAmbientMusic()" class="px-3.5 py-1.5 hover:bg-slate-800 flex items-center gap-1.5 transition">
             <span id="musicPlayIcon">▶</span>
             <span id="musicEqBars" class="hidden inline-flex items-end gap-0.5 h-3 w-3.5 overflow-hidden">
               <span class="w-0.5 bg-cyan-400 rounded-sm animate-pulse h-2"></span>
-              <span class="w-0.5 bg-sky-400 rounded-sm animate-pulse h-3" style="animation-delay: 150ms"></span>
-              <span class="w-0.5 bg-teal-400 rounded-sm animate-pulse h-2" style="animation-delay: 300ms"></span>
+              <span class="w-0.5 bg-pink-400 rounded-sm animate-pulse h-3" style="animation-delay: 150ms"></span>
+              <span class="w-0.5 bg-rose-400 rounded-sm animate-pulse h-2" style="animation-delay: 300ms"></span>
             </span>
             <span>مۆسیقا</span>
           </button>
-          <select id="musicTrackSelect" onchange="changeMusicTrack(this.value)" class="bg-slate-800 text-[11px] px-2 py-1.5 text-slate-200 border-r border-slate-700 focus:outline-none font-bold">
-            <option value="lofi">١: فۆکەسی لۆفای (Chill Lo-Fi)</option>
-            <option value="interstellar">٢: ئینتەرستێلار (Interstellar)</option>
-            <option value="canon">٣: کانۆن لە دی (Canon in D)</option>
-            <option value="synthwave">٤: سایبەرپەنک (Synthwave)</option>
-            <option value="elise">٥: بۆ ئەلیزا (Für Elise)</option>
-          </select>
+        </div>
+
+        <!-- Hidden Audio Element for Guaranteed Streaming Playback -->
+        <audio id="ambientAudioPlayer" loop preload="none"></audio>
+
+        <!-- Hidden background YouTube Audio Frame fallback -->
+        <div id="bgAudioContainer" class="hidden pointer-events-none" aria-hidden="true">
+          <div id="ytPlayerContainer"></div>
         </div>
 
         <!-- Settings Modal Trigger Button -->
@@ -570,10 +639,11 @@
         </button>
 
         <!-- Theme Picker -->
-        <select onchange="changeAppTheme(this.value)" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 text-xs font-bold text-slate-700 focus:outline-none">
+        <select id="mainThemeSelect" onchange="changeAppTheme(this.value)" class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-1.5 text-xs font-bold text-slate-700 focus:outline-none">
           <option value="white">سپی</option>
           <option value="dark">تاریک</option>
           <option value="blue">شین</option>
+          <option value="pink">پەمەیی (Pink)</option>
         </select>
       </div>
     </div>
@@ -1093,15 +1163,7 @@
             کام لەم گازانە لە کۆمەڵەی ١٨ی خشتەی خولیدایە و وەک گازی خانەدان دەناسرێت؟
           </p>
           <div class="space-y-2 text-xs font-bold" id="quizChoicesContainer">
-            <button type="button" onclick="submitQuizAnswer(this, false)" class="w-full text-right p-3 rounded-xl bg-white border border-slate-200 hover:border-cyan-400 text-slate-700 transition">
-              الف) کلۆر (Cl)
-            </button>
-            <button type="button" onclick="submitQuizAnswer(this, true)" class="w-full text-right p-3 rounded-xl bg-white border border-slate-200 hover:border-cyan-400 text-slate-700 transition">
-              ب) ئارگۆن (Ar)
-            </button>
-            <button type="button" onclick="submitQuizAnswer(this, false)" class="w-full text-right p-3 rounded-xl bg-white border border-slate-200 hover:border-cyan-400 text-slate-700 transition">
-              ج) نایترۆجین (N)
-            </button>
+            <!-- Dynamically populated choices -->
           </div>
           <div id="quizFeedback" class="hidden text-xs font-bold p-3 rounded-2xl leading-relaxed space-y-1 shadow-sm"></div>
           <div id="quizNextBtnContainer" class="hidden pt-2 flex justify-between items-center">
@@ -1393,7 +1455,7 @@
       <!-- Setting 1: Theme & Background Palette -->
       <div class="space-y-2">
         <label class="block text-xs font-bold text-slate-700">تیمی ڕەنگ و پاشبنەما:</label>
-        <div class="grid grid-cols-3 gap-2 text-xs font-bold">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-bold">
           <button type="button" onclick="changeAppTheme('white'); markActiveThemeBtn('white')" id="themeBtnWhite" class="p-2.5 rounded-xl border border-slate-300 bg-slate-50 text-slate-800 flex flex-col items-center gap-1 hover:border-cyan-500 transition">
             <span class="w-4 h-4 rounded-full bg-slate-100 border border-slate-300"></span>
             <span>سپی</span>
@@ -1406,30 +1468,27 @@
             <span class="w-4 h-4 rounded-full bg-blue-900 border border-blue-700"></span>
             <span>شین</span>
           </button>
+          <button type="button" onclick="changeAppTheme('pink'); markActiveThemeBtn('pink')" id="themeBtnPink" class="p-2.5 rounded-xl border border-pink-300 bg-pink-100 text-pink-900 flex flex-col items-center gap-1 hover:border-pink-500 transition">
+            <span class="w-4 h-4 rounded-full bg-pink-400 border border-pink-300"></span>
+            <span>پەمەیی (Pink)</span>
+          </button>
         </div>
       </div>
 
       <!-- Setting 2: Ambient Music & Volume -->
       <div class="space-y-2 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-bold text-slate-800">مۆسیقای فۆکەس و ژینگەیی (٥ تراکی مۆسیقی):</span>
-          <span class="text-[10px] text-cyan-600 font-mono font-bold">Polyphonic Synth</span>
+          <span class="text-xs font-bold text-slate-800">مۆسیقا:</span>
+          <span class="text-[10px] text-pink-600 font-mono font-bold">HQ Audio</span>
         </div>
         <div class="flex items-center gap-2">
-          <select id="modalMusicTrackSelect" onchange="changeMusicTrack(this.value); syncMusicSelects(this.value)" class="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 font-bold focus:outline-none">
-            <option value="lofi">١: فۆکەسی لۆفای (Chill Lo-Fi Chords)</option>
-            <option value="interstellar">٢: ئینتەرستێلار (Interstellar Space Arp)</option>
-            <option value="canon">٣: کانۆن لە دی (Pachelbel's Canon in D)</option>
-            <option value="synthwave">٤: سایبەرپەنک / سینسوەیڤ (Cyberpunk Synthwave)</option>
-            <option value="elise">٥: بۆ ئەلیزا (Für Elise Piano)</option>
-          </select>
-          <button type="button" onclick="toggleAmbientMusic()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-black transition flex items-center gap-1">
-            <span>پەخشکردن</span>
+          <button type="button" onclick="toggleAmbientMusic()" class="w-full py-2.5 rounded-xl bg-pink-600 hover:bg-pink-700 text-white text-xs font-black transition flex items-center justify-center gap-1 shadow-sm">
+            <span>پەخشکردن / ڕاگرتنی مۆسیقا</span>
           </button>
         </div>
         <div class="flex items-center justify-between pt-1 border-t border-slate-200/60 text-xs">
-          <span class="text-slate-600 font-bold">دەنگی مۆسیقا (Volume):</span>
-          <input type="range" id="musicVolumeSlider" min="0" max="100" value="25" oninput="changeMusicVolume(this.value)" class="w-32 accent-cyan-600 cursor-pointer">
+          <span class="text-slate-600 font-bold">دەنگی مۆسیقا:</span>
+          <input type="range" id="musicVolumeSlider" min="0" max="100" value="70" oninput="changeMusicVolume(this.value)" class="w-32 accent-pink-600 cursor-pointer">
         </div>
       </div>
     </div>
@@ -1479,7 +1538,15 @@ function setLabMode(mode) {
 // ==========================================
 function changeAppTheme(t) {
   document.body.setAttribute('data-theme', t);
+  localStorage.setItem('chem_app_theme', t);
+  const sel = document.getElementById('mainThemeSelect');
+  if (sel && sel.value !== t) sel.value = t;
+  markActiveThemeBtn(t);
 }
+
+// Load saved theme on boot
+const savedTheme = localStorage.getItem('chem_app_theme') || 'white';
+changeAppTheme(savedTheme);
 
 // ==========================================
 // 3. ULTRA-REALISTIC ERLENMEYER FLASK & FLAME SIMULATION
@@ -3018,6 +3085,361 @@ function solveEquation() {
     }
   }
 }
+
+// ==========================================
+// 10. HOMEWORK & QUIZ HANDLERS
+// ==========================================
+let hwDoneCount = 0;
+function toggleHwDone(btn) {
+  if (!btn) return;
+  const isDone = btn.getAttribute('data-done') === 'true';
+  if (!isDone) {
+    btn.setAttribute('data-done', 'true');
+    btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200', 'hover:bg-emerald-600', 'hover:text-white');
+    btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+    btn.textContent = 'ئەرکەکە تەواوکراوە ✓';
+    hwDoneCount++;
+  } else {
+    btn.setAttribute('data-done', 'false');
+    btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600');
+    btn.classList.add('bg-white', 'text-slate-700', 'border-slate-200', 'hover:bg-emerald-600', 'hover:text-white');
+    btn.textContent = 'ئەرکەکەم تەواو کرد ✓';
+    hwDoneCount = Math.max(0, hwDoneCount - 1);
+  }
+  const badge = document.getElementById('hwCompletedBadge');
+  if (badge) badge.textContent = `تەواوکراو: ${hwDoneCount}`;
+}
+
+const quizQuestions = [
+  {
+    q: "کام لەم گازانە لە کۆمەڵەی ١٨ی خشتەی خولیدایە و وەک گازی خانەدان (Noble Gas) دەناسرێت؟",
+    choices: [
+      { text: "الف) کلۆر (Cl)", correct: false },
+      { text: "ب) ئارگۆن (Ar)", correct: true },
+      { text: "ج) نایترۆجین (N)", correct: false }
+    ],
+    explanation: "ئارگۆن (Ar) لە کۆمەڵەی ١٨دایە و خولگەی دەرەوەی تەواو پڕە بە ٨ ئەلیکترۆن."
+  },
+  {
+    q: "لە پلەی گەرمیی جێگیردا، کاتێک پەستانی گاز زیاد دەکات، قەبارەکەی چۆن دەگۆڕێت؟ (یاسای بۆیل)",
+    choices: [
+      { text: "الف) زیاد دەکات", correct: false },
+      { text: "ب) کەم دەکات", correct: true },
+      { text: "ج) وەک خۆی دەمێنێتەوە", correct: false }
+    ],
+    explanation: "بەپێی یاسای بۆیل (P1·V1 = P2·V2) لە نێوان پەستان و قەبارەدا پەیوەندیی پێچەوانە هەیە."
+  },
+  {
+    q: "یاسای دۆزینەوەی ژمارەی مۆڵ (n) بەپێی بارستە (m) و بارستەی مۆڵی (M) کامەیە؟",
+    choices: [
+      { text: "الف) n = m / M", correct: true },
+      { text: "ب) n = m · M", correct: false },
+      { text: "ج) n = M / m", correct: false }
+    ],
+    explanation: "ژمارەی مۆڵ یەکسانە بە بارستە بە گرام دابەشی بارستەی مۆڵی (g/mol)."
+  },
+  {
+    q: "لە هاوکێشەی سووتانی میسان (CH₄ + 2O₂ → CO₂ + 2H₂O)، چەند مۆڵ ئۆکسجین پێویستە بۆ سووتانی ١ مۆڵ میسان؟",
+    choices: [
+      { text: "الف) ١ مۆڵ", correct: false },
+      { text: "ب) ٢ مۆڵ", correct: true },
+      { text: "ج) ٤ مۆڵ", correct: false }
+    ],
+    explanation: "ڕێژەی ستۆیکیۆمێتری 1:2یە، واتە بۆ هەر مۆڵێک میسان دوو مۆڵ گازی ئۆکسجین پێویستە."
+  },
+  {
+    q: "پێوەری pH بۆ گیراوەیەکی ترشی بەهێز چەندە لە پلەی ٢٥ سلیزیدا؟",
+    choices: [
+      { text: "الف) کەمتر لە ٧ (نزیک ٠ - ٢)", correct: true },
+      { text: "ب) ڕێک ٧", correct: false },
+      { text: "ج) زیاتر لە ٧", correct: false }
+    ],
+    explanation: "ترشە بەهێزەکان خەستیی بەرزی ئایۆنی هایدرۆنیۆمیان هەیە و ژمارەی pHیان لە ژێر ٧ و نزیکە لە سفر."
+  }
+];
+
+let currentQuizIndex = 0;
+let quizScore = 0;
+let quizAnswered = false;
+
+function renderQuizQuestion() {
+  const qData = quizQuestions[currentQuizIndex];
+  if (!qData) return;
+
+  quizAnswered = false;
+  const qText = document.getElementById('quizQuestionText');
+  const choicesBox = document.getElementById('quizChoicesContainer');
+  const feedback = document.getElementById('quizFeedback');
+  const nextBtnContainer = document.getElementById('quizNextBtnContainer');
+  const counterBadge = document.getElementById('quizCounterBadge');
+  const scoreBadge = document.getElementById('quizScoreBadge');
+  const progressBar = document.getElementById('quizProgressBar');
+
+  if (qText) qText.textContent = qData.q;
+  if (counterBadge) counterBadge.textContent = `پرسیاری ${currentQuizIndex + 1} لە ${quizQuestions.length}`;
+  if (scoreBadge) scoreBadge.textContent = `خاڵ: ${quizScore} / ${quizQuestions.length}`;
+  if (progressBar) progressBar.style.width = `${((currentQuizIndex + 1) / quizQuestions.length) * 100}%`;
+
+  if (feedback) {
+    feedback.className = 'hidden text-xs font-bold p-3 rounded-2xl leading-relaxed space-y-1 shadow-sm';
+    feedback.innerHTML = '';
+  }
+  if (nextBtnContainer) nextBtnContainer.classList.add('hidden');
+
+  if (choicesBox) {
+    choicesBox.innerHTML = '';
+    qData.choices.forEach(ch => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'w-full text-right p-3 rounded-xl bg-white border border-slate-200 hover:border-cyan-400 text-slate-700 transition font-bold text-xs flex justify-between items-center';
+      btn.textContent = ch.text;
+      btn.onclick = () => submitQuizAnswer(btn, ch.correct, qData.explanation);
+      choicesBox.appendChild(btn);
+    });
+  }
+}
+
+function submitQuizAnswer(btn, isCorrect, explanation) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+
+  const choicesBox = document.getElementById('quizChoicesContainer');
+  const feedback = document.getElementById('quizFeedback');
+  const nextBtnContainer = document.getElementById('quizNextBtnContainer');
+  const scoreBadge = document.getElementById('quizScoreBadge');
+
+  if (choicesBox) {
+    const btns = choicesBox.querySelectorAll('button');
+    btns.forEach(b => {
+      b.disabled = true;
+      b.classList.remove('hover:border-cyan-400');
+    });
+  }
+
+  if (isCorrect) {
+    quizScore++;
+    btn.classList.remove('bg-white', 'border-slate-200');
+    btn.classList.add('bg-emerald-100', 'border-emerald-500', 'text-emerald-900', 'quiz-correct-pop');
+    if (feedback) {
+      feedback.className = 'text-xs font-bold p-3 rounded-2xl leading-relaxed space-y-1 shadow-sm bg-emerald-50 border border-emerald-200 text-emerald-900';
+      feedback.innerHTML = `<div>وەڵامەکەت تەواوە ✓</div><div class="text-[11px] font-medium text-emerald-800">${explanation}</div>`;
+      feedback.classList.remove('hidden');
+    }
+  } else {
+    btn.classList.remove('bg-white', 'border-slate-200');
+    btn.classList.add('bg-rose-100', 'border-rose-500', 'text-rose-900', 'quiz-incorrect-shake');
+    if (feedback) {
+      feedback.className = 'text-xs font-bold p-3 rounded-2xl leading-relaxed space-y-1 shadow-sm bg-rose-50 border border-rose-200 text-rose-900';
+      feedback.innerHTML = `<div>وەڵامەکەت هەڵەیە ✕</div><div class="text-[11px] font-medium text-rose-800">${explanation}</div>`;
+      feedback.classList.remove('hidden');
+    }
+  }
+
+  if (scoreBadge) scoreBadge.textContent = `خاڵ: ${quizScore} / ${quizQuestions.length}`;
+  if (nextBtnContainer) nextBtnContainer.classList.remove('hidden');
+}
+
+function nextQuizQuestion() {
+  if (currentQuizIndex < quizQuestions.length - 1) {
+    currentQuizIndex++;
+    renderQuizQuestion();
+  } else {
+    // Finished Quiz summary
+    const qText = document.getElementById('quizQuestionText');
+    const choicesBox = document.getElementById('quizChoicesContainer');
+    const feedback = document.getElementById('quizFeedback');
+    const nextBtnContainer = document.getElementById('quizNextBtnContainer');
+    const counterBadge = document.getElementById('quizCounterBadge');
+
+    if (counterBadge) counterBadge.textContent = 'تاقیکردنەوە تەواو بوو';
+    if (qText) qText.textContent = `ئافەرین! ئەنجامی تاقیکردنەوەکەت بریتییە لە ${quizScore} لە کۆی ${quizQuestions.length}.`;
+    if (feedback) feedback.classList.add('hidden');
+    if (choicesBox) {
+      choicesBox.innerHTML = `
+        <button type="button" onclick="restartQuiz()" class="w-full py-3 rounded-xl bg-cyan-600 hover:bg-cyan-700 text-white font-black text-xs transition">
+          دووبارەکردنەوەی تاقیکردنەوە ↻
+        </button>
+      `;
+    }
+    if (nextBtnContainer) nextBtnContainer.classList.add('hidden');
+  }
+}
+
+function restartQuiz() {
+  currentQuizIndex = 0;
+  quizScore = 0;
+  renderQuizQuestion();
+}
+
+// ==========================================
+// 11. PLATFORM SETTINGS MODAL & AUDIO ENGINE
+// ==========================================
+function openSettingsModal() {
+  const modal = document.getElementById('settingsModal');
+  if (modal) {
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    const curTheme = document.body.getAttribute('data-theme') || localStorage.getItem('chem_app_theme') || 'white';
+    markActiveThemeBtn(curTheme);
+  }
+}
+
+function closeSettingsModal() {
+  const modal = document.getElementById('settingsModal');
+  if (modal) {
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+  }
+}
+
+function markActiveThemeBtn(theme) {
+  ['white', 'dark', 'blue', 'pink'].forEach(t => {
+    const btn = document.getElementById('themeBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+    if (btn) {
+      if (t === theme) {
+        btn.classList.add('ring-2', 'ring-pink-500', 'font-black');
+      } else {
+        btn.classList.remove('ring-2', 'ring-pink-500', 'font-black');
+      }
+    }
+  });
+}
+
+function syncMusicSelects(val) {
+  // Sync placeholder
+}
+
+// ==========================================
+// 11. BULLETPROOF AUDIO ENGINE (HTML5 STREAM + WEB AUDIO FALLBACK)
+// ==========================================
+// Highly reliable direct CDN audio streams that never get blocked by iframe restrictions
+const audioStreamUrls = [
+  "https://ia801503.us.archive.org/15/items/chill-lofi-song/Chill%20Lofi%20Song.mp3",
+  "https://ia801309.us.archive.org/5/items/lofi-study-beats/Lofi%20Study.mp3",
+  "https://ia803204.us.archive.org/18/items/lofi-beats-to-relax-to/01_lofi_relax.mp3"
+];
+let currentAudioIdx = 0;
+let isMusicPlaying = false;
+let musicVolume = 70;
+let webAudioCtx = null;
+let webAudioGain = null;
+let webAudioInterval = null;
+
+// Harmonic notes for instant ambient soundscape fallback
+const chillNotes = [174.61, 220.00, 261.63, 329.63, 392.00, 440.00, 523.25];
+
+function initWebAudioFallback() {
+  if (!webAudioCtx) {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (AudioContextClass) {
+      webAudioCtx = new AudioContextClass();
+      webAudioGain = webAudioCtx.createGain();
+      webAudioGain.gain.setValueAtTime(musicVolume / 200, webAudioCtx.currentTime);
+      webAudioGain.connect(webAudioCtx.destination);
+    }
+  }
+}
+
+function playAmbientWarmChord() {
+  if (!webAudioCtx || !webAudioGain || !isMusicPlaying) return;
+  const now = webAudioCtx.currentTime;
+  const root = chillNotes[Math.floor(Math.random() * chillNotes.length)];
+  const third = root * 1.2599; // major/neutral 3rd
+  const fifth = root * 1.4983;
+
+  [root / 2, root, third, fifth].forEach((freq) => {
+    const osc = webAudioCtx.createOscillator();
+    const g = webAudioCtx.createGain();
+    const filter = webAudioCtx.createBiquadFilter();
+
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, now);
+
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(600, now);
+
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.linearRampToValueAtTime(0.06, now + 1.2);
+    g.gain.exponentialRampToValueAtTime(0.0001, now + 5.5);
+
+    osc.connect(filter);
+    filter.connect(g);
+    g.connect(webAudioGain);
+
+    osc.start(now);
+    osc.stop(now + 5.8);
+  });
+}
+
+function updateMusicUI(playing) {
+  const icon = document.getElementById('musicPlayIcon');
+  const eqBars = document.getElementById('musicEqBars');
+  if (playing) {
+    if (icon) icon.textContent = '❚❚';
+    if (eqBars) eqBars.classList.remove('hidden');
+  } else {
+    if (icon) icon.textContent = '▶';
+    if (eqBars) eqBars.classList.add('hidden');
+  }
+}
+
+function changeMusicVolume(val) {
+  musicVolume = parseInt(val, 10);
+  const player = document.getElementById('ambientAudioPlayer');
+  if (player) {
+    player.volume = musicVolume / 100;
+  }
+  if (webAudioGain && webAudioCtx) {
+    webAudioGain.gain.setValueAtTime(musicVolume / 200, webAudioCtx.currentTime);
+  }
+}
+
+function toggleAmbientMusic() {
+  const player = document.getElementById('ambientAudioPlayer');
+  
+  if (!isMusicPlaying) {
+    isMusicPlaying = true;
+    updateMusicUI(true);
+
+    if (player) {
+      player.volume = musicVolume / 100;
+      if (!player.src || player.src === window.location.href) {
+        player.src = audioStreamUrls[currentAudioIdx];
+      }
+      
+      const playPromise = player.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((e) => {
+          console.warn("Direct stream play paused/blocked, activating instant ambient soundscape:", e);
+          initWebAudioFallback();
+          if (webAudioCtx && webAudioCtx.state === 'suspended') {
+            webAudioCtx.resume();
+          }
+          playAmbientWarmChord();
+          if (webAudioInterval) clearInterval(webAudioInterval);
+          webAudioInterval = setInterval(playAmbientWarmChord, 3800);
+        });
+      }
+    }
+  } else {
+    isMusicPlaying = false;
+    updateMusicUI(false);
+
+    if (player) {
+      player.pause();
+    }
+    if (webAudioInterval) {
+      clearInterval(webAudioInterval);
+      webAudioInterval = null;
+    }
+  }
+}
+
+// Initial boot
+window.addEventListener('DOMContentLoaded', () => {
+  renderQuizQuestion();
+});
+renderQuizQuestion();
 
   </script>
 </body>
